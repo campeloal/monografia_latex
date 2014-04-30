@@ -1,0 +1,52 @@
+\chapter[Introdução]{Introdução}
+\label{introduc}
+
+\section{Contextualização e Justificativa}
+
+	
+	Conforme \cite{graphicsprog}, os gráficos em jogos são um fator tão importante que podem determinar o seu sucesso ou fracasso. O aspecto visual é um dos pontos principais na hora da compra, juntamente com o \textit{gameplay} (maneira que o jogador interage com o jogo). Assim, os gráficos estão progredindo na direção próxima dos efeitos visuais dos filmes, porém o poder computacional para atingir tal meta ainda tem muito a evoluir.
+
+	 Neste contexto, o desempenho gráfico é um fator chave para o desempenho total de um sistema, principalmente na área de jogos, que também possui outros pontos que consomem recursos, como inteligência artificial, \textit{networking}, áudio, detecção de eventos de entrada e resposta, física, entre outros. E isto faz com que o desenvolvimento de impressionantes efeitos visuais se tornem mais difíceis ainda.
+
+	O recente crescimento do desempenho de dispositivos móveis tornou-os capazes de suportar aplicações mais e mais complexas. Além disso, segundo \cite{teapot}, dispositivos como \textit{smartphones} e \textit{tablets} têm sido amplamente adotados, emergindo como uma das tecnologias mais rapidamente propagadas. Dentro deste contexto, a plataforma \textit{Android},  sistema operacional  \textit{open source} para dispositivos móveis (baseado no \textit{kernel} do \textit{Linux}), está sendo utilizada cada vez mais, e de acordo com \cite{android2013}, em 2013, mais de 1,5 milhões de aparelhos utilizando esta plataforma foram ativados. 	
+
+	 Porém, de acordo com \cite{x3d}, a renderização gráfica para dispositivos móveis ainda é um desafio devido a limitações, quando comparada a de um computador, como por exemplo, as relacionadas a CPU (\textit{Central Processing Unit}), desempenho dos aceleradores gráficos e consumo de energia. Os autores \cite{teapot} mostram que estudos prévios evidenciam que os maiores consumidores de energia em um \textit{smartphone} são a  GPU (\textit{Graphics Processing Unit}) e a tela. 	
+  
+
+\section{Delimitação do Assunto}
+
+O tema consiste no desenvolvimento de \textit{shaders} aplicados em objetos tridimensionais -- com número de polígonos variável -- que são utilizados na renderização de cenas, as quais permitem a coleta de medições quanto ao número de quadros por segundo. Desta forma, é possivel variar a quantidade de polígonos de um objeto e traçar um gráfico quantidade de polígonos \textit{versus} quadros por segundo utilizando um determinado \textit{shader}. E assim, analisa-se experimentalmente a complexidade algorítmica desses \textit{shaders}, para posterior aplicação do método dos mínimos quadrados (como explicado na Seção \ref{refteorico}), a fim de estimar o número de quadros por segundo renderizados por um \textit{shader} específico dado um número $n$ de polígonos, baseando-se na curva obtida experimentalmente pelos gráficos.  
+
+Como visto na Seção \ref{refteorico}, a complexidade algorítmica não depende das condições do ambiente de realização dos experimentos. Um algoritmo possui a mesma complexidade mesmo sendo implementado utilizando-se diferentes linguagens de programação, por exemplo. Assim, é possivel aplicar a proposta em diferentes contextos, como utilizando os \textit{shaders} em computador e em celulares. 
+
+A fim de analisar se o tema também podia ser expandido para o contexto \textit{mobile} e verificar se o mesmo seria factível dentro do prazo estipulado, primeiramente desenvolveu-se um \textit{shader} utilizando a técnica \textit{Gouraud Shading} (Seção \ref{refteorico}) aplicado em um octaedro (polígono regular de 8 faces), usando a linguagem Java (padrão do \textit{Android}). O mesmo programa também foi implementado para computador utilizando a linguagem C++.  Dessa forma, foi possível averiguar que o tema também poderia ser estendido e aplicado na plataforma \textit{Android}, e evidenciou-se as principais diferenças entre a \textit{OpenGL ES} -- utilizada para celulares -- e a \textit{OpenGL} que é utilizada em computadores (discutido na Seção \ref{conclusao}). 
+
+
+\section{Objetivos Gerais}
+
+Os objetivos gerais do trabalho são a implementação de \textit{shaders} na plataforma \textit{Android} e no computador. Assim como a análise das suas complexidades algorítmicas, estimando a taxa de quadros por segundo para uma determinada quantidade de polígonos.
+
+\section{Objetivos Específicos}
+
+Os objetivos específicos do trabalho são:
+
+\begin{itemize}
+  \item Analisar quais \textit{shaders} serão implementados;
+  \item Configurar os ambientes de desenvolvimento tanto para computador, como para a plataforma \textit{Android};
+  \item Identificar qual métrica será utilizada para a análise de complexidade;
+\item Verificar se existem ferramentas que coletem a métrica definida;
+\item Configurar as ferramentas de coleta de medições, caso existam; 
+\item Coletar as medições estabelecidas;
+\item  Estimar a quantidade de polígonos renderizados de acordo com a quantidade de quadros por segundo desejada.
+\end{itemize}
+
+\section{Organização do Trabalho}
+
+	No próximo capítulo serão apresentados os conceitos teóricos necessários para o entendimento do trabalho, como, por exemplo, o processo de renderização, a biblioteca gráfica utilizada,  definição da plataforma \textit{Android}, definição da métrica quadros por segundo, complexidade algorítmica, entre outros. 
+
+	Na metodologia, os passos tomados no trabalho são descritos, enfatizando como foi feito o levantamento bibliográfico e a configuração do ambiente, quais equipamentos foram utilizados, que abordagem foi utilizada para definir o tema e quais os próximos passos a serem tomados. Além disso, são descritas as decisões tomadas para evidenciar a viabilidade do trabalho.
+
+	Nos resultados alcançados são descritos os resultados preliminares da implementação no computador e na plataforma \textit{Android}, seguido das conclusões que se seguirão aos trabalhos realizados.   
+
+
+
