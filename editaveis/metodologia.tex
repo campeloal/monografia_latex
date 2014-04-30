@@ -11,11 +11,9 @@ O celular utilizado foi o \textit{Nexus} 4, o qual é o quarto  \textit{smartpho
 \section{Configuração do Ambiente}
 \label{configamb}	
 
-Em seguida, foram feitas as configurações dos ambientes de trabalho, em que  para desenvolver na plataforma \textit{Android} é necessário instalar o \textit{Android SDK} e o \textit{plugin} ADT, uma vez que seria utilizada a IDE \textit{Eclipse}. A biblioteca gráfica para sistemas embarcados \textit{OpenGL ES} já é oferecida pela plataforma \textit{Android}. Para computador, foi necessário instalar as bibliotecas \textit{GLUT}, \textit{GLEW} e por fim, a biblioteca gráfica \textit{OpenGL}. Para poder realizar a coleta de métricas, foram utilizadas as ferramentas (descritas nas subseções a seguir) \textit{Adreno Profiler}, pois o celular utilizado possui a GPU \textit{Adreno}, e a \textit{gDEBugger}, uma das únicas ferramentas gratuitas que suporta GPU's da empresa NVIDIA.
+	Em seguida, foram feitas as configurações dos ambientes de trabalho, em que  para desenvolver na plataforma \textit{Android} foi necessário instalar o \textit{Android SDK}, \textit{Android NDK} (para utilizar linguagem de código nativo em linguagem C) e o \textit{plugin} ADT, uma vez que seria utilizada a IDE \textit{Eclipse}. A biblioteca gráfica para sistemas embarcados \textit{OpenGL ES} já é oferecida pela plataforma \textit{Android}. 
 
-\subsection{\textit{Adreno Profiler}}
-
-	A \textit{Adreno} é uma ferramenta que foca na otimização gráfica para celulares que possuem GPU Adreno (fabricada pela empresa \textit{Qualcomm}). De acordo com  \cite{adp}, a ferramenta provê suporte para \textit{Android} e \textit{Windows RT} (variação do sistema operacional \textit{Windows} 8  e projetada para \textit{devices} móveis), permitindo a otimização, análise por quadros e visualização de desempenho em tempo real. 
+	Para poder realizar a coleta de métricas, foi utilizada a ferramenta \textit{Adreno Profiler}, pois o celular utilizado possui a GPU \textit{Adreno}. A \textit{Adreno Profiler} é uma ferramenta que foca na otimização gráfica para celulares que possuem GPU Adreno (fabricada pela empresa \textit{Qualcomm}). De acordo com  \cite{adp}, a ferramenta provê suporte para \textit{Android} e \textit{Windows RT} (variação do sistema operacional \textit{Windows} 8  e projetada para \textit{devices} móveis), permitindo a otimização, análise por quadros e visualização de desempenho em tempo real. No dispositivo \textit{Nexus 4} ela só é suportada com o \textit{Android} até a versão 4.3 (não suporta o \textit{KitKat}). 
 
 	Como pode ser visto na Figura \ref{adrenoProfiler}, a ferramenta possui um módulo de análise dos \textit{vertex} e \textit{fragment} \textit{shaders}, sendo possível editá-los e analisar os resultados de compilação em tempo real, além dela também gerar estatísticas.  
 
@@ -26,7 +24,7 @@ Em seguida, foram feitas as configurações dos ambientes de trabalho, em que  p
 	\label{adrenoProfiler}
 	\end{figure}
 
-	O módulo gráfico permite analisar algumas métricas, como a de quadros por segundo, onde na Figura \ref{graph} um gráfico é plotado em tempo de execução. Além disso, ela também exporta os resultados no formato CSV (\textit{Comma-Separated Values}), que consiste em um arquivo de texto que armazena valores tabelados separados por um delimitador (vírgula ou quebra de linha). O último módulo é o chamado \textit{Scrubber}, que provê informações detalhadas quanto ao rastreamento de uma chamada de função. 
+	O módulo gráfico permite analisar algumas métricas, como as relacionadas ao \textit{vertex} e \textit{fragment shaders}, em que como é mostrado na Figura \ref{graph} um gráfico é plotado em tempo de execução. Além disso, ela também exporta os resultados no formato CSV (\textit{Comma-Separated Values}), que consiste em um arquivo de texto que armazena valores tabelados separados por um delimitador (vírgula ou quebra de linha). O último módulo é o chamado \textit{Scrubber}, que provê informações detalhadas quanto ao rastreamento de uma chamada de função. 
 
 	\begin{figure}[h]
 	\centering
@@ -35,161 +33,59 @@ Em seguida, foram feitas as configurações dos ambientes de trabalho, em que  p
 	\label{graph}
 	\end{figure}
 
+	Para a automatização da plotagem dos gráficos e aplicação do método dos mínimos quadrados utilizou-se a linguagem de programação Python \footnote{http://www.python.org.br/} versão 2.3.7, juntamente com os pacotes  \textit{matplotlib} \footnote{http://www.matplotlib.org/} e  \textit{numpy} \footnote{http://www.numpy.org/}. 
 
-\subsection{\textit{gDEBugger}}
-	
-	A \textit{gDEBugger} é uma ferramenta de depuração e análise de desempenho (Figura \ref{gdebugger_fer}), que permite a rastreabilidade das chamadas \textit{OpenGL} de uma aplicação, disponível para \textit{Windows} e \textit{Linux}, com suporte às GPU's da empresa NVIDIA. Ela ajuda a encontrar  \textit{bugs}, melhorar o desempenho e consumo de memória de programas que utilizam a \textit{OpenGL}. 
-
-	Como é mostrado em \cite{gdebugger}, é possível ver quais funções foram chamadas em um determinado quadro, o valor das variáveis da \textit{OpenGL} (como as matrizes de projeção, visualização e modelagem, por exemplo) e também mostrar medições com relação a quadros por segundo, consumo de memória, número de função de chamadas por quadro, entre outros. Além disso, ela (assim como a ferramenta \textit{Adreno Profiler}) também exporta os resultados no formato CSV.  
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.65]{figuras/gdebugger_fer.jpg}
-	\caption{Ferramenta \textit{gDEBugger}: Gráfico de desempenho, histórico de chamadas, valor das variáveis e depuração}
-	\label{gdebugger_fer}
-	\end{figure}
-
-
-\section{Ensaios Iniciais}
-
-Primeiramente foi analisado se era factível estender o tema também para a plataforma \textit{Android} -- tanto no que diz respeito ao prazo quanto em relação ao conhecimento prévio da autora deste trabalho. Então avaliou-se o o nível de dificuldade de implementação de um  \textit{shader} para plataforma \textit{Android} (principalmente pelo fato da estudante não possuir experiência prévia com desenvolvimento \textit{mobile}), desenvolvendo um \textit{shader} simples aplicado num octaedro. Também desenvolveu-se o mesmo \textit{shader} para computador, analisando as as diferenças de implementação entre eles.  
-
-Feito isto, também foi realizado um levantamento de ferramentas de otimização gráfica tanto para \textit{Android} como para computador, no qual escolheram-se as ferramentas \textit{Adreno} e \textit{gDEBugger}, respectivemente, as quais foram apresentadas na subseção Configuração do Ambiente. Essas ferramentas são utilizadas a fim de coletar medições quanto ao número de quadros por segundo de cada programa, utilizando um \textit{shader} específico, aplicado num objeto tridimensional com n número de polígonos. 
-
-	Para testar a viabilidade do tema proposto, a ideia foi criar um programa constituído por objetos que fossem fáceis de variar o número de polígonos. Esses objetos escolhidos foram esferas pela facilidade de implementação, pois já existe uma função pronta da biblioteca \textit{glut} chamada \texttt{glutSolidSphere}, no qual se cria uma esfera baseada no tamanho do raio, número de cortes latitudinais e longitudinais. O número total de polígonos se dá pela multiplicação destes dois últimos parâmetros como é mostrado em \cite{poly}.  Além disso, estas esferas possuem diferentes movimentações, em que garante-se a ocorrência de oclusão entre elas e diferentes distâncias com relação à câmera. Feito isto, diferentes tipos de \textit{shaders} foram aplicados nestas esferas - a fim de posteriormente fazer medições com relação aos quadros por segundo - e finalmente poder traçar gráficos entre quadros por segundo \textit{versus} número de polígonos. Dessa forma foi possível analisar a complexidade algorítmica experimentalmente. Devido ao prazo, este experimento foi feito somente no computador, principalmente pela \textit{OpenGL ES} não possuir uma função equivalente à \textit{glutSolidSphere}, o que demandará mais tempo para implementá-la. 
-
-	A seguir serão detalhados os \textit{shaders} escolhidos, implementados e analisados nos testes de viabilidade.
-
-\subsection{\textit{Shader} cor vermelha}
-
-	O \textit{shader} que define a cor para vermelha é muito simples,  seu \textit{vertex shader} apenas estabelece que a posição do vértice  se dá pelo pela multiplicação da coordenada (obtida utilizando o comando \texttt{gl\_Vertex} ) com a matriz de projeção, visualização e modelagem como é mostrada no Código \ref{codredvs}. 
-	
-	
-	\lstinputlisting[language=C, caption = {\textit{Shader} cor vermelha:  \textit{vertex shader}}, label = {codredvs}]{codigos/red.vs}
-
-	Já o seu \textit{fragment shader} (Código \ref{codredfs}) estabele que todo fragmento possui a cor vermelha, por meio da palavra restrita \textit{gl\_FragColor}.
-	
-	\lstinputlisting[language=C, caption = {\textit{Shader} cor vermelha:  \textit{fragment shader}}, label = {codredfs}]{codigos/red.fs}
-
-	O resultado da aplicação deste \textit{shader} é mostrado na Figura \ref{red_shader}, em que a cor das esferas é vermelha e cada uma delas faz distintas movimentações. 
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.7]{figuras/red_shader.jpg}
-	\caption{\textit{Red shader}}
-	\label{red_shader}
-	\end{figure}
-
-\subsection{\textit{Flatten shading}}
-
-	A ideia do \textit{flatten shading} é tornar o modelo tridimensional em bidimensional, achatado. Para isso,  a coordenada $z$ deve ser definida como zero. Mas para dar movimentação à malha do objeto, como mostrado no Código  \ref{codflatvs},  foi definida a variável  \textit{time} do tipo \textit{uniform} que é inicializada e passada pelo programa para o \textit{shader}. Assim, a coordenada z varia de acordo de acordo com o fator definido (que inclui esta variável).  
-
-	\lstinputlisting[language=C,caption = {\textit{Flatten Shader}:  \textit{vertex shader}}, label = {codflatvs} ]{codigos/flat.vs}
-
-	Neste caso o \textit{fragment shader} não interfere no resultado desejado, de modo que foi utilizado o mesmo do \textit{red shader}, definindo a cor para vermelha. A Figura \ref{flatten_shader} mostra as esferas achatadas, com a coordenada z variando de acordo com o fator definido. 
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/flatten_shader.jpg}
-	\caption{\textit{Flatten shader}}
-	\label{flatten_shader}
-	\end{figure}
-
-\subsection{\textit{Toon shading}}
-
-	O  \textit{toon shading} calcula a intensidade da luz por vértice para escolher uma das quatro cores pré-definidas. O Código  \ref{codtoonvs} é mostrado o cálculo da intensidade da luz por vértice, pegando primeiro a direção da luz (definida como uma variável \textit{uniform} passada pelo programa) para depois fazer o produto escalar entre ela e a normal (adquirida através do comando \textit{gl\_Normal}).  
-
-	\lstinputlisting[language=C,label = {codtoonvs}, caption = {\textit{Toon Shader}:  \textit{vertex shader}} ]{codigos/toon.vs}
-
-	A variável \textit{intensity} do tipo \textit{varying} é passada do \textit{vertex shader} para o \textit{fragment shader} para determinar qual das quatro cores será escolhida (Código \ref{codtoonfs}). 
-  
- 	\lstinputlisting[language=C, caption = {\textit{Toon Shader}:  \textit{fragment shader}}, label = {codtoonfs} ]{codigos/toon.fs}
-
-	Assim, a direção da luz passada pelo programa é $(0 , 1 , 1)$ e o resultado da aplicação do \textit{shader} é mostrado na  Figura \ref{toon_shader}.
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/toon_shader.jpg}
-	\caption{\textit{Toon shader}}
-	\label{toon_shader}
-	\end{figure}
-
-\subsection{\textit{Phong shading}}
-
-	O \textit{vertex} e \textit{fragment shaders} do \textit{phong shading} implementam a técnica descrita na Seção \ref{flatgouphon}, em que primeiramente interpolam-se os valores das normais das primitivas e então computam-se os cálculos de luz para cada \textit{pixel}, utilizando as normais interpoladas. O Código \ref{codphongvs} e \ref{codphongfs} mostram as definições do \textit{vertex} e \textit{fragment shaders}, respectivamente, em que para isso é necessário definir as propriedades do material pelo programa.  
-
-	\lstinputlisting[language=C, label = {codphongvs}, caption = {\textit{Phong Shader}:  \textit{vertex shader}}]{codigos/phong.vs}
-
-	\lstinputlisting[language=C, caption =  {\textit{Phong Shader}:  \textit{fragment shader}}, label = {codphongfs}  ]{codigos/phong.fs}
-
-
-	O resultado é mostrado na  Figura \ref{phong_shader}, o qual é muito parecido com o resultado padrão implementado pela  \textit{OpenGL}.
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.55]{figuras/phong_shader.jpg}
-	\caption{\textit{Phong shader}}
-	\label{phong_shader}
-	\end{figure}
-
-\subsection{\textit{Texture shading}}
-
-	O \textit{vertex shader} do \textit{texture shading} primeiramente armazena as coordenadas de textura numa variável do tipo \textit{varying} (Código \ref{codtexvs}), e as repassa para o \textit{fragment shader}. Vale ressaltar que para este \textit{shader} foi necessário utilizar a função \texttt{gluSphere} ao invés da \texttt{glutSolidSphere}, pois ela permite especificar um objeto do tipo quádrico\footnote{Um objeto do tipo quádrico representa uma superfície quádrica, em que as coordenadas formam um polinômio de segundo grau de no máximo três variáveis, como por exemplo, as superfícies cônicas, esféricas e cilíndricas.}, que por sua vez dá opção de criar coordenadas de textura (utilizadas pelo \textit{shader}).  
-
-	\lstinputlisting[language=C, caption =  {\textit{Texture Shader}:  \textit{vertex shader}}, label = {codtexvs} ]{codigos/tex.vs}
-
-	No Código \ref{codtexfs}, o \textit{fragment shader} por sua vez, utiliza a textura passada pelo programa (Figura \ref{tex}) e aplica na coordenada repassada pelo  \textit{vertex shader}.
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/tex.jpg}
-	\caption{Textura utilizada}
-	\label{tex}
-	\end{figure}
-
-	\lstinputlisting[language=C, caption = {\textit{Texture Shader}:  \textit{fragment shader}}, label = {codtexfs}]{codigos/tex.fs}
-
-	O resultado é mostrado na  Figura \ref{texture_shader}.
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/texture.jpg}
-	\caption{\textit{Texture shader}}
-	\label{texture_shader}
-	\end{figure}
-
-
- 	Terminadas as implementações, foram utilizadas as ferramentas mencionadas anteriormente, sendoi possível coletar o número de quadros por segundo para diferentes números de polígonos. E dessa forma, gráficos (quadros por segundo \textit{versus} número de polígonos) para cada \textit{shader} implementado foram traçados, podendo então analisar experimentalmente suas complexidades algorítmicas.
+	O controle de versionamento do código foi feito por meio do sistema de controle de versão Git \footnote{http://git-scm.com/} utilizando o \textit{forge} GitHub \footnote{https://github.com/}. Foram criados repositórios públicos tanto para a implementação em \textit{Android} \footnote{https://github.com/campeloal/monografia\_opengles} quanto para a automatização da análise da complexidade algorítmica \footnote{https://github.com/campeloal/monografia\_algorithmComplexity/}. 
 
 \section{Implementação Plataforma \textit{Android}} 
 
-	Para analisar a dificuldade de se implementar na plataforma \textit{Android}, codificou-se o \textit{Gouraud shader} descrito na Seção \ref{flatgouphon}, que utiliza a biblioteca \textit{OpenGL ES} e a linguagem de programação Java. Então o programa lê um arquivo  \textit{obj} (descrito na Seção \ref{formatobj}) e renderiza o modelo tridimensional utilizando a técnica de \textit{Vertex Buffer Object} descrita na Seção \ref{tecvertbuf} e o \textit{shader} mencionado. O resultado se encontra na  Figura \ref{android}.
+	Primeiramente focou-se na implementação dos \textit{shaders} para plataforma \textit{Android}, e para isso, foi necessário codificar a leitura e interpretação de arquivos \textit{obj} (descrito na Seção \ref{formatobj}). Assim, foi possível renderizar modelos tridimensionais utilizando a técnica de \textit{Vertex Buffer Object}, para poder, a partir de arquivos \textit{obj} diferentes, variar o número de polígonos. Estes arquivos foram criados e exportados utilizando a ferramenta de modelagem tridimensional \textit{open-source} chamada Blender \footnote{http://www.blender.org/} como pode ser visto na Figura \ref{blender}.
 
 	\begin{figure}[h]
 	\centering
-		\includegraphics[keepaspectratio=true,scale=1.0]{figuras/android.jpg}
-	\caption{Implementação plataforma \textit{Android}}
-	\label{android}
+		\includegraphics[keepaspectratio=true,scale=0.7]{figuras/blender.jpg}
+	\caption{Ferramenta de modelagem tridimensional}
+	\label{blender}
 	\end{figure}
-
-	Este teste gerou a confiança de que seria possível implementar para a plataforma \textit{Android} dentro do prazo estipulado.  
-
-\section{Implementação Computador}
-
-	A fim de se ter uma comparação com o computador, já que a complexidade algorítmica não deve mudar no que diz respeito à ordem, codificou-se o mesmo programa mostrado na Figura \ref{computador} , porém utilizando a biblioteca OpenGL, Glut e a linguagem de programação C++.
+	
+	Feito isto, o próximo passo foi implementar alguns \textit{shaders} utilizando a biblioteca \textit{OpenGL ES} para plataforma \textit{Android}, a fim de tornar possível a realização das medições posteriormente. Para os \textit{shaders} que usam textura, foi necessário utilizar a técnica de \textit{UV Mapping} para cada modelo tridimensional, na qual mapeiam-se as coordenadas de textura para uma imagem ( Figura \ref{uvmap}). Como a orientação do eixo de coordenas y da ferramenta é diferente da \textit{OpenG ES}, é necessário virar a imagem neste eixo para correto mapeamento.
 
 	\begin{figure}[h]
 	\centering
-		\includegraphics[keepaspectratio=true,scale=1.0]{figuras/computador.jpg}
-	\caption{Implementação Computador}
-	\label{computador}
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/uvmap.jpg}
+	\caption{Técnica de mapeamento de textura utilizada para cada modelo 3D}
+	\label{uvmap}
 	\end{figure}
 
-\section{Procedimentos Futuros}
+	Na Figura  \ref{texture_uvmap} é mostrada a imagem resultante da técnica de mapeamento realizada.
 
-Assim, os próximos passos estão relacionados com a escolha de quais \textit{shaders} serão implementados e terão suas complexidades algorítmicas analisadas, como também com a modelagem de objetos tridimensionais possuindo diferentes números de polígonos e com a implementação do leitor do formato \textit{obj}. 
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.2]{figuras/texture_uvmap.jpg}
+	\caption{Textura gerada a partir da técnica de mapeamento}
+	\label{texture_uvmap}
+	\end{figure}
 
-Por fim, o método dos mínimos quadrados será utilizado para poder estimar o número de quadros por segundo de um \textit{shader}, dado um número $n$ de polígonos, baseando-se na curva obtida experimentalmente pelos gráficos de cada \textit{shader} tanto no computador quanto no celular. 
+	Após as implementações dos \textit{shaders}, diversas refatorações foram feitas, a fim de melhorar a estruturação, manutenção e evolução do código.  
 
+\section{Medição do Tempo de Renderização Realizada pela GPU}
 
+	A fim de realizar a análise de complexidade algorítmica, primeiro buscou-se coletar uma métrica relacionada ao tempo de renderização dos \textit{shaders}. E por meio de pesquisa e consulta na documentação da \textit{OpenGL ES} conseguiu-se encontrar uma extensão desta biblioteca gráfica que permite contabilizar o tempo, em nanosegundos, necessário para realizar chamadas de \textit{OpenGL ES} especificadas. Esta extensão se chama GL\_EXT\_disjoint\_timer\_query \footnote{http://www.khronos.org/registry/gles/} e só está disponível para o dispositivo \textit{Nexus 4} a partir da versão de Android 4.4 ( \textit{KitKat}).
 
+	Para utilizar esta extensão foi necessário instalar e configurar o NDK ( \textit{Native Development Kit}) e alterar o \textit{header} da versão da \textit{OpenGL ES} utilizada, adicionando as linhas de código relacionadas à extensão almejada. Assim, foi possível utilizar as novas funções desta extensão pegando os seus endereços por meio do comando eglGetProcAddress ( disponível por meio da API EGL que faz o interfaceamento entre a \textit{OpenGL ES} e o sistema operacional). A integração entre o codigo em linguagem C e o código em Java é feita por meio do JNI (\textit{Java Native Interface}).
+
+	Feita a configuração e implementação da coleta de tempo para execução da função \textit{glDrawArrays} (responsável pela renderização), foram plotados os gráficos - para cada \textit{shader} - do tempo em nanosegundos\textit{versus} a quantidade de polígonos. Porém, após feita as plotagens para todos os \textit{shaders}, foi possível perceber que as formas de todas as funções se assemelhavam a uma exponencial (como é demonstrado na Figura  \ref{ndk_exp}).  Então, chegou-se à conclusão que ao se coletar o tempo de realização da função \textit{glDrawArrays}, estava-se contabilizando todo o processo de renderização e não somente o de aplicação do \textit{vertex} e  \textit{fragment}  \textit{shaders}. Então, viu-se necessário a coleta de métricas específicas relacionadas ao \textit{vertex} e \textit{fragment} \textit{shaders}. 
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=1.0]{figuras/ndk_exp.jpg}
+	\caption{Gráfico do tempo em nanosegundos \textit{versus} a quantidade de polígonos}
+	\label{ndk_exp}
+	\end{figure}
+
+\section{Medição do Número de Instruções por Segundo, Plotagem e Método dos Mínimos Quadrados}
+
+	Para a coleta de medições quanto ao \textit{vertex} e \textit{fragment} \textit{shaders}, utilizou-se a ferramenta (já mencionada) \textit{Adreno Profiler}. As métricas escolhidas foram a de número de instruções por segundo por vértice e número de instruções por fragmento e elas foram coletadas para cada número específico de polígonos, sendo exportadas no formato CSV. Para automatizar a plotagem dos gráficos, foi feito um programa em Python, em que lê os arquivos CSV, faz a média das medições e as plotagens para o \textit{vertex} e \textit{fragment} \textit{shaders}. 
+
+	A fim de ajustar as curvas à uma função, e consequentemente analisar a complexidade algorítmica, utilizou-se o método dos mínimos quadrados para uma função linear, quadrática, cúbica e exponencial, calculando os respectivos erros. Este cálculo também é automatizado pelo programa escrito em Python. 
+ 
