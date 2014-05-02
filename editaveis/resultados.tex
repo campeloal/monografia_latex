@@ -1,119 +1,124 @@
 \chapter[Resultados]{Resultados}
 
-	Após a implementação dos \textit{shaders}, foi utilizada a ferramenta \textit{gDEBugger} descrita na Seção \ref{configamb} para fazer medições quanto ao número de quadros por segundo, medida escolhida a fim de avaliar o desempenho para $n$ números de polígonos. Essa medida de desempenho foi adotada para poder avaliar experimentalmente as complexidades algorítmicas dos \textit{shaders} através das curvas plotadas.
+\section{Implementação dos \textit{Shaders}}
 
-	 A   Figura \ref{gdebugger} mostra essa ferramenta sendo utilizada, na qual executa-se o programa e a métrica desejada é mostrada em tempo de execução e também pode ser pode ser exportada no formato CSV.  
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/gdebugger.jpg}
-	\caption{Ferramenta \textit{gDEBugger} sendo utilizada}
-	\label{gdebugger}
-	\end{figure}
-
-	 Para cada número de subdivisões (no qual foi utilizado o mesmo valor para as subdivisões de latitude e longitude) coletaram-se dez medições, fazendo-se então a média aritmética. O número total de polígonos é dado pela Equação 
-(\ref{eqn00}), em que $y$ é o número de polígonos, $s$ é o número de subdivisões e $n$ é a quantidade de esferas. Ao final multiplica-se por dois, pois as subdiviões geram quadriláteros e multiplicando por dois contabilizam-se o número de triângulos (que é o desejado).
-
-	\begin{equation}
-	\label{eqn00}
-		\mathcal{Y} = s^{2} \cdot n \cdot 2
-	\end{equation}
-
-	Assim, as medições foram realizadas, para cada \textit{shader} implementado (\textit{Red, Flatten, Toon, Phong} e  \textit{Texture}). Além disso, variou-se o número de subdivisões das esferas, começando a partir de 50 e incrementando de 25 em 25 até o máximo de subdivisões possíveis, que no caso da esfera utilizada de raio 10, foi de 250. Após este valor, não é possível subdividir mais utilizando as funções da bilblioteca \textit{Glut}. A Tabela \ref{tab01}, Tabela \ref{tab02} e Tabela \ref{tab03} abaixo mostram essas medições, evidenciando a quantidade de quadros pro segundo para determinado número de polígonos.  Estas tabelas foram criadas a fim de poder, posteriormente, plotar os gráficos desejados para a análise de complexidade. 
-
-\begin{table}[h]
-	\centering
-	\begin{tabular}{cccc}
-		\toprule
-		\textbf{Nº de subdivisões} & \textbf{Nº de polígonos} 
-		& \textbf{\textit{Red Shader}} & \textbf{\textit{Flatten Shader}} \\
-		\midrule
-		50 & 15000 & 95,2 & 95,4 \\
-		75 & 33750 & 49,6  & 47,1\\
-		100 & 60000 & 28,6 & 26,3 \\
-		125 & 93750 & 18,8  & 18,3 \\
-		150 & 135000 & 13,1 & 12,7 \\
-		175 & 183750 & 9,6 & 9,4 \\
-		200 & 240000 & 7,4 & 7,1 \\
-		225 & 303750 & 6,0 & 5,9 \\
-		250 & 375000 & 5,2 & 4,9 \\
-		\bottomrule
-	\end{tabular}
-	\caption{Quadros por segundo para o \textit{Red Shader} e o \textit{Flatten Shader}}
-	\label{tab01}
-\end{table}
-
-\begin{table}[h]
-	\centering	
-	\begin{tabular}{cccc}
-		\toprule
-		\textbf{Nº de subdivisões} & \textbf{Nº de polígonos} & 
-		\textbf{\textit{Toon Shader}} & \textbf{\textit{Phong Shader}}  \\
-		\midrule
-		50 & 15000 & 95,2  & 96,6\\
-		75 & 33750 & 48,8  & 49,3\\
-		100 & 60000 &  28,3 & 28,6\\
-		125 & 93750 & 18,1 & 18,4\\
-		150 & 135000 &  12,9 & 13,1\\
-		175 & 183750 &  9,6 & 9,7\\
-		200 & 240000 &  7,5 & 7,4\\
-		225 & 303750 &  5,9 & 5,8\\
-		250 & 375000 &  5,2 & 5,2\\
-		\bottomrule
-	\end{tabular}
-	\caption{Quadros por segundo para o \textit{Toon Shader} e \textit{Phong Shader}}
-	\label{tab02}
-\end{table}
-
-\begin{table}[h]
-	\centering
-	\begin{tabular}{ccc}
-		\toprule
-		\textbf{Nº de subdivisões} & \textbf{Nº de polígonos} & 
-		\textbf{\textit{Texture Shader}}  \\
-		\midrule
-		50 & 15000 & 76,9  \\
-		75 & 33750 & 33,4  \\
-		100 & 60000 &  20,3\\
-		125 & 93750 & 13,1\\
-		150 & 135000 &  9,2\\
-		175 & 183750 &  6,8\\
-		200 & 240000 &  5,2\\
-		225 & 303750 &  4,1\\
-		250 & 375000 &  3,4\\
-		\bottomrule
-	\end{tabular}
-	\caption{Quadros por segundo para o \textit{Texture Shader}}
-	\label{tab03}
-\end{table}
-
-	Com estes dados foi possível traçar as curvas de complexidade algorítmica relativas a cada \textit{texture shader} implementado, tomando como base a quantidade de quadros por segundo. Assim, todas elas foram plotadas em um único gráfico (Figura \ref{complexidade}), que visualmente surege uma curva exponencial decrescente. E com exceção da curva do \textit{texture shader} -- que requer maior poder de processamento -- as curvas dos outros \textit{shaders} ficaram muito próximas, tanto que no gráfico algumas delas tem visualização mais difícil. 
-
-	 \begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.9]{figuras/complexidade_exp.jpg}
-	\caption{Complexidade algoritma: exponencial}
-	\label{complexidade}
-	\end{figure}
-
-	De acordo com a Seção \ref{metminqua}, foi visto que quando aplica-se a função logarítmica nos dois lados da equação da exponencial, ela se torna uma reta. Assim, para confirmar experimentalmente se a  curva obtida dos gráficos é realmente uma exponencial, traçaram-se os gráficos novamente na Figura \ref{complexidade_reta}, mas dessa vez, na escala logarítmica. 
+	Primeiramente foi feita a implementação dos \textit{shaders} para plataforma \textit{Android} utilizando o paradigma de orientação a objetos, em que o diagrama de classes (Figura \ref{class_diagram}) mostra como ele está estruturado. Ele mostra um conjunto de classes e seus relacionamentos, sendo o diagrama central da modelagem orientada a objetos. 
 
 	\begin{figure}[h]
 	\centering
-		\includegraphics[keepaspectratio=true,scale=0.9]{figuras/complexidade_reta.jpg}
-	\caption{\textit{Complexidade Algorítmica: reta}}
-	\label{complexidade_reta}
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/class_diagram.jpg}
+	\caption{Diagrama de Classe da Implementação em \textit{Android}}
+	\label{class_diagram}
 	\end{figure}
 
-	Analisando-se os gráficos, é possível perceber que todos eles se assemelham à uma reta, confirmando as suspeitas levantadas de que a complexidade algorítmica é de ordem exponencial.
+	\subsection{Classes \textit{Shader Activity} e \textit{Splash Activity}}
 
-\chapter[Conclusão]{Conclusão}
-\label{conclusao}
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/shader_splash.jpg}
+	\caption{Detalhamento das classes \textit{Shader Activity}, \textit{Splash Activity} e \textit{Resources}}
+	\label{shader_splash}
+	\end{figure}
 
-	Através dos experimentos realizados foi possível verificar que é factível desenvolver \textit{shaders} para a plataforma \textit{Android} dentro do prazo estipulado. E por meio da plotagem dos gráficos, a ideia de analisar a complexidade algorítmica experimentalmente mostrou potencial, identificando como ordem de complexidade dos \textit{shaders} uma curva exponencial. Futuramente, mais \textit{shaders} poderão ser analisados e implementados tanto para computador quanto para \textit{Android}, utilizando modelos tridimensionais mais complexos, por meio da leitura do arquivo \textit{obj}. E além disso, com base nas equações extraídas das curvas, o método dos mínimos quadrados -- descrito na Seção \ref{metminqua} -- será utilizado para estimar os parâmetros da curva exponencial específicos de cada \textit{shader}, para cada dispositivo, uma vez que, embora as curvas sejam todas de mesma família, serão justamente estes parâmetros que determinarão as particularidades de cada dispositivo/ambiente. Estas curvas permitirão a estimativa da  quantidade de quadros por segundo dado um número de polígonos. 
-	
-	Outro ponto importante a que chegou-se foi com relação entre as diferenças da  \textit{OpenGL} e a  \textit{OpenGL ES}, o que ficou evidenciado no momento da conversão de um programa escrito para \textit{mobile} para o computador. O principal aspecto notado foi com relação à remoção das chamadas \texttt{glBegin} e \texttt{glEnd} para desenhar primitivas gráficas e a não utilização do \textit{pipeline} convencional a partir da versão 2.0, em que faz-se obrigatória a utilização de \textit{shaders} pela \textit{OpenGL ES}. Além disso, todo o controle de matrizes de projeção, modelagem (operações de translação, rotação e escalar, por exemplo) e visualização fica a cargo do programador e não mais da \textit{OpenGL ES}. 
+	De acordo com \ref{androidsdkmanager}, a plataforma \textit{Android} utiliza o termo \textit{Activity} para descrever a tela de \textit{front-end} da aplicação que interage com o usuário. Ela possui elementos de \textit{design} como texto, botões, gráficos, entre outros. No contexto deste trabalho, há duas classes \textit{Activity}, a \textit{Shader} e a \textit{Splash}. 
+
+	A \textit{Splash Activity} (Figura  \ref{splash_act}) é responsável pela visualização da tela de \textit{loading} enquanto carrega os recursos necessários para o programa (como a leitura dos modelos tridimensionais em formato obj e das imagens usadas para texturização) por meio do uso de \textit{thread}. Estes recursos são setados por meio da classe chamada \textit{Resources}, que utiliza o padrão de projeto chamado \textit{Singleton}, que garante a existencia de apenas uma instância da classe, que será acessada posteriormente.
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.2]{figuras/splash_act.png}
+	\caption{Tela da \textit{Splash Activity}}
+	\label{splash_act}
+	\end{figure}
+
+	A \textit{Shader Activity} (Figura  \ref{shader_act}) é responsável pela  instanciação da classe \textit{Renderer}, que renderiza os gráficos tridimensionais utilizando a biblioteca \textit{OpenGL ES}. Além disso, ela controla os eventos de \textit{touch}, que permitem escalar e mover o objeto, além de disponibilizar os menus que trocam de \textit{shaders}, os botões que aumentam, diminuem o número de polígonos, a informação do tempo de renderização e a de quantidade de polígonos. Aumenta-se o número de polígonos por meio da troca de objetos que possuem arquivos obj diferentes, que já foram carregados pela \textit{Splash Activity}. 
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.2]{figuras/shader_act.png}
+	\caption{Tela da \textit{Shader Activity}}
+	\label{shader_act}
+	\end{figure}
+
+	Devido à limitação de memória do dispositivo móvel e os vários objetos com diferentes números de polígonos, não é possível carregar todos de uma só vez. Assim, foi necessário dividir esta quantidade objetos por vez, em que quando chega-se ao último objeto (tanto adicionando, quanto decrementando), volta-se novamente para a \textit{Splash Activity}, a fim de carregar os novos objetos e ir novamente para a \textit{Shader Activity}, a fim de renderizá-los.
+
+	\subsection{ Classes \textit{3DObject} e \textit{Texture}}   
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/object_texture.jpg}
+	\caption{Detalhamento das classes \textit{3DObject} e \textit{Texture}}
+	\label{object_texture}
+	\end{figure}
+
+	A classe \textit{3DObject}, mostrada na Figura \ref{object_texture}, é responsável por ler o arquivo obj e armazenar, em um \textit{buffer}, os vértices de posição, normal e textura na ordem em que será renderizado. No \textit{buffer} cada coordenada relacionada a um vértice (posição, normal e textura) é armazenada alternadamente, como mostra a Figura \ref{buffer}.
+
+	A classe \textit{Texture} cria as texturas utilizadas pelos \textit{shaders} \textit{SimpleTexture}, \textit{CubeMap} e \textit{Reflection}. Para gerar uma textura simples, primeiramente gera-se um objeto de textura \texttt{glGenTextures}, depois vincula-se a a textura a este objeto utilizando a função \texttt{glBindTexture} e carrega-se a imagem por meio da função \texttt{texImage2D}.  Para as texturas do \textit{CubeMap} e \textit{Reflection}, faz-se a mesma coisa, exceto que a função \textit{texImage2D} é feita seis vezes, em que cada textura representa uma face de um cubo. 
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=1.0]{figuras/buffer.png}
+	\caption{Ordem das coordenadas de posição, normal e textura para um vértice}
+	\label{buffer}
+	\end{figure}
+
+	\subsection{Classes \textit{Timer} e \textit{NativeLib}}      
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/timer_nativelib.jpg}
+	\caption{Detalhamento das classes \textit{Timer} e \textit{NativeLib}}
+	\label{timer_nativelib}
+	\end{figure}
+
+	A Figura \ref{timer_nativelib} detalha a classe \textit{Timer}, que realiza a média de dez medições do tempo (em nanosegundos) para cada objeto tridimensional, utilizando um \textit{shader} específico. Cada medição é feita utilizando a linguagem C e a extensão de \textit{OpenGL ES} chamada GL\_EXT\_disjoint\_timer\_query citada na Seção \ref{gpu}.  A integração entre o codigo em linguagem C e o código em Java é feita por meio da classe \textit{NativeLib}.
+
+	\subsection{Classe \textit{Renderer}}    
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/renderer.jpg}
+	\caption{Detalhamento da classe \textit{Renderer}}
+	\label{renderer}
+	\end{figure}
+
+	A classe \textit{Renderer} (Figura \ref{renderer}) funciona como uma controladora, sendo o ponto principal  das chamadas provenientes da \textit{view} (\textit{ShaderActivity}) para a camada mais abaixo (\textit{3DObject}, \textit{Shader} e \textit{Timer}). Ela que implementa as funções da biblioteca \textit{OpenGL ES} \texttt{onSurfaceCreated},  \texttt{onDrawFrame} e \texttt{onSurfaceChanged}. A primeira função é chamada apenas uma vez quando a \textit{view} da \textit{OpenGL ES} é instanciada, em que faz-se todas as configurações nesta função, como por exemplo, criação de texturas. A segunda função é chamada em \textit{loop}, em que faz-se a renderização por meio da função \texttt{glDrawArrays}. 
+
+	\subsection{Classe \textit{Shader}}      
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/shaders_diag.jpg}
+	\caption{Detalhamento da classe \textit{Shader}}
+	\label{shaders_diag}
+	\end{figure}
+
+	A classe \textit{Shader} (Figura \ref{shaders_diag}) é responsável por ler, fazer o \textit{attach} e o \textit{link} do \textit{ vertex} e do \textit{fragment shaders}. Além disso, ela possui os métodos abstratos \texttt{getParamsLocation} e \texttt{initShaderParams(Hastable params)}. Assim, todos os \textit{shaders} que herdam desta classe, são obrigados a implementar estes métodos. O primeiro método faz o armazenamento da localização de cada variável especificada dentro do \textit{shader}, já o segundo método inicializa estas variáveis por meio de um \textit{hash} que é passado como um parâmetro pela classe \textit{Renderer}.     
+
+	\subsection{ \textit{Shaders} Implementados}    
+
+	A fim de de poder fazer a análise da complexidade algorítmica, alguns \textit{shaders} foram implementados, em que cada um deles herdam da classe \textit{Shader} e implementam seus métodos abstratos. Estes \textit{shaders} podem ser vistos na Figura \ref{shaders_impl}.  
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.7]{figuras/shaders_impl.png}
+	\caption{\textit{Shaders} Implementados}
+	\label{shaders_impl}
+	\end{figure}
 
 
+\section{Plotagem e Aplicação do Método dos Mínimos Quadrados}
+
+	Para a plotagem e aplicação do método dos mínimos quadrados, foi feito um programa em linguagem \textit{Python}, a fim de automatizar este processo. O programa encontra-se estruturado de acordo com a Figura \ref{minquad_diag}, em que a classe \textit{ReadCSV} é responsável por ler os arquivos CSV e fazer a média das métricas tanto para o \textit{vertex shader} como para o \textit{fragment shader}. Já a classe \textit{PlotChart}, faz a plotagem do gráfico do número de instruções por segundo por vértice \textit{versus} o número de polígonos e do gráfico do número de instruções por segundo por fragmento \textit{versus} o número de polígonos. Além disso, ele também plota o gráfico original juntamente com o gráfico após a aplicação do método dos mínimos quadrados. Por fim, o módulo \textit{LeastSquares} realiza o ajuste dos mínimos quadrados para uma reta e para polinômios de segundo e terceiro graus como explicado na Seção \ref{metminqua}. Ele também calcula os erros associados a cada ajuste e indica qual o menor. 
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/minquad_diag.jpg}
+	\caption{Diagrama de Classes do código de automatização}
+	\label{minquad_diag}
+	\end{figure}
+
+
+\section{Análise Numérica}
 
 
