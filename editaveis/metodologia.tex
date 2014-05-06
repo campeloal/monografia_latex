@@ -39,7 +39,7 @@ O celular utilizado foi o \textit{Nexus} 4, o qual é o quarto  \textit{smartpho
 
 \section{Implementação Plataforma \textit{Android}} 
 
-	Primeiramente focou-se na implementação dos \textit{shaders} para plataforma \textit{Android}, e para isso, foi necessário codificar a leitura e interpretação de arquivos \textit{obj} (descrito na Seção \ref{formatobj}). Assim, foi possível renderizar modelos tridimensionais utilizando a técnica de \textit{Vertex Buffer Object}, para poder, a partir de arquivos \textit{obj} diferentes, variar o número de polígonos. Estes arquivos foram criados e exportados utilizando a ferramenta de modelagem tridimensional \textit{open-source} chamada Blender \footnote{http://www.blender.org/} como pode ser visto na Figura \ref{blender}.
+	Primeiramente focou-se na implementação dos \textit{shaders} para plataforma \textit{Android}, e para isso, foi necessário codificar a leitura e interpretação de arquivos \textit{obj} (descrito na Seção \ref{formatobj}). Assim, foi possível renderizar modelos tridimensionais, para poder, a partir de arquivos \textit{obj} diferentes, variar o número de polígonos. Estes arquivos foram criados e exportados utilizando a ferramenta de modelagem tridimensional \textit{open-source} chamada Blender \footnote{http://www.blender.org/} como pode ser visto na Figura \ref{blender}. Ela também permite modificar o número de polígonos a partir de um modelo tridimensional, por meio de modificadores chamados \textit{Decimate} e \textit{Subdivision Surface} (usados para diminuir e aumentar a contagem poligonal, respectivamente). 
 
 	\begin{figure}[h]
 	\centering
@@ -95,5 +95,5 @@ O celular utilizado foi o \textit{Nexus} 4, o qual é o quarto  \textit{smartpho
 
 	Para a coleta de medições quanto ao \textit{vertex} e \textit{fragment} \textit{shaders}, utilizou-se a ferramenta (já mencionada) \textit{Adreno Profiler}. As métricas escolhidas foram a de número de instruções por segundo por vértice e número de instruções por segundo por fragmento e elas foram coletadas para cada número específico de polígonos, sendo exportadas no formato CSV. Para automatizar a plotagem dos gráficos, foi feito um programa em Python, que lê os arquivos CSV, faz a média das medições e as plotagens para o \textit{vertex} e \textit{fragment} \textit{shaders}. 
 
-	A fim de ajustar as curvas à uma função, e consequentemente analisar a complexidade algorítmica, utilizou-se o método dos mínimos quadrados para uma função linear, quadrática, cúbica e exponencial, calculando-se os respectivos erros. Este cálculo também é automatizado pelo programa escrito em Python. 
+	A fim de ajustar as curvas à uma função, e consequentemente analisar a complexidade algorítmica, utilizou-se o método dos mínimos quadrados para uma função linear, quadrática, cúbica e exponencial, calculando-se os respectivos erros. Este cálculo também é automatizado pelo programa escrito em Python, que também calcula os erros associados a cada função e qual o menor entre eles. 
  

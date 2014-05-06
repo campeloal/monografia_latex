@@ -106,10 +106,92 @@
 	\label{shaders_impl}
 	\end{figure}
 
+	A seguir, alguns dos \textit{shaders} implementados serão explicados:
+
+	\begin{itemize}
+  	\item \textit{Phong Shader}
+	\end{itemize}
+
+	O \textit{vertex} e \textit{fragment shaders} do \textit{phong shading} implementam a técnica descrita na Seção \ref{flatgouphon}, em que primeiramente interpolam-se os valores das normais das primitivas e então computam-se os cálculos de luz para cada fragmento, utilizando as normais interpoladas. O Código \ref{codphongvs} e o Código \ref{codphongfs} mostram as definições do \textit{vertex} e \textit{fragment shaders}, respectivamente, em que para isso é necessário definir as propriedades do material pelo programa.  
+
+	\lstinputlisting[language=C, label = {codphongvs}, caption = {\textit{Phong Shader}:  \textit{vertex shader}}]{codigos/phong_vs.txt}
+
+	\lstinputlisting[language=C, caption =  {\textit{Phong Shader}:  \textit{fragment shader}}, label = {codphongfs}  ]{codigos/phong_ps.txt}
+	
+
+	\begin{itemize}
+  	\item \textit{Red Shader}
+	\end{itemize}
+
+	
+	O \textit{shader} que define a cor para vermelha é muito simples,  seu \textit{vertex shader} apenas estabelece que a posição do vértice  se dá pelo pela multiplicação da coordenada ( variável \texttt{aPosition} ) com a matriz de projeção, visualização e modelagem como é mostrada no Código \ref{codredvs}. 
+	
+	\lstinputlisting[language=C, caption = {\textit{Red Shader}:  \textit{vertex shader}}, label = {codredvs}]{codigos/red_vs.txt}
+
+	Já o seu \textit{fragment shader} (Código \ref{codredfs}) estabele que todo fragmento possui a cor vermelha, por meio da palavra restrita \texttt{gl\_FragColor}.
+	
+	\lstinputlisting[language=C, caption = {\textit{Red Shader}:  \textit{fragment shader}}, label = {codredfs}]{codigos/red_ps.txt}
+
+	\begin{itemize}
+  	\item \textit{Toon Shader}
+	\end{itemize}
+
+	O  \textit{toon shader} calcula a intensidade da luz por vértice para escolher uma das cores pré-definidas, como é explicado na Seção ADICIONAR SEÇÃO. O Código  \ref{codtoonvs} mostra o cálculo da intensidade da luz por vértice, pegando primeiro a direção da luz (definida como uma variável \texttt{uniform} passada pelo programa) para depois fazer o produto escalar entre ela e a normal (cálculo da intensidade da luz).  
+
+	\lstinputlisting[language=C,label = {codtoonvs}, caption = {\textit{Toon Shader}:  \textit{vertex shader}} ]{codigos/toon_vs.txt}
+
+	A variável \textit{intensity} do tipo \textit{varying} é passada do \textit{vertex shader} para o \textit{fragment shader}, a fim de determinar qual das três cores será escolhida (Código \ref{codtoonfs}). 
+  
+ 	\lstinputlisting[language=C, caption = {\textit{Toon Shader}:  \textit{fragment shader}}, label = {codtoonfs} ]{codigos/toon_ps.txt}
+
+	\begin{itemize}
+  	\item \textit{Simple Texture Shader}
+	\end{itemize}
+
+	O \textit{vertex shader} do \textit{simple texture shading} primeiramente armazena as coordenadas de textura numa variável do tipo \textit{varying} (Código \ref{codtexvs}), e as repassa para o \textit{fragment shader}, além de também definir a posição.  
+
+	\lstinputlisting[language=C, caption =  {\textit{Simple Texture Shader}:  \textit{vertex shader}}, label = {codtexvs} ]{codigos/simple_tex_vs.txt}
+
+	No Código \ref{codtexfs}, o \textit{fragment shader} por sua vez, utiliza a textura passada pelo programa e aplica a coordenada de textura, repassada pelo \textit{vertex shader}, no fragmento por meio da função  \texttt{texture2D}.
+
+	\lstinputlisting[language=C, caption =  {\textit{Simple Texture Shader}:  \textit{fragment shader}}, label = {codtexfs} ]{codigos/simple_tex_ps.txt}
+
+	\begin{itemize}	
+  	\item \textit{CubeMap Shader}
+	\end{itemize}
+
+	 O \textit{CubeMap Shader} implementa a técnica descrita na Seção ADICIONAR SEÇÃO. O seu  \textit{vertex shader} é simples e só define a posição do vértice (Código \ref{codcubemapvs}). 
+
+	\lstinputlisting[language=C, caption =  {\textit{CubeMap Shader}:  \textit{vertex shader}}, label = {codcubemapvs} ]{codigos/cubemap_vs.txt}
+
+	O  \textit{fragment shader} (Código \ref{codcubemapps}), por sua vez, utiliza a função \texttt{textureCube} utiliza a normal para fazer o mapeamento da textura. 
+
+	\lstinputlisting[language=C, caption =  {\textit{CubeMap Shader}:  \textit{fragment shader}}, label = {codcubemapps} ]{codigos/cubemap_ps.txt}
+	
+	\begin{itemize}
+  	\item \textit{Reflection Shader}
+	\end{itemize}
+
+	O \textit{vertex shader} do \textit{shader} de reflexão é responsável por indicar que a posição do vértice se dá pela multiplicação da coordenada obtida pela variável \texttt{vec4 aPosition} com a matriz de projeção, visualização e modelagem, como é mostrado no Código \ref{codreflvs}. Além disso, ele declara dois vetores do tipo \textit{varying} (para passar ao \textit{fragment shader}) que estão relacionados com o vetor de direção da câmera e a normal. 
+
+	\lstinputlisting[language=C, caption = {\textit{Reflection Shader}:  \textit{vertex shader}}, label = {codreflvs}]{codigos/reflection_vs.txt}
+
+	No \textit{fragment shader}, a normal e o vetor de direção da câmera são utilizados para encontrar o vetor da direção da reflexão através da utilização da função \texttt{reflect}. Para corrigir a direção da normal, ela é multiplicada pela transposta da inversa da matriz de projeção, modelagem e visualização, como foi explicado na seção ADICIONAR LINK PARA SEÇÃO. O vetor da direção da reflexão é utilizado na função \textit{texteruCube} (Código \ref{codreflfs}), em que determina-se a cor do fragmento, baseando-se nesta direção e em uma imagem. 
+
+	\lstinputlisting[language=C, caption = {\textit{Reflection Shader}:  \textit{fragment shader}}, label = {codreflfs}]{codigos/reflection_ps.txt}
 
 \section{Plotagem e Aplicação do Método dos Mínimos Quadrados}
 
-	Para a plotagem e aplicação do método dos mínimos quadrados, foi feito um programa em linguagem \textit{Python}, a fim de automatizar este processo. O programa encontra-se estruturado de acordo com a Figura \ref{minquad_diag}, em que a classe \textit{ReadCSV} é responsável por ler os arquivos CSV e fazer a média das métricas tanto para o \textit{vertex shader} como para o \textit{fragment shader}. Já a classe \textit{PlotChart}, faz a plotagem do gráfico do número de instruções por segundo por vértice \textit{versus} o número de polígonos e do gráfico do número de instruções por segundo por fragmento \textit{versus} o número de polígonos. Além disso, ele também plota o gráfico original juntamente com o gráfico após a aplicação do método dos mínimos quadrados. Por fim, o módulo \textit{LeastSquares} realiza o ajuste dos mínimos quadrados para uma reta e para polinômios de segundo e terceiro graus como explicado na Seção \ref{metminqua}. Ele também calcula os erros associados a cada ajuste e indica qual o menor. 
+	Para a plotagem e aplicação do método dos mínimos quadrados, foi feito um programa em linguagem \textit{Python}, a fim de automatizar este processo. Ele é executado por linha de comando, em que passa-se como parâmetro o \textit{shader} desejado (Figura \ref{linhacomando}).
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=1.0]{figuras/linhacomando.jpg}
+	\caption{Diagrama de Classes do código de automatização}
+	\label{linhacomando}
+	\end{figure}
+
+	O programa encontra-se estruturado de acordo com a Figura \ref{minquad_diag}, em que a classe \textit{ReadCSV} é responsável por ler os arquivos CSV e fazer a média das métricas tanto para o \textit{vertex shader} como para o \textit{fragment shader}. Já a classe \textit{PlotChart}, faz a plotagem do gráfico do número de instruções por segundo por vértice \textit{versus} o número de polígonos e do gráfico do número de instruções por segundo por fragmento \textit{versus} o número de polígonos. Além disso, ele também plota o gráfico original juntamente com o gráfico após a aplicação do método dos mínimos quadrados. Por fim, o módulo \textit{LeastSquares} realiza o ajuste dos mínimos quadrados para uma reta e para polinômios de segundo e terceiro graus como explicado na Seção \ref{metminqua}. Ele também calcula os erros associados a cada ajuste e indica qual o menor. 
 
 	\begin{figure}[h]
 	\centering
@@ -122,3 +204,74 @@
 \section{Análise Numérica}
 
 
+	Para cada \textit{shader} foram plotados os gráficos para a métrica de vértice e para a de fragmento. Após as plotagens, percebeu-se que todos os gráficos de todos os \textit{shaders} relacionados ao vértice deram uma função linear (diferindo na inclinação), e os relacionados ao fragmento deram uma curva semelhante (como pode ser visto na Figura \ref{plotred} e na Figura \ref{plotrefl}). A primeira são os gráficos relacionados ao \textit{ red shader} (mais simples) e o segundo ao \textit{reflection shader} (mais complexo). 
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/red.png}
+	\caption{Gráficos: \textit{red shader}}
+	\label{plotred}
+	\end{figure}
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/reflectionplot.png}
+	\caption{Gráficos: \textit{reflection shader}}
+	\label{plotrefl}
+	\end{figure}	
+
+
+	 Os ajustes de cada curva (linear, exponencial, segundo e terceiro graus) também foram plotados (Figura \ref{linear}, Figura \ref{exp}, Figura \ref{sec} e Figura \ref{third}), em que avisa-se qual foi o menor erro associado. Pela a análise do menor erro, calculado de acordo com a Seção ADICIONAR SEÇÃO, todos os \textit{shaders} indicaram uma curva de segundo grau.
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/reflectionlinear.png}
+	\caption{Ajuste linear}
+	\label{linear}
+	\end{figure}	
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/reflectionexponential.png}
+	\caption{Ajuste exponencial}
+	\label{exp}
+	\end{figure}	
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/reflectionsec.png}
+	\caption{Ajuste função de segundo grau}
+	\label{sec}
+	\end{figure}	
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/reflectionthird.png}
+	\caption{Ajuste função de terceiro grau}
+	\label{third}
+	\end{figure}	
+
+	As equações calculadas para cada \textit{shader} (relacionadas ao vértice e fragmento) são mostradas na Tabela \ref{equacoes}.
+
+
+	\begin{table}[h]
+	\centering	
+	\begin{tabularx}{0.9\textwidth}{cXX}
+		\toprule
+		\textbf{Nome} & \textbf{\textit{Equação Vertex Shader}} & \textbf{\textit{Equação Fragment Shader}}  \\
+		\midrule
+		\textit{Gouraud} & $y = 19.92 x 10^8 + 509.43t$ & $y = 67.99 x 10 ^5 + 6076.30t - 0.014t^2$ \\
+		\textit{Phong} &  $y = 19.45 x 10^8 + 74.85t$ & $y = 20.20 x 10^6 + 9605.32t - 0.035t^2$\\
+		\textit{Red} & $y = 19.39 x 10^8 + 26.84t$ & $y = 29.95 x 10 ^5 + 5130.50t - 0.0097t^2$ \\
+		\textit{Toon} & $y = 19.45 x 10^8 + 100.35t$ & $y = 38.25 x 10 ^5 + 5347.86t - 0.011t^2$ \\
+		\textit{Flat} & $y = 19.39 x 10^8 + 26.77t$ & $y = 25.02 x 10 ^5 + 4285.80t - 0.0091t^2$ \\
+		\textit{Random Color} & $y = 19.45 x 10^8 + 74.04t$ & $y = 84.32 x 10 ^5 + 6930.50t - 0.021t^2$ \\
+		\textit{Simple Texture} & $y = 19.42 x 10^8 + 49.97t$ & $y = 31.76 x 10 ^5 + 5137.26t - 0.0099t^2$ \\
+		\textit{CubeMap} & $y = 19.44 x 10^8 + 83.38t$ & $y = 33.14 x 10 ^5 + 5109.61t - 0.0094t^2$ \\
+		\textit{Reflection} & $y = 19.62 x 10^8 + 289.76t$ & $y = 83.92 x 10 ^5 + 6494.94t - 0.017t^2$ \\
+	
+		\bottomrule
+	\end{tabularx}
+	\caption{Equações relacionadas ao \textit{vertex shader} e \textit{fragment shader}}
+	\label{equacoes}
+	\end{table}
