@@ -1,7 +1,52 @@
 \chapter[Referencial Teórico]{Referencial Teórico}
 \label{refteorico}
 
-\section{Plataforma \textit{Android}}
+\section{\textit{Shaders}: \textit{pipelines} programáveis}
+
+	Conforme \cite{realtime}, \textit{shading} é o processo de utilizar uma equação para computar o comportamento da uma superfície de um objeto. Então, \textit{shaders} são algorítmos escritos pelo programador a fim de substituir as funcionalidades pré-definidas. Existem dois tipos de \textit{shader}, que focam diferentes partes do \textit{pipeline} gráfico: o \textit{vertex shader} e o \textit{fragment shader}. 
+
+	O   \textit{vertex shader} é responsável pela manipulação dos dados dos vértices, incluindo coordenadas, normais, cores, sendo responsável pela alteração de posição e textura, por exemplo. Ele altera a etapa de \textit{vertex shading}, descrita na Seção \ref{renderpipe}. Ele deve, ao menos, definir as coordenadas de posição. 
+
+	O \textit{fragment shader} opera nos fragmentos no processo de rasterização (selecionar e colorir os \textit{pixels}) antes de passar para a etapa de Fusão descrita na Seção \ref{renderpipe}, que faz as operações por fragmento (como o teste de profundidade). Ele deve, ao menos, atribuir uma cor para cada fragmento. 
+
+	A linguagem GLSL (\textit{OpenGL Shading Language}) foi incluída na versão 2.0 da  \textit{OpenGL}, sendo desenvolvida com o intuito de dar aos programadores o controle de partes do processo de renderização (através dos \textit{shaders}), substituindo as funções fixas. A GLSL é baseada na linguagem C, mas antes de sua padronização o programador tinha que escrever o código na linguagem \textit{Assembly}, a fim de acessar os recursos da GPU. Além dos tipos clássicos do C, \textit{float}, \textit{int} e \textit{bool}, a GLSL possui outros tipos mostrados na Tabela \ref{tiposglsl}.
+
+\begin{table}[h]
+	\centering	
+	\begin{tabularx}{0.9\textwidth}{cX}
+		\toprule
+		\textbf{Tipo} & \textbf{Descrição}  \\
+		\midrule
+		\texttt{vec2}, \texttt{vec3}, \texttt{vec4} & Vetores do tipo \textit{float} de 2, 3 e 4 entradas \\
+		\texttt{ivec2},\texttt{ivec3}, \texttt{ivec4} & Vetores do tipo inteiro de 2, 3 e 4 entradas \\
+		\texttt{mat2}, \texttt{mat3}, \texttt{mat4} & Matrizes 2x2, 3x3 e 4x4 \\
+		\texttt{sampler1D}, \texttt{sampler2D}, \texttt{sampler3D} & Acesso a texturas \\
+		\bottomrule
+	\end{tabularx}
+	\caption{ GLSL: tipos de dados}
+	\label{tiposglsl}
+\end{table}
+
+	Além disso, a GLSL possui variáveis chamadas qualificadoras, que fazem o interfaceamento do programa e os \textit{shaders} e entre \textit{shaders}. Estas varáveis são mostradas na Tabela \ref{tiposqualificadores}.
+
+	\begin{table}[h]
+	\centering	
+	\begin{tabularx}{0.9\textwidth}{cX}
+		\toprule
+		\textbf{Tipo} & \textbf{Descrição}  \\
+		\midrule
+		\texttt{attribute} &  Variável utilizada pelo programa para comunicar dados relacionados aos vértices para o \textit{vertex shader}\\
+		\texttt{uniform} &  Variável utilizada pelo programa para comunicar dados relacionados com as primitivas para ambos os \textit{shaders} \\
+		\texttt{varying} &  Variável utilizada pelo \textit{vertex shader} para se comunicar com o \textit{fragment shader} \\
+		\bottomrule
+	\end{tabularx}
+	\caption{ GLSL: qualificadores}
+	\label{tiposqualificadores}
+	\end{table}
+
+\section{Utilização de \textit{Shaders} em Plataformas Móveis}
+
+	\subsection{Plataforma \textit{Android}}
 
 	O \textit{Android} começou a ser desenvolvido em 2003 na empresa de mesmo nome, fundada por Andy Rubin, a qual foi adquirida em 2005 pela empresa \textit{Google}. A \textit{Google} criou a \textit{Open Handset Alliance}, que junta várias empresas da indústria das telecomunicações, como a \textit{Motorola} e a \textit{Samsung}, por exemplo. Assim, elas desenvolveram o \textit{Android} como é conhecido hoje, o qual é um sistema operacional  \textit{open source} para dispositivos móveis (baseado no \textit{kernel} do \textit{Linux}), tendo a primeira versão beta lançada em 2007 e segundo \cite{android2013}, hoje é o sistema operacional para \textit{mobile} mais utilizado.
 
@@ -39,25 +84,11 @@
 	\label{eclipse}
 	\end{figure}
 
-\section{Bibliotecas Gráficas}
-
-\subsection{\textit{OpenGL}}
-
-	A \textit{OpenGL} é uma API (\textit{Application Programming Interface}) utilizada em computação gráfica para modelagem tridimensional lançada em 1992. Segundo \cite{opengl2011}, sua precursora foi a biblioteca Iris GL (\textit{Integrated Raster Imaging System Graphics Library}) da empresa \textit{Silicon Graphics}. Ela é uma API procedural, na qual é preciso descrever os passos que envolvem os diversos comandos \textit{OpenGL} necessários para se chegar no efeito visual desejado. 
-
-	Ela possui comandos para desenho de primitivas geométricas (como linhas e pontos, por exemplo), texturização, transparência, animação,  entre outros efeitos especiais.  Porém, ela não possui funções de gerenciamento de janela, eventos de entrada (\textit{mouse} e teclado, por exemplo) ou leitura e escrita de arquivos: o próprio programador é responsável por configurar o ambiente necessário para a \textit{OpenGL} desenhar em uma janela (seja para \textit{Microsoft Windows}, \textit{MacOS} ou \textit{Unix}, por exemplo). 
-
-	A \textit{OpenGL} possui quatro versões, sendo a mais atual a 4.4. As principais modificações ocorreram entre as versões 1.x e 2.x -- que permitiram o uso de \textit{shaders} e \textit{pipeline} de renderização programável -- e entre as versões 2.x e 3.x, que depreciaram as funções fixas (que são removidas nas futuras versões da API). 
- 
-\subsection{\textit{Glut}}
-
-	Visando a portabilidade e abstração do sistema operacional, a biblioteca Glut (\textit{OpenGL Utility Toolkit}) foi criada por Mark Kilgard, enquanto ele ainda trabalhava na empresa \textit{Silicon Graphics}. Ela facilita a utilização de janelas e o tratamento de eventos de entrada, integrando as janelas do sistema operacional subjacente com a  \textit{OpenGL} de forma portável. Embora possua limitações relativas à interface gráfica com o usuário (\textit{Graphical User Interface} - GUI), de acordo com  \cite{opengl2011}, ela é simples de ser utilizada. 
-
-\subsection{\textit{OpenGL ES}}
+	\subsection{\textit{OpenGL ES}}
 	
 	A \textit{OpenGL ES} (\textit{OpenGL for Embedded Systems}) foi lançada em 2003, e como citado em \cite{guha2011}, atualmente é uma das API's mais populares para programação de gráficos tridimensionais em pequenos \textit{devices}, sendo adotada por diversas plataformas como \textit{Android}, \textit{iOS}, Nintendo DS e \textit{Black Berry}. Segundo \cite{opengles2012}, ela possui três versõe: a 1.x que utiliza as funções fixas de renderização, a 2.x, que elimina as funções fixas e foca nos processos de renderização manipulados por \textit{pipelines} programáveis e a 3.x, que é completamente compatível com a  \textit{OpenGL} 4.3.  
 
-\section{Processo do \textit{Rendering Pipeline}}
+	\subsubsection{\textit{Pipeline de Renderização}}
 \label{renderpipe}
 
 
@@ -112,172 +143,11 @@
 
 	 A informação relacionada com cada \textit{pixel} é armazenada no \textit{color buffer}, que é um \textit{array} de cores. Assim, a última etapa é a de fusão, que é responsável por combinar a cor do fragmento gerada pelo estágio anterior com a cor armazenada no \textit{buffer}. Ela também é responsável pela visibilidade, em que o \textit{color buffer} deve conter as cores das primitivas da cena que são visíveis do ponto de vista da câmera. Isto é feito através do Z-\textit{buffer} (também chamado de \textit{buffer} de profundidade), que para cada \textit{pixel} armazena a coordenada $z$ a partir da câmera até a primitiva mais próxima.  Então, a coordenada $z$ de uma primitiva que está sendo computada é comparada com  o valor do Z-\textit{buffer} para o mesmo \textit{pixel}. Se o valor for menor, quer dizer que a primitiva esta mais próxima da câmera do que o valor da anterior, e assim, o valor do Z-\textit{buffer} é atualizado para o atual. Se o valor corrente for maior, então o valor do Z-\textit{buffer} não é modificado. 
 
-\section{Métodos de Renderização de Modelos Tridimensionais}
 
-\subsection{Funções Fixas}
+\section{Teoria Matemática para Implementação de \textit{Shaders}}
 
-	As versões da \textit{OpenGL} anteriores a 3.0  e a versão 1.0 da \textit{OpenGL ES} permitem a utilização de funções fixas para a renderização, ou seja, as funções da API em \textit{pipeline} estático. As vantagens das funções fixas é que elas são mais convenientes: assim, um programador com pouca experiência em  \textit{OpenGL} ou \textit{OpenGL ES} pode ter uma aprendizagem mais rápida. Em contrapartida, este método não dá flexibilidade ao programador de modificar algumas das etapas de renderização (vistas na Seção \ref{renderpipe}). 
-
-	 Uma das operações fixas é a de desenho de objetos, em que se utiliza a chamada \texttt{glVertex3f(float x, float y, float z)} (entre as declarações \texttt{glBegin(Glenum mode)} e \texttt{glEnd()}) para se desenhar um objeto. O parâmetro \texttt{Mode} diz qual primitiva deve ser utilizada, podendo ser: pontos; linhas; série de linhas conectadas; série de linhas conectadas em \textit{loop} (em que conectam-se também o primeiro e último vértices); triângulos; série de triângulos conectados; quadriláteros; série de quadriláteros e polígonos convexos simples. 
-
-	Para se definir a cor, utiliza-se o  comando \texttt{glColor3f(float r, float g, float b)}, em que os argumentos são as coordenadas do modelo RGB (\textit{Red, Green and Blue}) e neste modelo, define-se cada cor pela quantidade de vermelho, verde e azul que a compõe. Um argumento a mais pode ser adicionado (utilizando-se o comando \texttt{glColor4f(float r, float g, float b, float alpha)}), em que o argumento \textit{alpha} é o valor de transparência (o valor zero indica transparência, 1 (um)  opacidade e os valores intermediários as diferentes gradações de translucidez).  
-
-	Outras funções existentes são as de definição da projeção, utilizando 
-	
-	\begin{center}
-	\texttt{glOrtho(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble near, GLdouble far)}
-	\end{center}
-
-	 para projeções ortográficas ou 
-
-	\begin{center}
-	\texttt{glFrustum(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble near, GLdouble far)} 
-	\end{center}
-
-	para perspectiva. O significados dos parâmetros, segundo \cite{guha2011}, podem ser vistos na  Figura \ref{projorto} e na Figura \ref{projpers}.
-
- 	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/projorto.jpg}
-	\caption{Projeção Ortográfica: parâmetros}
-	\label{projorto}
-	\end{figure}
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.55]{figuras/projpers.jpg}
-	\caption{Perspectiva: parâmetros}
-	\label{projpers}
-	\end{figure}
-
-\subsection{\textit{Vertex Array}}
-
-	Um modelo tridimensional pode ser descrito por uma lista de vértices e uma lista de índices. Na Figura \ref{quadrado}, tem-se dois triângulos e quatro vértices definidos (dois vértices são compartilhados). Assim, pode-se definir um vetor com os vértices [v0, v1, v2, v3] e um vetor de índices [0, 3, 1, 0, 2, 3], que determina a ordem em que os vértices devem ser renderizados. 
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/quadrado.jpg}
-	\caption{Vértices do quadrado constituído de dois triângulos}
-	\label{quadrado}
-	\end{figure}
-
-
-	Segundo  \cite{guha2011}, as coordenadas dos vértices podem ser armazenadas em um vetor e passadas para a \textit{OpenGL} como um ponteiro. O vetor de vértices é ativado com a chamada \texttt{glEnableClientState(G\_VERTEX\_ARRAY)} e o ponteiro é definido através da função \texttt{glVertexPointer(size, type, stride, *pointer)}. O parâmetrro \texttt{pointer} é o endereço de onde começa o vetor, \texttt{type} é o tipo dos dados, \texttt{size} é o número de valores por vértice e \texttt{stride} é o \textit{offset} em \textit{bytes} entre o início dos valores para sucessivos vértices (zero indica que os valores para os vértices sucessivos não estão separados). Com o \texttt{stride} é possível armazenar os vértices de posição e normais em único vetor, por exemplo. 
-
-	Finalmente, a renderização pode ser feita por meio da chamada \texttt{glDrawElements( primitive, count, type, *indices)}, em que \texttt{primitive} é a primitiva geométrica (pontos, linhas, triângulos, por exemplo), \texttt{type} é o tipo de dado, \texttt{indices} é o vetor de índices e \texttt{count} é o número de índices a serem usados. 
-
-	Dessa forma, os dados são definidos em apenas um local, podendo ser utilizados em vários locais do código, evitando redundância e permitindo que diversos dados (como coordenadas de posição, textura, normais, por exemplo) possam ser definidos em um único vetor.     
-
-\subsection{\textit{Vertex Object Buffer}}	
- \label{tecvertbuf}
-
-	A ideia do \textit{Vertex Object Buffer} é a mesma do \textit{Vertex Array}, porém, de acordo com \cite{vbo}, o \textit{driver} gráfico pode optar por colocá-lo diretamente na memória da GPU, melhorando o desempenho para objetos que não são modificados com muita frequência. 
-
-	Primeiramente é necessário criar um novo \textit{buffer} e para isso, de acordo com \cite{interactive2012}, é necessário utilizar a chamada\texttt{glGenBuffers()}. Feito isto, vincula-se o vetor ao \textit{buffer} com a função \texttt{glBindBuffer(GLenum  target, GLint id)}, em que \texttt{target} é o tipo do \textit{buffer} (GL\_ARRAY\_BUFFER, por exemplo) e \texttt{id} é o identificador. Para fazer uma cópia dos dados do vetor ao \textit{buffer}, utiliza-se a \texttt{glBufferData( GLenum target, GLsizeptr size, const GLvoid *data, GLenum usage)}: \texttt{target} é o tipo, \texttt{size} é o tamanho em \textit{bytes} do \textit{buffer}, \texttt{data} é o ponteiro para os dados que serão copiados e \texttt{usage} é o padrão de utilização dos dados. Os padrões e seus significados podem ser vistos na Tabela \ref{bd}.
-
-\begin{table}[h]
-	\centering	
-	\begin{tabularx}{0.9\textwidth}{cX}
-		\toprule
-		\textbf{Padrão} & \textbf{Significado}  \\
-		\midrule
-		\texttt{GL\_STREAM\_DRAW} &  O objeto será modificado apenas uma vez e usado poucas vezes  \\
-		\texttt{GL\_STATIC\_DRAW} & O objeto será modificado uma vez, mas será usado várias vezes \\
-		\texttt{GL\_DYNAMIC\_DRAW} &  O objeto será modificado e usado várias vezes \\
-		\bottomrule
-	\end{tabularx}
-	\caption{ Padrões de uso de dados do \texttt{vertex buffer object}}
-	\label{bd}
-\end{table}
-
-	Após a cópia dos dados, deve-se garantir que eles serão desvinculados do \textit{buffer} utilizando novamente a \texttt{glBindBuffer()}, mas dessa vez o parâmetro \texttt{id} como zero. Além disso, é necessário utilizar a chamada \texttt{glDeleteBuffers(GLsizei n, const GLuint * buffers)} (em que  \texttt{n} é o número de objetos do \textit{buffer} e \texttt{buffers} é o array a ser deletado) para poder liberar a memória. Os mesmos procedimentos podem ser feitos para criar o \textit{buffer} de índices. 
-  
-
-\subsection{Formato \textit{obj}}
-\label{formatobj}
-
-	Em uma cena, os modelos tridimensionais podem variar muito mais do que formas básicas como uma esfera e um torus, por exemplo. Assim, o formato \textit{obj} foi criado pela empresa  \textit{Wavefront} e é um arquivo para leitura de objetos tridimensionais, a fim de carregar geometrias mais complexas. Segundo \cite{graphicsprog}, neste arquivo cada linha contém informações a respeito do modelo, começando com uma palavra-chave, seguida da informação. A  Tabela \ref{palavraschave} mostra as principais palavras-chave utilizadas. 
-
-\begin{table}[h]
-	\centering	
-	\begin{tabular}{cl}
-		\toprule
-		\textbf{Palavra-chave} & \textbf{Significado}  \\
-		\midrule
-		\texttt{usemtl} & Indica se está utilizando material  \\
-		\texttt{mtlib} &  Nome do material \\
-		\texttt{v} &  Coordenadas x, y e z do vértice \\
-		\texttt{vn} & Coordenadas da normal \\
-		\texttt{vt} &  Coordenadas da textura \\
-		\texttt{f} &  Face do polígono \\
-		\bottomrule
-	\end{tabular}
-	\caption{ Palavras-chave do formato obj}
-	\label{palavraschave}
-\end{table}
-
-	A face do polígono (f) possui três índices que indicam os vértices do triângulo. Assim, cada vértice possui um índice (que depende de quando ele foi declarado), começando a partir de um. A Figura \ref{objFile} mostra o exemplo de um arquivo obj para a leitura de um cubo. 
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.9]{figuras/obj.jpg}
-	\caption{Arquivo \textit{obj} de um cubo}
-	\label{objFile}
-	\end{figure}
-
-	Então, a partir da leitura do arquivo  \textit{obj}, é possível ler cada linha e armazenar em estruturas de dados as informações que serão passadas para renderizar o modelo tridimensional, como vértices e índices, e utilizar um dos métodos apresentados anteriormente para renderizar a cena. 
-
-\section{Fundamentos de Animação}
-
-	Uma animação é formada por uma coleção de quadros que são vistos um atrás do outro dentro de um intervalo de tempo, em que cada quadro é um instantâneo diferente da animação que está sendo realizada. Assim, \textit{frame rate} é o quão rápido uma sequência de \textit{frames}, ou quadros, são apresentados ao espectador. A unidade utilizada para determinar \textit{frame rate} em jogos e filmes é o FPS (\textit{Frames Per Second}) ou quadros por segundo, que é o número de imagens renderizadas por segundo. O tempo usado por uma aplicação para gerar uma imagem varia dependendo da complexidade da computação desempenhada durante cada quadro.  O FPS é utilizado tanto para expressar a taxa de um quadro em particular quanto para determinar o desempenho médio durante o uso da aplicação. 
-
-	De acordo com \cite{framerate2009}, jogos na América do Norte e Japão são renderizados a 30 ou 60 quadros por segundo, porque essa é a taxa de atualização do sistema NTSC (\textit{National Television System Committee}) usadas nessas regiões. Na Europa e no resto do mundo esta taxa é de 50 quadros por segundo, pois é a taxa de atualização dos televisores do tipo PAL (\textit{Phase Alternating Line}) ou SECAM (\textit{Séquentiel Couleur à Mémoire}). Todos estes sistemas são sistemas de televisores analógicos. Porém, a partir de 12 quadros por segundo já é possível provocar uma ilusão de que algo está se movendo continuamente. 
-
-\section{\textit{Shaders}: \textit{pipelines} programáveis}
-	
-	Conforme \cite{realtime}, \textit{shading} é o processo de utilizar uma equação para computar o comportamento da uma superfície de um objeto. Então, \textit{shaders} são algorítmos escritos pelo programador a fim de substituir as funcionalidades pré-definidas. Existem dois tipos de \textit{shader}, que focam diferentes partes do \textit{pipeline} gráfico: o \textit{vertex shader} e o \textit{fragment shader}. 
-
-	O   \textit{vertex shader} é responsável pela manipulação dos dados dos vértices, incluindo coordenadas, normais, cores, sendo responsável pela alteração de posição e textura, por exemplo. Ele altera a etapa de \textit{vertex shading}, descrita na Seção \ref{renderpipe}. Ele deve, ao menos, definir as coordenadas de posição. 
-
-	O \textit{fragment shader} opera nos fragmentos no processo de rasterização (selecionar e colorir os \textit{pixels}) antes de passar para a etapa de Fusão descrita na Seção \ref{renderpipe}, que faz as operações por fragmento (como o teste de profundidade). Ele deve, ao menos, atribuir uma cor para cada fragmento. 
-
-	A linguagem GLSL (\textit{OpenGL Shading Language}) foi incluída na versão 2.0 da  \textit{OpenGL}, sendo desenvolvida com o intuito de dar aos programadores o controle de partes do processo de renderização (através dos \textit{shaders}), substituindo as funções fixas. A GLSL é baseada na linguagem C, mas antes de sua padronização o programador tinha que escrever o código na linguagem \textit{Assembly}, a fim de acessar os recursos da GPU. Além dos tipos clássicos do C, \textit{float}, \textit{int} e \textit{bool}, a GLSL possui outros tipos mostrados na Tabela \ref{tiposglsl}.
-
-\begin{table}[h]
-	\centering	
-	\begin{tabularx}{0.9\textwidth}{cX}
-		\toprule
-		\textbf{Tipo} & \textbf{Descrição}  \\
-		\midrule
-		\texttt{vec2}, \texttt{vec3}, \texttt{vec4} & Vetores do tipo \textit{float} de 2, 3 e 4 entradas \\
-		\texttt{ivec2},\texttt{ivec3}, \texttt{ivec4} & Vetores do tipo inteiro de 2, 3 e 4 entradas \\
-		\texttt{mat2}, \texttt{mat3}, \texttt{mat4} & Matrizes 2x2, 3x3 e 4x4 \\
-		\texttt{sampler1D}, \texttt{sampler2D}, \texttt{sampler3D} & Acesso a texturas \\
-		\bottomrule
-	\end{tabularx}
-	\caption{ GLSL: tipos de dados}
-	\label{tiposglsl}
-\end{table}
-
-	Além disso, a GLSL possui variáveis chamadas qualificadoras, que fazem o interfaceamento do programa e os \textit{shaders} e entre \textit{shaders}. Estas varáveis são mostradas na Tabela \ref{tiposqualificadores}.
-
-	\begin{table}[h]
-	\centering	
-	\begin{tabularx}{0.9\textwidth}{cX}
-		\toprule
-		\textbf{Tipo} & \textbf{Descrição}  \\
-		\midrule
-		\texttt{attribute} &  Variável utilizada pelo programa para comunicar dados relacionados aos vértices para o \textit{vertex shader}\\
-		\texttt{uniform} &  Variável utilizada pelo programa para comunicar dados relacionados com as primitivas para ambos os \textit{shaders} \\
-		\texttt{varying} &  Variável utilizada pelo \textit{vertex shader} para se comunicar com o \textit{fragment shader} \\
-		\bottomrule
-	\end{tabularx}
-	\caption{ GLSL: qualificadores}
-	\label{tiposqualificadores}
-	\end{table}
-
-\section{\textit{Flat Shading}, \textit{Gouraud Shading} e \textit{Phong Shading}}
-\label{flatgouphon}
+	\subsection{Equação de Iluminação de \textit{Phong}}
+	\label{flatgouphon}
 
 	Na área de computação gráfica, os {\textit{Flat Shading}, \textit{Gouraud Shading} e \textit{Phong Shading} (compostos pelos \textit{vertex} e \textit{fragment shaders}) são um dos \textit{shaders} mais conhecidos. No método \textit{Flat Shading}, renderiza-se cada polígono de um objeto com base no ângulo entre a normal da superfície e a direção da luz. Mesmo se as cores se diferenciem nos vértices de um mesmo polígono, somente uma cor é escolhida entre elas e é aplicada em toda o polígono.  
 
@@ -294,8 +164,14 @@
 	\label{fgp}
 	\end{figure}
 
+	\subsection{Renderização de Efeito \textit{Cartoon}}
 
-\section{Complexidade Algorítmica}
+	\subsection{Renderização de Efeito de Reflexão}
+		\subsubsection{Conceitos de Álgebra Linear Utilizados}
+
+\section{Complexidade Algorítmica Calculada de Forma Empírica}
+
+	\subsection{Complexidade Algorítmica - Teoria}
 
 	Complexidade algorítmica é uma medida que compara a eficiência de um determinado algorítmo, analisando o quão custoso ele é (em termos de tempo, memória, custo ou processamento). Ela foi desenvolvida por Juris Hartmanis e Richard E. Stearns no ano de 1965. Segundo \cite{complexidade}, para não depender do sistema em que está sendo rodado e nem da linguagem de programação, a complexidade algoritmica se baseia em uma função (medida lógica) que expressa uma relação entre a quantidade de dados e de tempo necessário para processá-los.
 
@@ -334,8 +210,8 @@
 \end{table}
 
 
-\section{Métodos dos Mínimos Quadrados}
-\label{metminqua}
+	\subsection{Métodos dos Mínimos Quadrados}
+	\label{metminqua}
 
 	O método dos mínimos quadrados é utilizado para ajustar pontos $(x,y)$ determinados experimentalmente a uma curva. No caso do ajuste a uma reta (dada por $y = a + bx$) muitas vezes estes pontos não são colineares e segundo \cite{minq} é impossível encontrar coeficientes $a$ e $b$ que satisfaçam o sistema.
 
@@ -413,3 +289,38 @@
 	\begin{equation}
 	c = e^{\bar{a}}\, \, \, \mbox{e}\, \, \,\bar{b} = -k
 	\end{equation} 
+
+
+\subsection{Formato \textit{obj}}
+\label{formatobj}
+
+	Em uma cena, os modelos tridimensionais podem variar muito mais do que formas básicas como uma esfera e um torus, por exemplo. Assim, o formato \textit{obj} foi criado pela empresa  \textit{Wavefront} e é um arquivo para leitura de objetos tridimensionais, a fim de carregar geometrias mais complexas. Segundo \cite{graphicsprog}, neste arquivo cada linha contém informações a respeito do modelo, começando com uma palavra-chave, seguida da informação. A  Tabela \ref{palavraschave} mostra as principais palavras-chave utilizadas. 
+
+\begin{table}[h]
+	\centering	
+	\begin{tabular}{cl}
+		\toprule
+		\textbf{Palavra-chave} & \textbf{Significado}  \\
+		\midrule
+		\texttt{usemtl} & Indica se está utilizando material  \\
+		\texttt{mtlib} &  Nome do material \\
+		\texttt{v} &  Coordenadas x, y e z do vértice \\
+		\texttt{vn} & Coordenadas da normal \\
+		\texttt{vt} &  Coordenadas da textura \\
+		\texttt{f} &  Face do polígono \\
+		\bottomrule
+	\end{tabular}
+	\caption{ Palavras-chave do formato obj}
+	\label{palavraschave}
+\end{table}
+
+	A face do polígono (f) possui três índices que indicam os vértices do triângulo. Assim, cada vértice possui um índice (que depende de quando ele foi declarado), começando a partir de um. A Figura \ref{objFile} mostra o exemplo de um arquivo obj para a leitura de um cubo. 
+
+	\begin{figure}[h]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.9]{figuras/obj.jpg}
+	\caption{Arquivo \textit{obj} de um cubo}
+	\label{objFile}
+	\end{figure}
+
+	Então, a partir da leitura do arquivo  \textit{obj}, é possível ler cada linha e armazenar em estruturas de dados as informações que serão passadas para renderizar o modelo tridimensional, como vértices e índices, e utilizar um dos métodos apresentados anteriormente para renderizar a cena. 
