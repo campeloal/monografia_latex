@@ -3,15 +3,43 @@
 
 \section{\textit{Shaders}: \textit{pipelines} programáveis}
 
-	Conforme \cite{realtime}, \textit{shading} é o processo de utilizar uma equação para computar o comportamento da uma superfície de um objeto. Então, \textit{shaders} são algorítmos escritos pelo programador a fim de substituir as funcionalidades pré-definidas. Existem dois tipos de \textit{shader}, que focam diferentes partes do \textit{pipeline} gráfico: o \textit{vertex shader} e o \textit{fragment shader}. 
+	Conforme \cite{realtime}, \textit{shading} é o processo de utilizar uma equação para computar o comportamento da uma superfície de um objeto. Os \textit{shaders} são algorítmos escritos pelo programador a fim de substituir as funcionalidades pré-definidas do processo de renderização executada pela GPU, por meio de bibliotecas gráficas como a \textit{OpenGL}.
 
-	O   \textit{vertex shader} é responsável pela manipulação dos dados dos vértices, incluindo coordenadas, normais, cores, sendo responsável pela alteração de posição e textura, por exemplo. Ele altera a etapa de \textit{vertex shading}, descrita na Seção \ref{renderpipe}. Ele deve, ao menos, definir as coordenadas de posição. 
+	 A \textit{OpenGL} é uma API (\textit{Application Programming Interface}) utilizada em computação gráfica para modelagem tridimensional, lançada em 1992, sendo uma interface de \textit{software} para dispositivos de \textit{hardware}. Segundo \cite{opengl2011}, sua precursora foi a biblioteca Iris GL (\textit{Integrated Raster Imaging System Graphics Library}) da empresa \textit{Silicon Graphics}.
 
-	O \textit{fragment shader} opera nos fragmentos no processo de rasterização (selecionar e colorir os \textit{pixels}) antes de passar para a etapa de Fusão descrita na Seção \ref{renderpipe}, que faz as operações por fragmento (como o teste de profundidade). Ele deve, ao menos, atribuir uma cor para cada fragmento. 
+	Antes dos \textit{shaders} serem criados, as bibliotecas gráficas (como a \textit{OpenGL}) possuíam um processo de renderização completamente fixo. Porém, com a introdução dos \textit{shaders} é possível customizar parte deste processo, como é  mostrada na Figura \ref{pipeline}. O Anexo \ref{renderpipe} descreve as etapas do processo ilustrado.
+	\begin{figure}[ht]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/pipeline.jpg}
+	\caption{Processo de renderização da \textit{OpenGL}}
+	\label{pipeline}
+	\end{figure}
 
-	A linguagem GLSL (\textit{OpenGL Shading Language}) foi incluída na versão 2.0 da  \textit{OpenGL}, sendo desenvolvida com o intuito de dar aos programadores o controle de partes do processo de renderização (através dos \textit{shaders}), substituindo as funções fixas. A GLSL é baseada na linguagem C, mas antes de sua padronização o programador tinha que escrever o código na linguagem \textit{Assembly}, a fim de acessar os recursos da GPU. Além dos tipos clássicos do C, \textit{float}, \textit{int} e \textit{bool}, a GLSL possui outros tipos mostrados na Tabela \ref{tiposglsl}.
+	 Assim, existem dois tipos de \textit{shader} principais, relacionados à criação de diferentes efeitos visuais, que focam partes distintas do \textit{pipeline} gráfico: o \textit{vertex shader} e o \textit{fragment shader}. O \textit{vertex shader} é responsável pela manipulação dos dados dos vértices, sendo responsável pela manipulação das coordenadas de posição, normal e textura, por exemplo. Ele altera a etapa de processamento de vértices e deve, ao menos, definir as coordenadas de posição.  O \textit{fragment shader} opera na etapa de processamento dos fragmentos, em que deve atribuir uma cor para cada fragmento. 
 
-\begin{table}[h]
+\subsection{Linguagens dos \textit{shaders}}
+
+	
+	Os \textit{shaders} possuem uma linguagem de programação própria, que muitas vezes está vinculada com a API gráfica utilizada.  A Tabela \ref{lingshader} mostra as principais linguagens de programação de \textit{shaders} e as respectivas bibliotecas gráficas em que podem ser utilizadas. 
+
+	\begin{table}[ht]
+	\centering	
+	\begin{tabularx}{0.9\textwidth}{cX}
+		\toprule
+		\textbf{Linguagem de Programação} & \textbf{Biblioteca Gráfica Suportada}  \\
+		\midrule
+		\textit{GLSL: OpenGL Shading Language} & \textit{OpenGL} \\
+		\textit{HLSL: High Level Shading Language} & \textit{DirectX} e \textit{XNA} \\
+		\textit{Cg: C for Graphics} & \textit{DirectX} e \textit{OpenGL}\\
+		\bottomrule
+	\end{tabularx}
+	\caption{ Linguagens de programação para \textit{shaders}}
+	\label{lingshader}
+\end{table}
+
+	A linguagem GLSL (\textit{OpenGL Shading Language}) foi incluída na versão 2.0 da  \textit{OpenGL}, sendo desenvolvida com o intuito de dar aos programadores o controle de partes do processo de renderização. A GLSL é baseada na linguagem C, mas antes de sua padronização o programador tinha que escrever o código na linguagem \textit{Assembly}, a fim de acessar os recursos da GPU. Além dos tipos clássicos do C, \textit{float}, \textit{int} e \textit{bool}, a GLSL possui outros tipos mostrados na Tabela \ref{tiposglsl}.
+
+\begin{table}[ht]
 	\centering	
 	\begin{tabularx}{0.9\textwidth}{cX}
 		\toprule
@@ -27,9 +55,9 @@
 	\label{tiposglsl}
 \end{table}
 
-	Além disso, a GLSL possui variáveis chamadas qualificadoras, que fazem o interfaceamento do programa e os \textit{shaders} e entre \textit{shaders}. Estas varáveis são mostradas na Tabela \ref{tiposqualificadores}.
+	Além disso, a GLSL possui variáveis chamadas qualificadoras, que fazem o interfaceamento do programa e os \textit{shaders} e entre \textit{shaders}. Algumas destas varáveis são mostradas na Tabela \ref{tiposqualificadores}.
 
-	\begin{table}[h]
+	\begin{table}[ht]
 	\centering	
 	\begin{tabularx}{0.9\textwidth}{cX}
 		\toprule
@@ -44,16 +72,30 @@
 	\label{tiposqualificadores}
 	\end{table}
 
-\section{Utilização de \textit{Shaders} em Plataformas Móveis}
+\subsection{Utilização dos \textit{shaders} em \textit{OpenGL}}
 
-	\subsection{Plataforma \textit{Android}}
+	Para cada \textit{shader} -- relativos ao vértice e ao fragmento -- é necessário escrever o código que será compilado e feito o \textit{link}, gerando em um programa final que será utilizado pela \textit{OpenGL}. Caso os \textit{shaders} utilizem variáveis passadas pela \textit{OpenGL}, é necessário primeiramente encontrar a localização desta variável e depois setá-la. Se a variável for do tipo \textit{uniform}, por exemplo, adiquire-se a localização por meio da função \texttt{glGetUniformLocation(GLuint program, const GLchar *name)}, em que \textit{program} é o programa gerado a partir dos \textit{shaders} e \textit{name} é o nome da variável definida dentro do \textit{shader}. 
+
+	A Figura \ref{shader_use} mostra o processo de geração do programa a partir dos \textit{shaders} criados.
+
+	\begin{figure}[ht]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/shader_use.jpg}
+	\caption{Utilização dos \textit{shaders}}
+	\label{shader_use}
+	\end{figure}
+
+
+\subsection{\textit{Shaders} em Plataformas Móveis}
+
+	\subsubsection{Plataforma \textit{Android}}
 
 	O \textit{Android} começou a ser desenvolvido em 2003 na empresa de mesmo nome, fundada por Andy Rubin, a qual foi adquirida em 2005 pela empresa \textit{Google}. A \textit{Google} criou a \textit{Open Handset Alliance}, que junta várias empresas da indústria das telecomunicações, como a \textit{Motorola} e a \textit{Samsung}, por exemplo. Assim, elas desenvolveram o \textit{Android} como é conhecido hoje, o qual é um sistema operacional  \textit{open source} para dispositivos móveis (baseado no \textit{kernel} do \textit{Linux}), tendo a primeira versão beta lançada em 2007 e segundo \cite{android2013}, hoje é o sistema operacional para \textit{mobile} mais utilizado.
 
 	 Ainda de acordo com \cite{android2013}, em 2012 mais de 3,5 \textit{smartphones} com \textit{Android} eram enviados aos clientes para cada \textit{iPhone}. Em 2011, 500.000 novos \textit{devices} eram atividados a cada dia e em 2013, os números chegam a 1,5 milhões diários. O \textit{Android} também possui um mercado centralizado acessível por qualquer aparelho (\textit{tablet} ou \textit{smartphone}) chamado \textit{Google Play}, facilitando a publicação e aquisição de aplicativos. 
 	O \textit{Android}  possui diferentes versões, sendo elas mostradas na Tabela \ref{androidTab} abaixo.  As versões mais novas possuem mais \textit{features} que as anteriores: a versão \textit{Jelly Bean}, por exemplo, possui busca por voz a qual não estava disponível na versão \textit{Ice Cream Sandwich}. 
 
-\begin{table}[h]
+\begin{table}[ht]
 	\centering	
 	\begin{tabular}{cc}
 		\toprule
@@ -77,74 +119,22 @@
 
 	Uma das alternativas para o desenvolvimento em plataforma \textit{Android} é utilizar a ferramenta \textit{Eclipse}\footnote{http://www.eclipse.org/} (Figura \ref{eclipse}), que é um ambiente de desenvolvimento integrado (\textit{Integrated Development Environment} -- IDE) \textit{open source}. Adicionalmente, é preciso, de acordo com \cite{androidsdkmanager}, instalar o \textit{Android Software Development Kit}\footnote{http://developer.android.com/sdk/index.html} e o \textit{plugin} ADT (\textit{Android Development Tools})\footnote{http://developer.android.com/tools/sdk/eclipse-adt.html}, que permitem desenvolver e depurar aplicações pra \textit{Android}. Outra alternativa é utilizar o \textit{Android Studio}\footnote{http://developer.android.com/sdk/installing/studio.html}, lançado recentemente (2013) pela empresa \textit{Google}, que já vem com todos os pacotes e configurações necessárias para o desenvolvimento, incluindo o  \textit{Software Development Kit} (SDK), as ferramentas e os emuladores. 
 
-	\begin{figure}[h]
+	\begin{figure}[ht]
 	\centering
-		\includegraphics[keepaspectratio=true,scale=0.45]{figuras/eclipse.jpg}
+		\includegraphics[keepaspectratio=true,scale=0.35]{figuras/eclipse.jpg}
 	\caption{Ambiente de desenvolvimento \textit{Eclipse}}
 	\label{eclipse}
 	\end{figure}
 
-	\subsection{\textit{OpenGL ES}}
+	\subsubsection{\textit{OpenGL ES}}
 	
-	A \textit{OpenGL ES} (\textit{OpenGL for Embedded Systems}) foi lançada em 2003, e como citado em \cite{guha2011}, atualmente é uma das API's mais populares para programação de gráficos tridimensionais em pequenos \textit{devices}, sendo adotada por diversas plataformas como \textit{Android}, \textit{iOS}, Nintendo DS e \textit{Black Berry}. Segundo \cite{opengles2012}, ela possui três versõe: a 1.x que utiliza as funções fixas de renderização, a 2.x, que elimina as funções fixas e foca nos processos de renderização manipulados por \textit{pipelines} programáveis e a 3.x, que é completamente compatível com a  \textit{OpenGL} 4.3.  
+	A \textit{OpenGL ES} (\textit{OpenGL for Embedded Systems}) foi lançada em 2003, sendo a versão da \textit{OpenGL} para sistemas embarcados, e como citado em \cite{guha2011}, atualmente é uma das API's mais populares para programação de gráficos tridimensionais em pequenos \textit{devices}, sendo adotada por diversas plataformas como \textit{Android}, \textit{iOS}, Nintendo DS e \textit{Black Berry}.
 
-	\subsubsection{\textit{Pipeline de Renderização}}
-\label{renderpipe}
-
-
-	O processo de geração de gráficos tridimensionais em computadores tem início com a criação de cenas. Uma cena é composta por objetos, que por sua vez são compostos por primitvas geométricas (como triângulos, quadrados, linhas, entre outros) que são constituídas de vértices, estabelecendo a geometria. Todos estes vértices seguem um processo similar de processamento para formarem uma imagem na tela.  Este processo pode ser divido em dois subprocessos principais: o de geometria e o de rasterização.  Segundo \cite{realtime}, o processo de geometria pode ser divido nas etapas mostradas na Figura \ref{geometria}.
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.7]{figuras/geometria.jpg}
-	\caption{Etapas do subprocesso de geometria}
-	\label{geometria}
-	\end{figure}
-
-	Na etapa Transformações de Modelagem e Visualização, as coordenadas do objeto são transformadas, de forma que ele possa ser posicionado, orientado e tenha um tamanho determinado. Após o ajuste das coordenadas, é dito que o objeto está localizado no espaço do mundo e, em seguida, é aplicada a transformação de visualização, que tem como objetivo estabelecer a câmera na origem, mirando em direção ao eixo z negativo. 
-
-	A próxima etapa é a de \textit{Vertex Shading}, responsável por modelar parte dos efeitos (a outra parte é feita durante a rasterização), pois renderizar somente a forma e posição não é suficiente.  Estes efeitos incluem as características dos materiais atribuídos aos objetos, como também os efeitos da luz, sendo que cada efeito pode ser modelados de diferentes formas, como representações de descrições físicas. Muitos dados são armazenados em cada vértice, como a sua localização e e o vetor normal associado (que indica a orientação do vértice no espaço), por exemplo. Assim, os resultados do \textit{vertex shading} são mandados para o subprocesso de rasterização para serem interpolados. 
-
-	A etapa de projeção é responsável por transformar o volume de visualização aplicando métodos de projeção, como a perspectiva e a ortográfica (também chamada de paralela). A projeção ortográfica resulta em uma caixa retangular, em que linhas paralelas permanecem paralelas após a transformação. Na perspectiva, quanto mais longe um objeto se encontra, menor ele aparecerá após a projeção: linhas paralelas tendem a convergir no horizonte. Ela resulta em um tronco de pirâmide com base retangular. 
-
-	Somente as primitivas gráficas que se encontram dentro do volume de visualização que serão renderizadas. Assim, o recorte (chamado \textit{clipping}) é responsável por não passar adiante as primitivas que se encontram fora da visualização. Primitivas que estão parcialmente dentro são recortadas, ou seja, o vértice que está de fora não é renderizado e é substituído por um novo vértice (dentro do volume de visualização). A  Figura \ref{clip} mostra esta ideia.
-
-       \begin{figure}[h]
-       \centering
-	\includegraphics[keepaspectratio=true,scale=0.8]{figuras/clip.jpg}
-       \caption{Antes do recorte (cubo de visualização esquerdo) e depois do recorte (cubo de visualização direito)}
-       \label{clip}
-       \end{figure}
-
-
-	A última etapa de geometria é a de Mapeamento na Tela, cuja entrada é formada pelas primitivas recortadas e as coordenadas ainda tridimensionais. Assim, esta etapa tem como finalidade mapear as coordenadas tridimensionais em coordenadas de tela. Para isto, o centro de um \textit{pixel} (\textit{picture element}) é igual a coordenada 0,5. Então, \textit{pixels} de [0; 9] equivalem à cobertura das coordenadas de [0,0; 10,0). E os valores dos \textit{pixels} crescem da esquerda para a direita e de cima para baixo.
-
-	Terminado o processo de geometria, o próximo a ser feito é o de rasterização, em que seu objetivo é computar e definir as cores para cada \textit{pixel}. Este processo pode ser dividido nas quatro etapas mostradas na Figura \ref{rasteriza}.
-
-   \begin{figure}[h]
-       \centering
-	\includegraphics[keepaspectratio=true,scale=0.8]{figuras/rasteriza.jpg}
-       \caption{Etapas do processo de rasterização}
-       \label{rasteriza}
-       \end{figure}
-
-	Na etapa de Configuração dos Triângulos, dados são computados para as superfícies dos triângulos. Eles serão utilizados para a conversão dos dados vindos do processo de geometria (coordenadas e informações provenientes do \textit{vertex shader}) em \textit{pixels} na tela e também para o processo de interpolação. 
-
-	A Travessia de Triângulos checa se cada um dos \textit{pixels} está dentro de um triângulo ou não. Para cada \textit{pixel} que sobrepõe um triângulo, um fragmento é gerado, conforme mostrado na Figura \ref{traversal}. Cada fragmento tem informações sobre sua localização na tela, no triângulo e sua profundidade, e as propriedades dos fragmentos dos triângulos são geradas usando dados interpolados entre os três vértices do triângulo. 
-
-  \begin{figure}[h]
-       \centering
-	\includegraphics[keepaspectratio=true,scale=0.8]{figuras/traversal.jpg}
-       \caption{Travessia de triângulos: fragmentos sendo gerados}
-       \label{traversal}
-       \end{figure}
-
-	As computações por \textit{pixel} são calculadas durante o \textit{Fragment Shading}, em que o resultado consiste em uma ou mais cores a serem passadas para o próximo estagio. Muitas técnicas podem ser aplicadas durante esta etapa, e uma das mais importantes é a de texturização (que aplica no fragmento do objeto parte de uma imagem). 
-
-	 A informação relacionada com cada \textit{pixel} é armazenada no \textit{color buffer}, que é um \textit{array} de cores. Assim, a última etapa é a de fusão, que é responsável por combinar a cor do fragmento gerada pelo estágio anterior com a cor armazenada no \textit{buffer}. Ela também é responsável pela visibilidade, em que o \textit{color buffer} deve conter as cores das primitivas da cena que são visíveis do ponto de vista da câmera. Isto é feito através do Z-\textit{buffer} (também chamado de \textit{buffer} de profundidade), que para cada \textit{pixel} armazena a coordenada $z$ a partir da câmera até a primitiva mais próxima.  Então, a coordenada $z$ de uma primitiva que está sendo computada é comparada com  o valor do Z-\textit{buffer} para o mesmo \textit{pixel}. Se o valor for menor, quer dizer que a primitiva esta mais próxima da câmera do que o valor da anterior, e assim, o valor do Z-\textit{buffer} é atualizado para o atual. Se o valor corrente for maior, então o valor do Z-\textit{buffer} não é modificado. 
+	Segundo \cite{opengles2012}, ela possui três versõe: a 1.x que utiliza as funções fixas de renderização, a 2.x, que elimina as funções fixas e foca nos processos de renderização manipulados por \textit{pipelines} programáveis (\textit{shaders}) e a 3.x, que é completamente compatível com a  \textit{OpenGL} 4.3.  
 
 
 \section{Teoria Matemática para Implementação de \textit{Shaders}}
+\label{teoria}
 
 	\subsection{Equação de Iluminação de \textit{Phong}}
 	\label{flatgouphon}
@@ -157,7 +147,7 @@
 
 	 A \textit{OpenGL} oferece este tipo de \textit{shading} como opção, embora o mesmo possa ser implementado utilizando \textit{shaders}.  Ele requer maior poder de processamento do que a técnica \textit{Gouraud Shading}, pois cálculos nos vértices são computacionalmente menos intensos comparados aos cálculos feitos por \textit{pixels}. Porém, a desvantagém da técnica de \textit{Gouraud Shading} é que efeitos de luz que não afetam um vértice de uma superfície não surtirão efeito como, por exemplo, efeitos de luz localizados no meio de um polígono não serão renderizados corretamente. Porém, se o efeito ocorrer em um vértice, o \textit{Phong Shading} renderiza corretamente o vértice, mas irá interpolar erroneamente. A Figura \ref{fgp} mostra a diferença entre as três técnicas de \textit{shading} aplicadas em uma esfera com uma luz direcional. 
 
-	\begin{figure}[h]
+	\begin{figure}[ht]
 	\centering
 		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/flatgp.jpg}
 	\caption{Comparação entre as técnicas de \textit{shading}}
@@ -167,7 +157,6 @@
 	\subsection{Renderização de Efeito \textit{Cartoon}}
 
 	\subsection{Renderização de Efeito de Reflexão}
-		\subsubsection{Conceitos de Álgebra Linear Utilizados}
 
 \section{Complexidade Algorítmica Calculada de Forma Empírica}
 
@@ -189,7 +178,7 @@
 
 	A maioria dos algorítmos possui um parâmetro $n$ (o número de dados a serem processados), que afeta mais significativamente o tempo de execução. De acordo com \cite{complexidade2}, a maioria dos algorítmos se enquadram nos tempos de execução proporcionais aos valores da Tabela \ref{complexidadeAlgoritmica}.
 
-\begin{table}[h]
+\begin{table}[ht]
 	\centering	
 	\begin{tabularx}{0.9\textwidth}{cX}
 		\toprule
@@ -268,11 +257,11 @@
 
 	\begin{equation}
 	M = \left[\begin{array}{cc}
-               	1 &  \ln{x1} \\
-               	1 & \ln{x2}  \\
+               	1 &  x1 \\
+               	1 & x2  \\
 		. & .  \\
                	. & .  \\
-		1 & \ln{xn}
+		1 & xn
           	         \end{array}\right] \mbox{,} \quad
 	y = \left[\begin{array}{c}
                	\ln{y1} \\
@@ -291,12 +280,12 @@
 	\end{equation} 
 
 
-\subsection{Formato \textit{obj}}
+\section{Representação de Objetos Tridimensionais: Formato \textit{obj}}
 \label{formatobj}
 
 	Em uma cena, os modelos tridimensionais podem variar muito mais do que formas básicas como uma esfera e um torus, por exemplo. Assim, o formato \textit{obj} foi criado pela empresa  \textit{Wavefront} e é um arquivo para leitura de objetos tridimensionais, a fim de carregar geometrias mais complexas. Segundo \cite{graphicsprog}, neste arquivo cada linha contém informações a respeito do modelo, começando com uma palavra-chave, seguida da informação. A  Tabela \ref{palavraschave} mostra as principais palavras-chave utilizadas. 
 
-\begin{table}[h]
+\begin{table}[ht]
 	\centering	
 	\begin{tabular}{cl}
 		\toprule
@@ -316,7 +305,7 @@
 
 	A face do polígono (f) possui três índices que indicam os vértices do triângulo. Assim, cada vértice possui um índice (que depende de quando ele foi declarado), começando a partir de um. A Figura \ref{objFile} mostra o exemplo de um arquivo obj para a leitura de um cubo. 
 
-	\begin{figure}[h]
+	\begin{figure}[ht]
 	\centering
 		\includegraphics[keepaspectratio=true,scale=0.9]{figuras/obj.jpg}
 	\caption{Arquivo \textit{obj} de um cubo}

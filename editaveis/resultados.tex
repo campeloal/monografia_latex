@@ -1,103 +1,44 @@
 \chapter[Resultados]{Resultados}
+\label{result}
 
-	Para cada \textit{shader} foram plotados os gráficos para a métrica de vértice e para a de fragmento. Após as plotagens, percebeu-se que todos os gráficos de todos os \textit{shaders} relacionados ao vértice deram uma função linear (diferindo na inclinação), e os relacionados ao fragmento deram uma curva de formato semelhante. A Figura \ref{plotred}, Figura \ref{plottoon}, Figura \ref{plotphong}, Figura \ref{plotgou}, Figura \ref{plotrefl}, Figura \ref{plotcube}, Figura \ref{plotflat}, Figura \ref{plottex} e Figura \ref{plotcolor}  mostram os gráficos plotados, com relação ao \textit{vertex} e \textit{fragment shaders} de cada \textit{shader} implementado, que demonstram a semelhança das curvas
+	Para cada \textit{shader} foram plotados os gráficos para as métricas relacionadas ao vértice e ao fragmento. Após as plotagens, percebeu-se que todos os gráficos de todos os \textit{shaders} relacionados ao vértice deram uma função linear (diferindo na inclinação), e os relacionados ao fragmento deram uma curva de formato semelhante. A Figura \ref{plotred} e a Figura \ref{plotrefl} mostram os gráficos plotados, com relação ao \textit{vertex} e \textit{fragment shaders} de cada \textit{shader} implementado, que demonstram a semelhança destas curvas
 
-	\begin{figure}[h]
+	 Os ajustes de cada curva (linear, exponencial, segundo e terceiro graus) também foram calculados e plotados (Figura \ref{linear} referente ao \textit{Reflection Shader}), em que também avisa-se qual foi o menor erro associado, a fim de descobrir qual a curva do \textit{fragment shader}. Pela a análise do menor erro, calculado de acordo com a Seção \ref{metminqua}, todos os \textit{shaders} indicaram uma curva de segundo grau.
+
+	As equações calculadas para cada \textit{shader} (relacionadas ao vértice e fragmento) são mostradas na Tabela \ref{equacoes}. Assim, o processo utilizado neste trabalho, da análise da complexidade algorítimica calculada de forma empírica, pode ser resumido na Figura \ref{processo}. A etapa de Implementar \textit{Shaders} pode ser feita por meio da utilização da base do projeto implementado, extendendo-se da classe \textit{Shader} e implementando os métodos abstratos, como explicado na Seção \ref{imp}. A etapa Realização das Medições é feita de forma manual, dependendo do \textit{profiler} de GPU adequado para o \textit{device} utilizado. E a etapa Plotar Gráficos, Ajustar Curvas e Obter Equações é feita através do \textit{script} criado para o ajuste das curvas.
+
+	\begin{figure}[ht]
 	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/red.png}
-	\caption{Gráficos: \textit{red shader}}
+		\includegraphics[keepaspectratio=true,scale=0.55]{figuras/processo.png}
+	\caption{Processo da Análise de Complexidade Algorítmica.}
+	\label{processo}
+	\end{figure}
+
+	\begin{figure}[ht]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.55]{figuras/red.png}
+	\caption{Gráficos: \textit{Red Shader}, \textit{Toon shader}, \textit{Gouraud Shader},  \textit{Phong Shader} e  \textit{Flat Shader}}
 	\label{plotred}
 	\end{figure}
- 
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/toonplot.png}
-	\caption{Gráficos: \textit{toon shader}}
-	\label{plottoon}
-	\end{figure}	
 
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/phongplot.png}
-	\caption{Gráficos: \textit{phong shader}}
-	\label{plotphong}
-	\end{figure}
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/gouplot.png}
-	\caption{Gráficos: \textit{gouraud shader}}
-	\label{plotgou}
-	\end{figure}
  
-	\begin{figure}[h]
+	\begin{figure}[ht]
 	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/reflectionplot.png}
-	\caption{Gráficos: \textit{reflection shader}}
+		\includegraphics[keepaspectratio=true,scale=0.55]{figuras/cubeplot.png}
+	\caption{Gráficos: \textit{Cubemap Shader}, \textit{Texture Shader}, \textit{Random Shader}, \textit{Reflection Shader}}
 	\label{plotrefl}
 	\end{figure}
 
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/cubeplot.png}
-	\caption{Gráficos: \textit{cube map shader}}
-	\label{plotcube}
-	\end{figure}
 
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/flatplot.png}
-	\caption{Gráficos: \textit{flat shader}}
-	\label{plotflat}
-	\end{figure}
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/texplot.png}
-	\caption{Gráficos: \textit{simple texture shader}}
-	\label{plottex}
-	\end{figure}
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/randomplot.png}
-	\caption{Gráficos: \textit{random shader}}
-	\label{plotcolor}
-	\end{figure}
-
-	 Os ajustes de cada curva (linear, exponencial, segundo e terceiro graus) também foram plotados (Figura \ref{linear}, Figura \ref{exp}, Figura \ref{sec} e Figura \ref{third} referentes ao \textit{reflection shader}), em que avisa-se qual foi o menor erro associado. Pela a análise do menor erro, calculado de acordo com a Seção \ref{metminqua}, todos os \textit{shaders} indicaram uma curva de segundo grau.
-
-	\begin{figure}[h]
+	\begin{figure}[ht]
 	\centering
 		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/reflectionlinear.png}
-	\caption{Ajuste linear}
+	\caption{Ajustes linear, para função de segundo, terceiro graus e exponencial}
 	\label{linear}
 	\end{figure}	
+	
 
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/reflectionexponential.png}
-	\caption{Ajuste exponencial}
-	\label{exp}
-	\end{figure}	
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/reflectionsec.png}
-	\caption{Ajuste função de segundo grau}
-	\label{sec}
-	\end{figure}	
-
-	\begin{figure}[h]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/reflectionthird.png}
-	\caption{Ajuste função de terceiro grau}
-	\label{third}
-	\end{figure}	
-
-	As equações calculadas para cada \textit{shader} (relacionadas ao vértice e fragmento) são mostradas na Tabela \ref{equacoes}.
-
-	\begin{table}[h]
+	\begin{table}[ht]
 	\centering	
 	\begin{tabularx}{0.9\textwidth}{cXX}
 		\toprule
