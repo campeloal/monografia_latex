@@ -1,4 +1,4 @@
-\chapter[Metodologia]{Metodologia}
+\chapter[Desenvolvimento]{Desenvolvimento}
 
 	Este capítulo descreve a metodologia adotada para a realização deste trabalho, mostrando desde os equipamentos utilizados até como foram feitos os procedimentos de implementação, coleta e análise dos dados. 
 
@@ -60,7 +60,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{shader_splash}
 	\end{figure}
 
-	A tela de \textit{front-end} é responsável pela interação com o usuário, repassando as informações de entrada para o \textit{back-end}. E de acordo com \cite{androidsdkmanager}, a plataforma \textit{Android} utiliza o termo \textit{Activity} para descrever esta tela de \textit{front-end} da aplicação. Ela possui elementos de \textit{design} como texto, botões, gráficos, entre outros. No contexto deste trabalho, há duas classes \textit{Activity}, a \textit{Shader} e a \textit{Splash}. 
+	A tela de \textit{front-end} é responsável pela interação com o usuário, repassando as informações de entrada para o \textit{back-end}. E de acordo com \cite{androidsdkmanager}, a plataforma \textit{Android} utiliza o termo \textit{Activity} para descrever esta tela de \textit{front-end} da aplicação. Ela possui elementos de \textit{design} como texto, botões, gráficos, entre outros. No contexto deste trabalho, há duas classes \textit{Activity} (Figura \ref{shader_splash}), a \textit{Shader} e a \textit{Splash}. 
 
 	A \textit{Splash Activity} (Figura  \ref{splash_act}) é responsável pela visualização da tela de \textit{loading} enquanto carrega os recursos necessários para o programa (como a leitura dos modelos tridimensionais em formato \textit{obj} e das imagens usadas para texturização) por meio do uso de \textit{thread}. Estes recursos são gerenciados pela classe \textit{Resources}, que utiliza o padrão de projeto \textit{Singleton}, que garante a existência de apenas uma instância da classe, que será acessada posteriormente.
 
@@ -142,14 +142,14 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 \subsection{Renderização}    
 
-	\begin{figure}[ht]
+	\begin{figure}[h!]
 	\centering
 		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/renderer.jpg}
 	\caption{Detalhamento da classe \textit{Renderer}}
 	\label{renderer}
 	\end{figure}
 
-	A Figura \ref{renderer} mostra a classe \textit{Renderer}, responsável pela renderização, que funciona como uma controladora, sendo o ponto principal  das chamadas provenientes da \textit{view} (\textit{ShaderActivity}) para a camada mais abaixo (\textit{3DObject}, \textit{Shader} e \textit{Timer}). Ela que implementa as funções da biblioteca \textit{OpenGL ES} \texttt{onSurfaceCreated},  \texttt{onDrawFrame} e \texttt{onSurfaceChanged}. A primeira função é chamada apenas uma vez quando a \textit{view} da \textit{OpenGL ES} é instanciada, em que faz-se todas as configurações nesta função, como por exemplo, criação de texturas. A segunda função é chamada em \textit{loop}, em que faz-se a renderização por meio da função \texttt{glDrawArrays}. 
+	A Figura \ref{renderer} mostra a classe \textit{Renderer}, responsável pela renderização, que funciona como uma controladora, sendo o ponto principal  das chamadas provenientes da \textit{view} (\textit{ShaderActivity}) para as classes de \textit{model} (\textit{3DObject}, \textit{Shader} e \textit{Timer}). Ela que implementa as funções da biblioteca \textit{OpenGL ES} \texttt{onSurfaceCreated},  \texttt{onDrawFrame} e \texttt{onSurfaceChanged}. A primeira função é chamada apenas uma vez quando a \textit{view} da \textit{OpenGL ES} é instanciada, e é responsável por todas as configurações, como por exemplo, a criação de texturas. A segunda função é chamada em \textit{loop}, em que é feita a renderização por meio da função \texttt{glDrawArrays}. 
 
 \subsection{\textit{Shaders}}      
 
@@ -160,7 +160,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{shaders_diag}
 	\end{figure}
 
-	A classe \textit{Shader} (Figura \ref{shaders_diag}) é responsável por ler, fazer o \textit{attach} e o \textit{link} do \textit{ vertex} e do \textit{fragment shaders}. Além disso, ela possui os métodos abstratos \texttt{getParamsLocation} e \texttt{initShaderParams(Hastable params)}. Assim, todos os \textit{shaders} que herdam desta classe, são obrigados a implementar estes métodos. O primeiro método faz o armazenamento da localização de cada variável especificada dentro do \textit{shader}, já o segundo método inicializa estas variáveis por meio de um \textit{hash} que é passado como um parâmetro pela classe \textit{Renderer}. Assim, todos os \textit{shaders} implementados herdam da classe \textit{Shader} e implementam seus métodos abstratos. Estes \textit{shaders} podem ser vistos na Figura \ref{shaders_impl}.  
+	A classe \textit{Shader} (Figura \ref{shaders_diag}) é responsável por ler, fazer o \textit{attach} e o \textit{link} do \textit{ vertex} e do \textit{fragment shaders}. Além disso, ela possui os métodos abstratos \texttt{getParamsLocation} e \texttt{initShaderParams(Hastable params)}. Assim, todos os \textit{shaders} que herdam desta classe são obrigados a implementar estes métodos. O primeiro método faz o armazenamento da localização de cada variável especificada dentro do \textit{shader}, já o segundo método inicializa estas variáveis por meio de um \textit{hash} que é passado como um parâmetro pela classe \textit{Renderer}. Assim, todos os \textit{shaders} implementados herdam da classe \textit{Shader} e implementam seus métodos abstratos. Estes \textit{shaders} podem ser vistos na Figura \ref{shaders_impl}.  
 
 	\begin{figure}[ht]
 	\centering
@@ -169,11 +169,11 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{shaders_impl}
 	\end{figure}
 
-	A seguir, alguns dos \textit{shaders} implementados serão explicados:
+	A seguir, alguns dos \textit{shaders} implementados serão apresentados:
 
 \subsubsection{\textit{Phong Shader}}
 
-	O \textit{vertex} e \textit{fragment shaders} do \textit{phong shading} implementam a técnica descrita na Seção \ref{flatgouphon}, em que primeiramente interpolam-se os valores das normais das primitivas e então computam-se os cálculos de luz para cada fragmento, utilizando as normais interpoladas. O Código \ref{codphongvs} e o Código \ref{codphongfs} mostram as definições do \textit{vertex} e \textit{fragment shaders}, respectivamente, em que para isso é necessário definir as propriedades do material pelo programa.  
+	O \textit{vertex} e \textit{fragment shaders} do \textit{phong shading} implementam a técnica descrita na Seção \ref{flatgouphon}, em que primeiramente interpolam-se os valores dos vetores normais das primitivas e então computam-se os cálculos de luz para cada fragmento, utilizando os normais interpolados. O Código \ref{codphongvs} e o Código \ref{codphongfs} mostram as definições do \textit{vertex} e \textit{fragment shaders}, respectivamente, os quais utilizam as variáveis que definem as propriedades do material.  
 
 	\lstinputlisting[language=C, label = {codphongvs}, caption = {\textit{Phong Shader}:  \textit{vertex shader}}]{codigos/phong_vs.txt}
 
@@ -181,17 +181,17 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	
 \subsubsection{\textit{Red Shader}}
 	
-	O \textit{shader} que define a cor para vermelha é muito simples,  seu \textit{vertex shader} apenas estabelece que a posição do vértice  se dá pelo pela multiplicação da coordenada ( variável \texttt{aPosition} ) com a matriz de projeção, visualização e modelagem como é mostrada no Código \ref{codredvs}. 
+	O \textit{shader} que define a cor do fragmento como vermelha é muito simples:  o \textit{vertex shader} apenas estabelece que a posição do vértice  se dá pela multiplicação da matriz de projeção, visualização e modelagem pela coordenada (variável \texttt{aPosition}) como é mostrada no Código \ref{codredvs}. 
 	
 	\lstinputlisting[language=C, caption = {\textit{Red Shader}:  \textit{vertex shader}}, label = {codredvs}]{codigos/red_vs.txt}
 
-	Já o seu \textit{fragment shader} (Código \ref{codredfs}) estabele que todo fragmento possui a cor vermelha, por meio da palavra restrita \texttt{gl\_FragColor}.
+	Já o seu \textit{fragment shader} (Código \ref{codredfs}) estabele que todo fragmento possui a cor vermelha, por meio da variável pré-definida \texttt{gl\_FragColor}.
 	
 	\lstinputlisting[language=C, caption = {\textit{Red Shader}:  \textit{fragment shader}}, label = {codredfs}]{codigos/red_ps.txt}
 
 \subsubsection{\textit{Toon Shader}}
 
-	O  \textit{toon shader} calcula a intensidade da luz por vértice para escolher uma das cores pré-definidas, como é explicado na Seção \ref{teoria}. O Código  \ref{codtoonvs} mostra o cálculo da intensidade da luz por vértice, pegando primeiro a direção da luz (definida como uma variável \texttt{uniform} passada pelo programa) para depois fazer o produto escalar entre ela e a normal (cálculo da intensidade da luz).  
+	O  \textit{toon shader} calcula a intensidade da luz por vértice para escolher uma das cores pré-definidas, como apresentado na Seção \ref{teoria}. O Código  \ref{codtoonvs} mostra o cálculo da intensidade da luz por vértice, pegando primeiro a direção da luz (definida como uma variável \texttt{uniform} passada pelo programa) para depois fazer o produto escalar entre ela e o vetor normal (cálculo da intensidade da luz).  
 
 	\lstinputlisting[language=C,label = {codtoonvs}, caption = {\textit{Toon Shader}:  \textit{vertex shader}} ]{codigos/toon_vs.txt}
 
@@ -201,27 +201,27 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 \subsubsection{\textit{Simple Texture Shader}}
 
-	O \textit{vertex shader} do \textit{simple texture shading} primeiramente armazena as coordenadas de textura numa variável do tipo \textit{varying} (Código \ref{codtexvs}), e as repassa para o \textit{fragment shader}, além de também definir a posição.  
+	O \textit{vertex shader} do \textit{simple texture shading} primeiramente armazena as coordenadas de textura numa variável do tipo \textit{varying} (Código \ref{codtexvs}), e as repassa para o \textit{fragment shader}, além de também definir a posição do vértice.  
 
 	\lstinputlisting[language=C, caption =  {\textit{Simple Texture Shader}:  \textit{vertex shader}}, label = {codtexvs} ]{codigos/simple_tex_vs.txt}
 
-	No Código \ref{codtexfs}, o \textit{fragment shader} por sua vez, utiliza a textura passada pelo programa e aplica a coordenada de textura, repassada pelo \textit{vertex shader}, no fragmento por meio da função  \texttt{texture2D}.
+	No Código \ref{codtexfs}, o \textit{fragment shader}, por sua vez, utiliza a textura passada pelo programa e aplica a coordenada de textura, repassada pelo \textit{vertex shader}, no fragmento por meio da função  \texttt{texture2D}.
 
 	\lstinputlisting[language=C, caption =  {\textit{Simple Texture Shader}:  \textit{fragment shader}}, label = {codtexfs} ]{codigos/simple_tex_ps.txt}
 
 \subsubsection{\textit{CubeMap Shader}}	
 
-	 O \textit{CubeMap Shader} implementa a técnica também descrita na Seção \ref{teoria}. O seu  \textit{vertex shader} é simples e só define a posição do vértice (Código \ref{codcubemapvs}). 
+	 O \textit{vertex shader} do \textit{CubeMap Shader} é simples e só define a posição do vértice (Código \ref{codcubemapvs}). 
 
 	\lstinputlisting[language=C, caption =  {\textit{CubeMap Shader}:  \textit{vertex shader}}, label = {codcubemapvs} ]{codigos/cubemap_vs.txt}
 
-	O  \textit{fragment shader} (Código \ref{codcubemapps}), por sua vez, utiliza a função \texttt{textureCube} utiliza a normal para fazer o mapeamento da textura. 
+	O  \textit{fragment shader} (Código \ref{codcubemapps}), por sua vez, utiliza a função \texttt{textureCube} que recebe como parâmetro o vetor normal para fazer o mapeamento da textura. 
 
 	\lstinputlisting[language=C, caption =  {\textit{CubeMap Shader}:  \textit{fragment shader}}, label = {codcubemapps} ]{codigos/cubemap_ps.txt}
 	
 \subsubsection{\textit{Reflection Shader}}
 
-	O \textit{vertex shader} do \textit{shader} de reflexão é responsável por indicar que a posição do vértice se dá pela multiplicação da coordenada obtida pela variável \texttt{vec4 aPosition} com a matriz de projeção, visualização e modelagem, como é mostrado no Código \ref{codreflvs}. Além disso, ele declara dois vetores do tipo \textit{varying} (para passar ao \textit{fragment shader}) que estão relacionados com o vetor de direção da câmera e a normal. 
+	O \textit{Reflection Shader} implementa a técnica descrita na Seção \ref{ref_t}. O seu \textit{vertex shader} é responsável por indicar que a posição do vértice se dá pela multiplicação da coordenada obtida pela variável \texttt{vec4 aPosition} com a matriz de projeção, visualização e modelagem, como é mostrado no Código \ref{codreflvs}. Além disso, ele declara dois vetores do tipo \textit{varying} (para passar ao \textit{fragment shader}) que estão relacionados com o vetor de direção da câmera com o vetor normal. 
 
 	\lstinputlisting[language=C, caption = {\textit{Reflection Shader}:  \textit{vertex shader}}, label = {codreflvs}]{codigos/reflection_vs.txt}
 
@@ -229,18 +229,18 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 	\lstinputlisting[language=C, caption = {\textit{Reflection Shader}:  \textit{fragment shader}}, label = {codreflfs}]{codigos/reflection_ps.txt}
 
-\section{Análise da Complexidade Algorítmica Experimentalmente}
+\section{Análise Experimental da Complexidade Algorítmica}
 
-	A análise da complexidade algorítmica, experimentalmente, foi feita coletando-se diversas medições para cada modelo tridimensional (com diferentes quantidades de polígonos), e em seguida, plotaram-se os gráficos e eles foram ajustados à uma curva que tivesse melhor aproximação.  
+	A análise experimental da complexidade algorítmica foi através da coleta de diversas medições para cada modelo tridimensional (com diferentes quantidades de polígonos). Estas medidas foram plotadas em gráficos, cujas curvas foram ajustadas através do método dos mínimos quadrados (Seção \ref{metminqua}). 
 
 \subsection{Medição do Tempo de Renderização Realizada pela GPU}
 \label{gpu}
 
-	A fim de realizar a análise de complexidade algorítmica, primeiro buscou-se coletar uma métrica relacionada ao tempo de renderização dos \textit{shaders}. E por meio de pesquisa e consulta na documentação da \textit{OpenGL ES}, conseguiu-se encontrar uma extensão desta biblioteca gráfica que permite contabilizar o tempo, em nanosegundos, necessário para realizar chamadas de \textit{OpenGL ES} especificadas. Esta extensão se chama \texttt{GL\_EXT\_disjoint\_timer\_query}\footnote{http://www.khronos.org/registry/gles/} e só está disponível para o dispositivo \textit{Nexus 4} a partir da versão de Android 4.4 (\textit{KitKat}).
+	A fim de estimar experimentalmente a análise da complexidade algorítmica dos \textit{shaders} implementados, primeiro buscou-se coletar uma métrica relacionada ao tempo de renderização. Por meio de pesquisa e consulta na documentação da \textit{OpenGL ES}, conseguiu-se encontrar uma extensão desta biblioteca gráfica que permite contabilizar o tempo, em nanosegundos, necessário para realizar chamadas de \textit{OpenGL ES} específicas. Esta extensão se chama \texttt{GL\_EXT\_disjoint\_timer\_query}\footnote{http://www.khronos.org/registry/gles/} e só está disponível para o dispositivo \textit{Nexus 4} a partir da versão de Android 4.4 (\textit{KitKat}).
 
-	Para utilizar esta extensão foi necessário instalar e configurar o NDK (\textit{Native Development Kit}) e alterar o \textit{header} da versão da \textit{OpenGL ES} utilizada, adicionando as linhas de código relacionadas à extensão almejada. Assim, foi possível utilizar as novas funções desta extensão pegando os seus endereços por meio do comando eglGetProcAddress ( disponível por meio da API EGL que faz o interfaceamento entre a \textit{OpenGL ES} e o sistema operacional). A integração entre o codigo em linguagem C e o código em Java é feita por meio do JNI (\textit{Java Native Interface}).
+	Para utilizar esta extensão foi necessário instalar e configurar o NDK (\textit{Native Development Kit}) e alterar o \textit{header} da versão da \textit{OpenGL ES} utilizada, adicionando as linhas de código relacionadas à extensão almejada. Assim, foi possível utilizar as novas funções desta extensão pegando os seus endereços por meio do comando \texttt{eglGetProcAddress} (disponível por meio da API EGL que faz o interfaceamento entre a \textit{OpenGL ES} e o sistema operacional). A integração entre o código em linguagem C e o código em Java foi feita por meio da JNI (\textit{Java Native Interface}).
 
-	Feita a configuração e implementação da coleta de tempo para execução da função \texttt{glDrawArrays} (responsável pela renderização), foram plotados os gráficos - para cada \textit{shader} - do tempo em nanosegundos \textit{versus} a quantidade de polígonos. Porém, após feita as plotagens para todos os \textit{shaders}, foi possível perceber que as formas de todas as funções se assemelhavam a uma exponencial (como é visto na Figura  \ref{ndk_exp} referente ao \textit{phong shader}). É possível ver esta semelhança trocando-se a escala do grafico natural para logarítmica (apenas no eixo $y$), pois uma exponencial nesta escala vira uma reta (como demonstrado na Seção \ref{metminqua} e na  Figura  \ref{ndk_exp}). Então, chegou-se à conclusão que ao se coletar o tempo de realização da função \textit{glDrawArrays}, estava-se contabilizando todo o processo de renderização e não somente o de aplicação do \textit{vertex} e  \textit{fragment}  \textit{shaders}. Então, viu-se necessário a coleta de métricas específicas relacionadas ao \textit{vertex} e \textit{fragment} \textit{shaders}. 
+	Feita a configuração e implementação da coleta de tempo para execução da função \texttt{glDrawArrays} (responsável pela renderização), foram plotados os gráficos -- para cada \textit{shader} -- do tempo em nanosegundos \textit{versus} a quantidade de polígonos. Porém, após feita as plotagens dos gráficos para todos os \textit{shaders}, foi possível perceber que as formas de todas as funções se assemelhavam a uma exponencial (como é visto na Figura  \ref{ndk_exp} referente ao \textit{phong shader}). É possível ver esta semelhança trocando-se a escala do gráfico natural para logarítmica (apenas no eixo $y$), pois uma exponencial nesta escala se torna uma reta (como demonstrado na Seção \ref{metminqua} e na  Figura  \ref{ndk_exp}). Então, chegou-se à conclusão que ao se coletar o tempo de realização da função \textit{glDrawArrays}, estava-se contabilizando todo o processo de renderização e não somente o de aplicação do \textit{vertex} e  \textit{fragment}  \textit{shaders}. E foi possível concluir que era necessário coletar de métricas específicas relacionadas ao \textit{vertex} e \textit{fragment} \textit{shaders}. 
 
 	\begin{figure}[ht]
 	\centering
@@ -251,9 +251,9 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 \subsection{Medição do Número de Instruções por Segundo, Plotagem e Ajuste das Curvas}
 
-	Para a coleta de medições relacionadas ao \textit{vertex} e \textit{fragment} \textit{shaders}, utilizou-se a ferramenta \textit{Adreno Profiler}. As métricas escolhidas foram a de número de instruções por segundo por vértice e número de instruções por segundo por fragmento e elas foram coletadas para cada número específico de polígonos, sendo exportadas no formato CSV. 	A fim de ajustar as curvas a uma função, e consequentemente analisar a complexidade algorítmica, utilizou-se o método dos mínimos quadrados (Seção Seção \ref{metminqua}) para uma função linear, quadrática, cúbica e exponencial, calculando-se os respectivos erros, e podendo assim, descobrir qual curva se aproxima mais. 
+	Para a coleta de medições relacionadas ao \textit{vertex} e \textit{fragment} \textit{shaders}, utilizou-se a ferramenta \textit{Adreno Profiler}. As métricas escolhidas foram a de número de instruções por segundo por vértice e número de instruções por segundo por fragmento. Estas métricas foram coletadas para cada número específico de polígonos, sendo os resultados exportados no formato CSV. A fim de ajustar as curvas obtidas, e consequentemente estimar a complexidade algorítmica, utilizou-se o método dos mínimos quadrados (Seção \ref{metminqua}) para uma funções lineares, quadráticas, cúbicas e exponenciais, calculando-se os respectivos erros, e podendo assim, determinar qual destas curvas melhor se aproxima das medições. 
 
-	 Para automatizar estas etapas descritas anteriormente, foi feito um programa em Python que lê os arquivos CSV, faz a média das medições, plotagens dos gráficos para o \textit{vertex} e \textit{fragment} \textit{shaders} e realiza os ajustes das curvas, calculando os erros associados e qual o menor entre eles. Ele é executado por linha de comando, em que passa-se como parâmetro o \textit{shader} desejado (Figura \ref{linhacomando}).
+	 Para automatizar as etapas descritas anteriormente, foi feito um programa em Python que lê os arquivos CSV, faz a média das medições, plota os gráficos para o \textit{vertex} e \textit{fragment} \textit{shaders} e realiza os ajustes das curvas, calculando os erros associados e determinando o menor entre eles. Este programa (\textit{script}) é executado por linha de comando, tendo como parâmetro o \textit{shader} desejado (Figura \ref{linhacomando}).
 
 	\begin{figure}[ht]
 	\centering
@@ -263,12 +263,12 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\end{figure}
 
 
-	O programa foi estruturado de acordo com a Figura \ref{minquad_diag}, em que a classe \textit{ReadCSV} é responsável por ler os arquivos CSV e fazer a média das métricas tanto para o \textit{vertex shader} como para o \textit{fragment shader}. Já a classe \textit{PlotChart}, faz a plotagem do gráfico do número de instruções por segundo por vértice \textit{versus} o número de polígonos e do gráfico do número de instruções por segundo por fragmento \textit{versus} o número de polígonos. Além disso, ele também plota o gráfico original juntamente com o gráfico após a aplicação do método dos mínimos quadrados. Por fim, o módulo \textit{LeastSquares} realiza o ajuste dos mínimos quadrados para uma reta, uma exponencial e para polinômios de segundo e terceiro graus. Este módulo também calcula os erros associados a cada ajuste e indica qual o menor. 
+	O programa foi estruturado de acordo com a Figura \ref{minquad_diag}, em que a classe \textit{ReadCSV} é responsável por ler os arquivos CSV e fazer a média das métricas tanto para o \textit{vertex shader} como para o \textit{fragment shader}. Já a classe \textit{PlotChart}, faz a plotagem do gráfico do número de instruções por segundo por vértice \textit{versus} o número de polígonos e do gráfico do número de instruções por segundo por fragmento \textit{versus} o número de polígonos. Além disso, ele também plota o gráfico original juntamente com o gráfico proveniente da aplicação do método dos mínimos quadrados. Por fim, o módulo \textit{LeastSquares} realiza o ajuste dos mínimos quadrados para uma reta, uma exponencial e para polinômios de segundo e terceiro graus. Este módulo também calcula os erros associados a cada ajuste e indica o menor dos erros obtidos dentre todas as aproximações feitas. 
 
 	\begin{figure}[ht]
 	\centering
 		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/minquad_diag.jpg}
-	\caption{Diagrama de Classes do código de automatização}
+	\caption{Diagrama de Classes do \textit{script} de automatização}
 	\label{minquad_diag}
 	\end{figure}
 

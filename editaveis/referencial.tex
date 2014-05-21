@@ -88,6 +88,8 @@
 
 \subsection{\textit{Shaders} em Plataformas Móveis}
 
+	Assim como para computadores, também existem bibliotecas gráficas para dispositivos móveis. A seguir, é explicado a plataforma \textit{Android}, utilizada neste trabalho, e a biblioteca gráfica \textit{OpenGL ES}, que é uma variação da \textit{OpenGL} para dispositivos móveis, para a programação de \textit{shaders}.
+
 	\subsubsection{Plataforma \textit{Android}}
 
 	O \textit{Android} começou a ser desenvolvido em 2003 na empresa de mesmo nome, fundada por Andy Rubin, a qual foi adquirida em 2005 pela empresa \textit{Google}. A \textit{Google} criou a \textit{Open Handset Alliance}, que junta várias empresas da indústria das telecomunicações, como a \textit{Motorola} e a \textit{Samsung}, por exemplo. Assim, elas desenvolveram o \textit{Android} como é conhecido hoje, o qual é um sistema operacional  \textit{open source} para dispositivos móveis (baseado no \textit{kernel} do \textit{Linux}), tendo a primeira versão beta lançada em 2007 e segundo \cite{android2013}, hoje é o sistema operacional para \textit{mobile} mais utilizado.
@@ -132,20 +134,76 @@
 
 	Segundo \cite{opengles2012}, ela possui três versõe: a 1.x que utiliza as funções fixas de renderização, a 2.x, que elimina as funções fixas e foca nos processos de renderização manipulados por \textit{pipelines} programáveis (\textit{shaders}) e a 3.x, que é completamente compatível com a  \textit{OpenGL} 4.3.  
 
+	A \textit{OpenGL ES}, assim como a \textit{OpenGL}, também utiliza a linguagem GLSL para programação de \textit{shaders} e  já faz parte das ferramentas de desenvolvimento da plataforma \textit{Android}. 
 
-\section{Teoria Matemática para Implementação de \textit{Shaders}}
+
+\section{Teoria Matemática e Física para Implementação de \textit{Shaders}}
 \label{teoria}
+
+	Os efeitos visuais -- criados por meio dos \textit{shaders} -- são representações de descrições físicas, podendo atribuir materiais aos objetos e diferentes efeitos de luz, por exemplo. Assim, esta seção apresenta alguns conceitos necessários para o entendimento dos \textit{shaders} implementados.
+
+	\subsection{Vetor Normal e Transformações Lineares}
+
+	Muitos dos \textit{shaders} que são implementados manipulam vetores normais às superfícies dos objetos, sendo eles, vetores unitários. Porém, ao realizar diversas transformações lineares (como a de escalar por um fator), não há uma garantia que eles continuarão sendo unitários. Assim, é necessário utilizar o comando da GLSL chamado \texttt{normalize}, a fim de normalizar o vetor normal, que retorna um vetor unitário sem alterar sua direção. Porém, em uma transformação de escalar não-uniforme, por exemplo, as direções dos vetores normais são alteradas. Conserta-se isto invertendo a operação de escalar, mas torna-se complicado realizar este procedimento após sucessivas transformações lineares. Assim, considerando uma matriz de modelagem resultante de duas rotações e uma operação de escalar não-uniforme, por exemplo, tem-se:
+
+
+	\begin{equation}
+		M_ {normal} = R_ {1} S_ {não-uniforme}^{-1} R_ {2}
+	\label{eqtrans1}
+	\end{equation}
+
+	Esta mesma equação pode ser reescrita de acordo com a Equação \ref{eqtrans2}, pois invertendo uma matriz duas vezes chega-se na sua original. Além disso a inversa da matriz de rotação é igual à sua transposta e como a matriz de escalar é uma matriz diagonal, sua transposta é igual a ela mesma.
+
+	\begin{equation}
+		M_ {normal} = (R_ {1}^{-1})^{T} (S_ {não-uniforme}^{-1})^{ T} (R_ {2}^{-1})^{T}
+	\label{eqtrans2}
+	\end{equation}
+
+	Utilizando operações de álgebra linear, a equação pode ser reescrita como:
+
+	\begin{equation}
+		M_ {normal} = ((R_ {1} S_ {não-uniforme} R_ {2})^{-1})^{T}
+	\label{eqtrans3}
+	\end{equation}
+	
+	Então, a fim de consertar a direção do vetor normal, multiplica-se ele pela matriz transposta da inversa da matriz de modelagem.  
 
 	\subsection{Equação de Iluminação de \textit{Phong}}
 	\label{flatgouphon}
 
-	Na área de computação gráfica, os {\textit{Flat Shading}, \textit{Gouraud Shading} e \textit{Phong Shading} (compostos pelos \textit{vertex} e \textit{fragment shaders}) são um dos \textit{shaders} mais conhecidos. No método \textit{Flat Shading}, renderiza-se cada polígono de um objeto com base no ângulo entre a normal da superfície e a direção da luz. Mesmo se as cores se diferenciem nos vértices de um mesmo polígono, somente uma cor é escolhida entre elas e é aplicada em toda o polígono.  
+	Na área de computação gráfica, os {\textit{Flat Shading}, \textit{Gouraud Shading} e \textit{Phong Shading} são um dos \textit{shaders} mais conhecidos. No método \textit{Flat Shading}, renderiza-se cada polígono de um objeto com base no ângulo entre a normal da superfície e a direção da luz. Mesmo se as cores se diferenciem nos vértices de um mesmo polígono, somente uma cor é escolhida entre elas e é aplicada em toda o polígono.  
 
-	A computação dos cálculos de luz nos  vértices seguida por uma interpolação linear do resultado é conhecida como \textit{Gouraud Shading} (considerada superior ao \textit{Flat Shading}, pois renderiza uma superfície mais suave, lisa), criada por Henri Gouraud, sendo conhecida como avaliação por vértice. Nela, o \textit{vertex shader} deve calcular a intensidade em cada vértice e os resultados serão interpolados. Em seguida, o \textit{fragment shader} pega este valor e passa adiante. Segundo  \cite{guha2011}, é o padrão implementado pela  \textit{OpenGL}. 
+	A computação dos cálculos de luz nos  vértices seguida por uma interpolação linear do resultado é conhecida como \textit{Gouraud Shading} (considerada superior ao \textit{Flat Shading}, pois renderiza uma superfície mais suave, lisa), criada por Henri Gouraud, sendo conhecida como avaliação por vértice. Nela, o \textit{vertex shader} deve calcular a intensidade em cada vértice e os resultados serão interpolados. Em seguida, o \textit{fragment shader} pega este valor e passa adiante. 
 
-	No \textit{Phong Shading}, primeiramente interpolam-se os valores das normais das primitivas e então computam-se os cálculos de luz para cada \textit{pixel}, utilizando as normais interpoladas. Este método também é conhecido como avaliação por \textit{pixel}. A intensidade de luz é calculada de acordo com a equação de luz de \textit{Phong} mostrada em \cite{guha2011}.
+	No \textit{Phong Shading}, primeiramente interpolam-se os valores das normais das primitivas e então computam-se os cálculos de luz para cada \textit{pixel}, utilizando as normais interpoladas. Este método também é conhecido como avaliação por \textit{pixel}. A intensidade da luz em um ponto da superfície, segundo \cite{guha2011}, é calculada de acordo com a Equação \ref{eqphong}.  
 
-	 A \textit{OpenGL} oferece este tipo de \textit{shading} como opção, embora o mesmo possa ser implementado utilizando \textit{shaders}.  Ele requer maior poder de processamento do que a técnica \textit{Gouraud Shading}, pois cálculos nos vértices são computacionalmente menos intensos comparados aos cálculos feitos por \textit{pixels}. Porém, a desvantagém da técnica de \textit{Gouraud Shading} é que efeitos de luz que não afetam um vértice de uma superfície não surtirão efeito como, por exemplo, efeitos de luz localizados no meio de um polígono não serão renderizados corretamente. Porém, se o efeito ocorrer em um vértice, o \textit{Phong Shading} renderiza corretamente o vértice, mas irá interpolar erroneamente. A Figura \ref{fgp} mostra a diferença entre as três técnicas de \textit{shading} aplicadas em uma esfera com uma luz direcional. 
+	\begin{equation}
+		I_ {total} = I_ {ambiente} +  \sum\limits_ {luzes} I_ {difusa} + I_ {especular}
+	\label{eqphong}
+	\end{equation}
+
+	Assim, a intensidade de luz é calculada como a soma das intensidades ambiente, difusa (calculada para cada fonte de luz) e especular.  A intensidade de reflexão ambiente vem de todas as direções e quando atinge a superfície, espalha-se igualmente em todas as direções, sendo o seu valor constante. Ela pode ser calculada de acordo com a Equação \ref{eqamb}, em que $K_ {a}$ é o coeficiente de reflectividade ambiente da superfície e $L_ {a}$ é a intensidade da componente ambiente da luz.
+
+	\begin{equation}
+		I_ {ambiente} = K_ {a}L_ {a} 
+	\label{eqamb}
+	\end{equation}
+
+	A intensidadede reflexão difusa vem de uma direção e, assim como a ambiente, ao atingir uma superfície também espalha-se igualmente em todas as direções. Ela pode ser calculada de acordo com a Equação \ref{eqdif}, em que $K_ {d}$ é o coeficiente de reflexão difusa da superfície, $L_ {d}$ é a intensidade da componente difusa da luz, $\overrightarrow{ l}$ é a fonte de luz, $\overrightarrow{ n}$ é o ponto em interesse.
+
+	\begin{equation}
+		I_ {difusa} = K_ {d}L_ {d}( \overrightarrow{ l} \cdot \overrightarrow{ n}) 
+	\label{eqdif}
+	\end{equation}
+
+	 A luz especular vem de uma direção e reflete como um espelho, em que o ângulo de incidência é igual ao de reflexão, podendo ser calculada de acordo com a Equação \ref{eqesp}, em que $K_ {s}$ é o coeficiente de reflexão especular da superfície, $L_ {s}$ é a intensidade da componente especular da luz, $\overrightarrow{ r}$ é a direção da reflexão, $\overrightarrow{v}$ é o vetor de visão do ponto (observador) e $s$ é o expoente especular.
+
+	\begin{equation}
+		I_ {especular} =K_ {s}L_ {s} (\overrightarrow{ r} \cdot \overrightarrow{ v})^s
+	\label{eqesp}
+	\end{equation}
+
+	 O \textit{Phong Shading} requer maior poder de processamento do que a técnica \textit{Gouraud Shading}, pois cálculos nos vértices são computacionalmente menos intensos comparados aos cálculos feitos por \textit{pixels}. Porém, a desvantagem da técnica de \textit{Gouraud Shading} é que efeitos de luz que não afetam um vértice de uma superfície não surtirão efeito como, por exemplo, efeitos de luz localizados no meio de um polígono não serão renderizados corretamente. A Figura \ref{fgp} mostra a diferença entre as três técnicas de \textit{shading} aplicadas em uma esfera com uma luz direcional. 
 
 	\begin{figure}[ht]
 	\centering
@@ -155,8 +213,44 @@
 	\end{figure}
 
 	\subsection{Renderização de Efeito \textit{Cartoon}}
+	\label{cartoon}
+
+	A renderização de efeito \textit{cartoon} tem como objetivo sugerir o efeito de um desenho, em que se tem como principal característica a aparência uniforme das cores sobre a superfície dos objetos. Isto pode ser feito mapeando-se faixas de intensidade de luz para tons de cores específicos, obtendo-se uma iluminação menos realista e mais próxima da utilizada em desenhos animados. O tom é escolhido baseado no cosseno do ângulo entre a direção da luz e o vetor normal da superfície. Ou seja, se o vetor normal está mais próximo da direção da luz, utiliza-se um tom mais claro.  Então a intensidade da luz pode ser calculada de acordo com a Equação \ref{eqtoon}, em que \overrightarrow{lightDir} é o vetor da direção da luz e \overrightarrow{normal} é o vetor normal.
+
+	\begin{equation}
+		I_ {luz} = \frac{ \overrightarrow{lightDir} \cdot \overrightarrow{normal} } {| | \overrightarrow{lightDir} | |  | | \overrightarrow{normal} | | } 
+	\label{eqtoon}
+	\end{equation}
+
+	Como os vetores \overrightarrow{lightDir} e \overrightarrow{normal} são normalizados, o cálculo pode ser simplificado de acordo com a Equação \ref{eqtoons}.
+
+	\begin{equation}
+		I_ {luz} =  \overrightarrow{lightDir} \cdot \overrightarrow{normal}  
+	\label{eqtoons}
+	\end{equation}
+
+	Após o cálculo da intensidade da luz, mapeia-se para os tons pré-definidos, como mostra a Figura \ref{tons}
+
+	\begin{figure}[ht]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=1.0]{figuras/tomcor.png}
+	\caption{Exemplo de escolha dos tons}
+	\label{tons}
+	\end{figure}
 
 	\subsection{Renderização de Efeito de Reflexão}
+	\label{ref_t}
+
+	O efeito de reflexão é feito através da utilização da técnica chamada \textit{environment mapping}, em que se reflete uma textura, que é desenhada ao redor do objeto e representa o cenário, chamada de \textit{environment map}. Um exemplo desta textura é ilustrada na Figura \ref{environment}
+
+	\begin{figure}[ht]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=1.0]{figuras/envmap.jpg}
+	\caption{\textit{Environment Map}}
+	\label{environment}
+	\end{figure}
+
+	Assim, a ideia é obter um vetor que vai da posição da câmera ao objeto, e após isto, ele é refletido baseando-se na normal da superfície. Isto resulta em um outro vetor que é utilizado para determinar a cor, baseando-se na textura (\textit{environment map}.
 
 \section{Complexidade Algorítmica Calculada de Forma Empírica}
 

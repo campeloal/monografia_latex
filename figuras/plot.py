@@ -3,7 +3,7 @@ import numpy as np
 
 
 xVertAxis = [1000,2500,5000,7500,10000,15000,20000,25000,30000]
-yVertAxis = [288740,312955,385954,513838,664805,940012,1206179,1924849,3172130]
+yVertAxis = [250810,307816,397457,510223,620405,855690,1094346,1607884,2353594]
 plt.subplot(211)
 plt.title('Phong Shader')
 plt.xlabel('Number of Polygons')
@@ -14,7 +14,7 @@ plt.show()
 
 
 xVertAxis = [1000,2500,5000,7500,10000,15000,20000,25000,30000]
-yVertAxis = [np.log(288740),np.log(312955),np.log(385954),np.log(513838),np.log(664805),np.log(940012),np.log(1206179),np.log(1924849),np.log(3172130)]
+yVertAxis = [np.log(250810),np.log(307816),np.log(397457),np.log(510223),np.log(620405),np.log(855690),np.log(1094346),np.log(1607884),np.log(2353594)] 
 plt.subplot(211)
 plt.title('Phong Shader')
 plt.xlabel('Number of Polygons')

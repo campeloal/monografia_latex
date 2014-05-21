@@ -1,15 +1,43 @@
 \chapter[Resultados]{Resultados}
 \label{result}
 
-	Para cada \textit{shader} foram plotados os gráficos para as métricas relacionadas ao vértice e ao fragmento. Após as plotagens, percebeu-se que todos os gráficos de todos os \textit{shaders} relacionados ao vértice deram uma função linear (diferindo na inclinação), e os relacionados ao fragmento deram uma curva de formato semelhante. A Figura \ref{plotred} e a Figura \ref{plotrefl} mostram os gráficos plotados, com relação ao \textit{vertex} e \textit{fragment shaders} de cada \textit{shader} implementado, que demonstram a semelhança destas curvas
+	Para cada \textit{shader} foram plotados os gráficos para as métricas relacionadas ao vértice e ao fragmento. Após as plotagens, percebeu-se que todos os gráficos de todos os \textit{shaders} relacionados ao vértice deram uma função linear (diferindo na inclinação) e os relacionados ao fragmento deram uma curva de formato semelhante. A Figura \ref{plotred} e a Figura \ref{plotrefl} mostram os gráficos plotados, com relação ao \textit{vertex} e \textit{fragment shaders} de cada \textit{shader} implementado, que demonstram a semelhança destas curvas.
 
-	 Os ajustes de cada curva (linear, exponencial, segundo e terceiro graus) também foram calculados e plotados (Figura \ref{linear} referente ao \textit{Reflection Shader}), em que também avisa-se qual foi o menor erro associado, a fim de descobrir qual a curva do \textit{fragment shader}. Pela a análise do menor erro, calculado de acordo com a Seção \ref{metminqua}, todos os \textit{shaders} indicaram uma curva de segundo grau.
+	 Os ajustes em relação às curvas pré-definidas (linear, exponencial, segundo e terceiro graus) também foram calculados e plotados (Figura \ref{linear} referente ao \textit{Reflection Shader}). Também foram determinados os menores erros associados, a fim de descobrir qual a curva melhor ajustava as medições do \textit{fragment shader}. Pela a análise do menor erro, calculado de acordo com a Seção \ref{metminqua}, todos os \textit{shaders} se aproximaram melhor de uma curva de segundo grau.
 
-	As equações calculadas para cada \textit{shader} (relacionadas ao vértice e fragmento) são mostradas na Tabela \ref{equacoes}. Assim, o processo utilizado neste trabalho, da análise da complexidade algorítimica calculada de forma empírica, pode ser resumido na Figura \ref{processo}. A etapa de Implementar \textit{Shaders} pode ser feita por meio da utilização da base do projeto implementado, extendendo-se da classe \textit{Shader} e implementando os métodos abstratos, como explicado na Seção \ref{imp}. A etapa Realização das Medições é feita de forma manual, dependendo do \textit{profiler} de GPU adequado para o \textit{device} utilizado. E a etapa Plotar Gráficos, Ajustar Curvas e Obter Equações é feita através do \textit{script} criado para o ajuste das curvas.
+	As equações calculadas para cada \textit{shader} (relacionadas ao vértice e fragmento) são mostradas na Tabela \ref{equacoes}. Embora as curvas sejam de mesma família, os seus coeficientes não são. Os \textit{shaders} relativamente mais simples tem inclinação de reta menor, assim como o coeficiente do termo $x^2$. Pela análise das equações, é possível perceber que o \textit{vertex shader} de melhor desempenho é o do \textit{Flat Shader}, que apenas determina as coordenadas $x$ e $y$, já que o $z$ é sempre zero. O de pior desempenho é o \textit{Gouraud Shader}, que faz os cálculos de luz por vértice. Já o \textit{fragment shader} de melhor desempenho é o do \textit{Red Shader}, que apenas determina que a cor do fragmento seja vermelha. O de pior desempenho foi o do \textit{Phong Shader}, que faz os cálculos de luz por fragmento.
+
+	Outra observação que pode ser feita é quanto aos \textit{shaders Gouraud} e \textit{Phong}, pois eles realizam o mesmo cálculo, porém o primeiro faz no \textit{vertex shader} e o segundo, no \textit{fragment shader}. Pela análise das equações, a curva relacionada ao \textit{vertex shader} do \textit{Gouraud} é maior que a do \textit{Phong} e a relacionada ao \textit{fragment shader} é menor. 
+
+	Além disso, com as equações é possível estimar a quantidade de instruções por segundo por vértice ou por fragmento. Tomando como exemplo o \textit{Toon Shader}, que sua equação para o \textit{vertex shader} é  $y = 10.17 \times 10^6 + 4673.96t$, o número de instruções por segundo por vértice estimado para 60000 polígonos é de $29.06 \times 10^7$. Realizando a medição com a ferramenta \textit{Adreno Profiler} foi possível perceber que este valor é próximo ao medido, que foi $28.49 \times 10^7$.
+	
+	Assim, o processo utilizado neste trabalho de estimação da complexidade algorítimica calculada de forma empírica, pode ser resumido na Figura \ref{processo}. A etapa de Implementar \textit{Shaders} pode ser feita por meio da utilização da base do projeto implementado, extendendo-se da classe \textit{Shader} e implementando os métodos abstratos, como explicado na Seção \ref{imp}. A etapa Realização das Medições é feita de forma manual, dependendo do \textit{profiler} de GPU adequado para o \textit{device} utilizado. E a etapa Plotar Gráficos, Ajustar Curvas e Obter Equações pode ser feita através do \textit{script} criado para o ajuste das curvas.
+
+	\begin{table}[ht]
+	\centering	
+	\begin{tabularx}{0.9\textwidth}{cXX}
+		\toprule
+		\textbf{Nome} & \textbf{\textit{Equação Vertex Shader}} & \textbf{\textit{Equação Fragment Shader}}  \\
+		\midrule
+		\textit{Gouraud} & $y = 40.16 \times 10^6 + 7486.43t$ & $y = 19.44 \times 10 ^8 + 187.41t - 0.0019t^2$ \\
+		\textit{Phong} &  $y = 14.95 \times 10^6 + 5211.02t$ & $y = 19.87 \times 10^8 + 1034.35t - 0.0087t^2$\\
+		\textit{Red} & $y = 8.02 \times 10^6 + 4545.69t$ & $y = 19.39 \times 10 ^8 + 53.58t - 0.00044t^2$ \\
+		\textit{Toon} & $y = 10.17 \times 10^6 + 4673.96t$ & $y = 19.44 \times 10 ^8 + 204.84t - 0.0017t^2$ \\
+		\textit{Flat} & $y = 7.65 \times 10^6 + 3738.61t$ & $y = 19.39 \times 10 ^8 + 57.11t - 0.00050t^2$ \\
+		\textit{Random Color} & $y = 20.58 \times 10^6 + 5640.13t$ & $y = 19.44 \times 10 ^8 + 170.31t - 0.0016t^2$ \\
+		\textit{Simple Texture} & $y = 8.80 \times 10^6 + 4540.32t$ & $y = 19.41 \times 10 ^8 + 112.05t - 0.0010t^2$ \\
+		\textit{CubeMap} & $y = 8.67 \times 10^6 + 4540.40t$ & $y = 19.43 \times 10 ^8 + 165.99t - 0.0014t^2$ \\
+		\textit{Reflection} & $y = 18.03 \times 10^6 + 5470.95t$ & $y = 19.59 \times 10 ^8 + 596.54t - 0.0051t^2$ \\
+	
+		\bottomrule
+	\end{tabularx}
+	\caption{Equações relacionadas ao \textit{vertex shader} e \textit{fragment shader}}
+	\label{equacoes}
+	\end{table}
 
 	\begin{figure}[ht]
 	\centering
-		\includegraphics[keepaspectratio=true,scale=0.55]{figuras/processo.png}
+		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/processo.png}
 	\caption{Processo da Análise de Complexidade Algorítmica.}
 	\label{processo}
 	\end{figure}
@@ -33,29 +61,7 @@
 	\begin{figure}[ht]
 	\centering
 		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/reflectionlinear.png}
-	\caption{Ajustes linear, para função de segundo, terceiro graus e exponencial}
+	\caption{Ajustes linear, segundo, terceiro graus e exponencial}
 	\label{linear}
 	\end{figure}	
 	
-
-	\begin{table}[ht]
-	\centering	
-	\begin{tabularx}{0.9\textwidth}{cXX}
-		\toprule
-		\textbf{Nome} & \textbf{\textit{Equação Vertex Shader}} & \textbf{\textit{Equação Fragment Shader}}  \\
-		\midrule
-		\textit{Gouraud} & $y = 19.92 x 10^8 + 509.43t$ & $y = 67.99 x 10 ^5 + 6076.30t - 0.014t^2$ \\
-		\textit{Phong} &  $y = 19.45 x 10^8 + 74.85t$ & $y = 20.20 x 10^6 + 9605.32t - 0.035t^2$\\
-		\textit{Red} & $y = 19.39 x 10^8 + 26.84t$ & $y = 29.95 x 10 ^5 + 5130.50t - 0.0097t^2$ \\
-		\textit{Toon} & $y = 19.45 x 10^8 + 100.35t$ & $y = 38.25 x 10 ^5 + 5347.86t - 0.011t^2$ \\
-		\textit{Flat} & $y = 19.39 x 10^8 + 26.77t$ & $y = 25.02 x 10 ^5 + 4285.80t - 0.0091t^2$ \\
-		\textit{Random Color} & $y = 19.45 x 10^8 + 74.04t$ & $y = 84.32 x 10 ^5 + 6930.50t - 0.021t^2$ \\
-		\textit{Simple Texture} & $y = 19.42 x 10^8 + 49.97t$ & $y = 31.76 x 10 ^5 + 5137.26t - 0.0099t^2$ \\
-		\textit{CubeMap} & $y = 19.44 x 10^8 + 83.38t$ & $y = 33.14 x 10 ^5 + 5109.61t - 0.0094t^2$ \\
-		\textit{Reflection} & $y = 19.62 x 10^8 + 289.76t$ & $y = 83.92 x 10 ^5 + 6494.94t - 0.017t^2$ \\
-	
-		\bottomrule
-	\end{tabularx}
-	\caption{Equações relacionadas ao \textit{vertex shader} e \textit{fragment shader}}
-	\label{equacoes}
-	\end{table}
