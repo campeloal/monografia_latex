@@ -26,7 +26,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{adrenoProfiler}
 	\end{figure}
 
-	O módulo gráfico permite analisar algumas métricas, relacionadas ao \textit{vertex} e \textit{fragment shaders}, conforme ilustado na Figura \ref{graph}, onde um gráfico é plotado em tempo de execução. Além disso, ela também exporta os resultados no formato CSV (\textit{Comma-Separated Values}), que consiste em um arquivo de texto que armazena valores tabelados separados por um delimitador (vírgula ou quebra de linha). O último módulo é o chamado \textit{Scrubber}, que provê informações detalhadas quanto ao rastreamento de uma chamada de função. 
+	O módulo gráfico permite analisar algumas métricas, relacionadas ao \textit{vertex} e \textit{fragment shaders}, conforme ilustrado na Figura \ref{graph}, onde um gráfico é plotado em tempo de execução. Além disso, ela também exporta os resultados no formato CSV (\textit{Comma-Separated Values}), que consiste em um arquivo de texto que armazena valores tabelados separados por um delimitador (vírgula ou quebra de linha). O último módulo é o chamado \textit{Scrubber}, que provê informações detalhadas quanto ao rastreamento de uma chamada de função. 
 
 	\begin{figure}[ht]
 	\centering
@@ -142,7 +142,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 \subsection{Renderização}    
 
-	\begin{figure}[h!]
+	\begin{figure}[ht!]
 	\centering
 		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/renderer.jpg}
 	\caption{Detalhamento da classe \textit{Renderer}}
@@ -240,7 +240,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 	Para utilizar esta extensão foi necessário instalar e configurar o NDK (\textit{Native Development Kit}) e alterar o \textit{header} da versão da \textit{OpenGL ES} utilizada, adicionando as linhas de código relacionadas à extensão almejada. Assim, foi possível utilizar as novas funções desta extensão pegando os seus endereços por meio do comando \texttt{eglGetProcAddress} (disponível por meio da API EGL que faz o interfaceamento entre a \textit{OpenGL ES} e o sistema operacional). A integração entre o código em linguagem C e o código em Java foi feita por meio da JNI (\textit{Java Native Interface}).
 
-	Feita a configuração e implementação da coleta de tempo da execução da função \texttt{glDrawArrays} (responsável por realizar a renderização), foram plotados os gráficos -- para cada \textit{shader} -- do tempo em nanosegundos \textit{versus} a quantidade de polígonos. Porém, após feita as plotagens dos gráficos, foi possível perceber que as funções relacionadas a todos os \textit{shaders} possuíam formas semelhantes (como é visto na Figura  \ref{render_time}). Assim, chegou-se à conclusão de que era necesário coletar métricas específicas ao \textit{vertex} e \textit{fragment} \textit{shaders}, a fim de poder investigar mais a fundo. 
+	Feita a configuração e implementação da coleta de tempo da execução da função \texttt{glDrawArrays} (responsável por realizar a renderização), foram plotados os gráficos -- para cada \textit{shader} -- do tempo em nanosegundos \textit{versus} a quantidade de polígonos. Porém, após feita as plotagens dos gráficos, foi possível perceber que as funções relacionadas a todos os \textit{shaders} possuíam formas semelhantes (como é visto na Figura  \ref{render_time}). Assim, chegou-se à conclusão de que era necessário coletar métricas específicas ao \textit{vertex} e \textit{fragment} \textit{shaders}, a fim de poder investigar mais a fundo. 
 
 	\begin{figure}[ht]
 	\centering
