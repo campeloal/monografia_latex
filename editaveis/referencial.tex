@@ -1,4 +1,4 @@
-\chapter[Referencial Teórico]{Referencial Teórico}
+\chapter[Fundamentação Teórica]{Fundamentação Teórica}
 \label{refteorico}
 
 \section{\textit{Shaders}: \textit{pipelines} programáveis}
@@ -137,14 +137,14 @@
 	A \textit{OpenGL ES}, assim como a \textit{OpenGL}, também utiliza a linguagem GLSL para programação de \textit{shaders} e  já faz parte das ferramentas de desenvolvimento da plataforma \textit{Android}. 
 
 
-\section{Teoria Matemática e Física para Implementação de \textit{Shaders}}
+\section{Fundamentação Matemática e Física para Implementação de \textit{Shaders}}
 \label{teoria}
 
 	Os efeitos visuais -- criados por meio dos \textit{shaders} -- são representações de descrições físicas, podendo atribuir materiais aos objetos e diferentes efeitos de luz, por exemplo. Assim, esta seção apresenta alguns conceitos necessários para o entendimento dos \textit{shaders} implementados.
 
 	\subsection{Vetor Normal e Transformações Lineares}
 
-	Muitos dos \textit{shaders} que são implementados manipulam vetores normais às superfícies dos objetos, sendo eles, vetores unitários. Porém, ao realizar diversas transformações lineares (como a de escalar por um fator), não há uma garantia que eles continuarão sendo unitários. Assim, é necessário utilizar o comando da GLSL chamado \texttt{normalize}, a fim de normalizar o vetor normal, que retorna um vetor unitário sem alterar sua direção. Porém, em uma transformação de escalar não-uniforme, por exemplo, as direções dos vetores normais são alteradas. Conserta-se isto invertendo a operação de escalar, mas torna-se complicado realizar este procedimento após sucessivas transformações lineares. Assim, considerando uma matriz de modelagem resultante de duas rotações e uma operação de escalar não-uniforme, por exemplo, tem-se:
+	Muitos dos \textit{shaders} que são implementados manipulam vetores normais às superfícies dos objetos, sendo eles, vetores unitários. Porém, ao realizar diversas transformações lineares (como a de escalar por um fator), não há uma garantia que eles continuarão sendo unitários. Assim, é necessário utilizar o comando da GLSL chamado \texttt{normalize}, a fim de normalizar o vetor normal, que retorna um vetor unitário sem alterar sua direção. Porém, em uma transformação de escalar não-uniforme, por exemplo, as direções dos vetores normais são alteradas. Conserta-se isto invertendo a operação de escalar, mas torna-se complicado realizar este procedimento após sucessivas transformações lineares. Segundo  \cite{guha2011}, a matriz de modelagem, visualização e projeção pode ser definida por uma série de multiplicações matriciais. Então, considerando uma matriz de modelagem resultante de duas rotações e uma operação de escalar não-uniforme, por exemplo, tem-se:
 
 
 	\begin{equation}
@@ -215,17 +215,17 @@
 	\subsection{Renderização de Efeito \textit{Cartoon}}
 	\label{cartoon}
 
-	A renderização de efeito \textit{cartoon} tem como objetivo sugerir o efeito de um desenho, em que se tem como principal característica a aparência uniforme das cores sobre a superfície dos objetos. Isto pode ser feito mapeando-se faixas de intensidade de luz para tons de cores específicos, obtendo-se uma iluminação menos realista e mais próxima da utilizada em desenhos animados. O tom é escolhido baseado no cosseno do ângulo entre a direção da luz e o vetor normal da superfície. Ou seja, se o vetor normal está mais próximo da direção da luz, utiliza-se um tom mais claro.  Então a intensidade da luz pode ser calculada de acordo com a Equação \ref{eqtoon}, em que \overrightarrow{lightDir} é o vetor da direção da luz e \overrightarrow{normal} é o vetor normal.
+	A renderização de efeito \textit{cartoon} tem como objetivo sugerir o efeito de um desenho, em que se tem como principal característica a aparência uniforme das cores sobre a superfície dos objetos. Isto pode ser feito mapeando-se faixas de intensidade de luz para tons de cores específicos, obtendo-se uma iluminação menos realista e mais próxima da utilizada em desenhos animados. De acordo com \cite{sbgames}, o tom é escolhido baseado no cosseno do ângulo entre a direção da luz e o vetor normal da superfície. Ou seja, se o vetor normal está mais próximo da direção da luz, utiliza-se um tom mais claro.  Então a intensidade da luz pode ser calculada de acordo com a Equação \ref{eqtoon}, em que $\overrightarrow{l_{d}}$ é o vetor da direção da luz e $\overrightarrow{n}$ é o vetor normal.
 
 	\begin{equation}
-		I_ {luz} = \frac{ \overrightarrow{lightDir} \cdot \overrightarrow{normal} } {| | \overrightarrow{lightDir} | |  | | \overrightarrow{normal} | | } 
+		I_ {luz} = \frac{ \overrightarrow{l_{d}} \cdot \overrightarrow{n} } {| | \overrightarrow{l_{d}} | |  | | \overrightarrow{n} | | } 
 	\label{eqtoon}
 	\end{equation}
 
-	Como os vetores \overrightarrow{lightDir} e \overrightarrow{normal} são normalizados, o cálculo pode ser simplificado de acordo com a Equação \ref{eqtoons}.
+	Como os vetores \overrightarrow{l_{d}} e \overrightarrow{n} são normalizados, o cálculo pode ser simplificado de acordo com a Equação \ref{eqtoons}.
 
 	\begin{equation}
-		I_ {luz} =  \overrightarrow{lightDir} \cdot \overrightarrow{normal}  
+		I_ {luz} =  \overrightarrow{l_{d}} \cdot \overrightarrow{n}  
 	\label{eqtoons}
 	\end{equation}
 
@@ -250,15 +250,16 @@
 	\label{environment}
 	\end{figure}
 
-	Assim, a ideia é obter um vetor que vai da posição da câmera ao objeto, e após isto, ele é refletido baseando-se na normal da superfície. Isto resulta em um outro vetor que é utilizado para determinar a cor, baseando-se na textura (\textit{environment map}.
+	Assim, a ideia é obter um vetor que vai da posição da câmera ao objeto, e após isto, ele é refletido baseando-se na normal da superfície. Isto resulta em um outro vetor que é utilizado para determinar a cor, baseando-se na textura (\textit{environment map}).
 
 \section{Complexidade Algorítmica Calculada de Forma Empírica}
+\label{metminquad}
 
-	\subsection{Complexidade Algorítmica - Teoria}
+	Complexidade algorítmica é uma medida que compara a eficiência de um determinado algorítmo, analisando o quão custoso ele é (em termos de tempo, memória, custo ou processamento). Ela foi desenvolvida por Juris Hartmanis e Richard E. Stearns no ano de 1965. Segundo \cite{complexidade}, para não depender do sistema em que está sendo rodado e nem da linguagem de programação, a complexidade algoritmica se baseia em uma função (medida lógica) que expressa uma relação entre a quantidade de dados e de tempo necessário para processá-los. Assim, é possível calcular a complexidade algorítmica de um código de forma teórica e experimental.
 
-	Complexidade algorítmica é uma medida que compara a eficiência de um determinado algorítmo, analisando o quão custoso ele é (em termos de tempo, memória, custo ou processamento). Ela foi desenvolvida por Juris Hartmanis e Richard E. Stearns no ano de 1965. Segundo \cite{complexidade}, para não depender do sistema em que está sendo rodado e nem da linguagem de programação, a complexidade algoritmica se baseia em uma função (medida lógica) que expressa uma relação entre a quantidade de dados e de tempo necessário para processá-los.
+	\subsection{Análise Teórica}
 
-	 Como o cálculo visa a modelagem do comportamento do desempenho do algorítmo a medida que o número de dados aumenta, os termos que não afetam a ordem de magnitude são eliminados, gerando a aproximação denominada complexidade assintótica. Assim, a  Equação (\ref{compl1}) poderia ser aproximada pela  Equação (\ref{compl2})
+	 O cálculo da complexidade algorítmica visa a modelagem do comportamento do desempenho do algorítmo, a medida que o número de dados aumenta. Assim, os termos que não afetam a ordem de magnitude são eliminados, gerando a aproximação denominada complexidade assintótica. Assim, a  Equação (\ref{compl1}) poderia ser aproximada pela  Equação (\ref{compl2})
 
 	\begin{equation}
 		y = n^{2} +10 n + 1000
@@ -278,7 +279,7 @@
 		\toprule
 		\textbf{Complexidade} & \textbf{Descrição}  \\
 		\midrule
-		Constante &  Ocorre quando as instruções do programa são executadas apenas uma vez.\\
+		Constante &  Ocorre quando as instruções do programa independe do número de elementos de entrada. As instruções são executadas em um número fixo de vezes.\\
 		log N & Ocorre geralmente em programas que resolvem grandes problemas dividindo-os em partes menores, cortando o seu tamanho por uma constante.  \\
 		N & Ocorre quando o programa é linear, ou seja, o  processamento é feito para cada elemento de entrada. \\
 		$ N log N$ & Ocorre quando o problema é quebrado em partes menores, sendo resolvidas independentemente, e depois suas soluções são combinadas \\
@@ -292,13 +293,30 @@
 	\label{complexidadeAlgoritmica}
 \end{table}
 
+	A Figura \ref{compalg} mostra uma comparação entre estas curvas. 
 
-	\subsection{Métodos dos Mínimos Quadrados}
+	\begin{figure}[ht]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/compalg.png}
+	\caption{Comparação da Complexidade Algorítmica}
+	\label{compalg}
+	\end{figure}
+
+	\subsubsection{Notação O}
+
+	
+	A notação O foi desenvolvida em 1894 por Paul Bachmann para complexidade assintótica. Assim, segundo \cite{complexidade}, dadas duas funções de valores positivos $f$ e $g$, $f(n)$ é $O(g(n))$ se existem $c$ e $N$ positivos tais que $f(n) \leq cg(n)$, $\forall n \geq N$. Ou seja, dada uma função $g(n)$, denota-se por $O(g(n))$ o conjunto das funções que para valores de $n$ suficientemente grandes, $f(n)$ é igual ou menor que $g(n)$. A função $f$ tende a crescer no máximo tão rápido quanto $g$, em que $cg(n)$ é uma cota superior de $f(n)$. O algorítmo $y = n^{2} +10 n + 1000$, por exemplo, é igual a $O(n^2)$. 
+
+	Se $f(n)$ é um polinômio de grau $d$  então $f(n)$ é $O(n^d)$. E como uma constante pode ser considerada de grau zero, sua complexidade é $O(n^0)$, ou seja, $O(1)$. Além disso, a função $f(n) = \log _a \left( n \right)$ é $O(\log _b \left( n \right))$ para quaisquer $a$ e $b$ positivos diferentes de 1. 
+
+	\subsection{Análise Experimental}
 	\label{metminqua}
 
-	O método dos mínimos quadrados é utilizado para ajustar pontos $(x,y)$ determinados experimentalmente a uma curva. No caso do ajuste a uma reta (dada por $y = a + bx$) muitas vezes estes pontos não são colineares e segundo \cite{minq} é impossível encontrar coeficientes $a$ e $b$ que satisfaçam o sistema.
+	Como não é possível analisar a complexidade algorítmica dos \textit{shaders} de forma teórica, pois não é possível saber como é feita a implementação das funções disponíveis pela GLSL, uma das formas de calculá-la é de maneira experimental. Isto é feito variando o número de entradas e coletando uma medição associada ao desempenho, como o tempo, por exemplo. Assim, é possível gerar um gráfico e utilizar o método dos mínimos quadrados para descobrir a qual curva estes pontos pertencem. O método dos mínimos quadrados é usado para ajustar pontos $(x,y)$ determinados experimentalmente a uma curva. 
 
-	 Então, as distâncias destes valores para a reta podem ser consideradas como medidas de erro e os pontos são minimizados pelo mesmo vetor (minimizando a soma dos quadrados destes erros).  Assim, existe um ajuste linear de mínimos quadrados aos dados, e a sua solução é dada pela Equação (\ref{minquad}), em que é possível determinar os coeficientes $a$ e $b$ e consequentemente, a equação da reta. 
+	\subsubsection{Ajuste Linear}
+
+	No caso do ajuste a uma reta (dada por $y = a + bx$), por exemplo, muitas vezes os pontos não são colineares e segundo \cite{minq} é impossível encontrar coeficientes $a$ e $b$ que satisfaçam o sistema.  Então, as distâncias destes valores para a reta podem ser consideradas como medidas de erro e os pontos são minimizados pelo mesmo vetor (minimizando a soma dos quadrados destes erros).  Assim, existe um ajuste linear de mínimos quadrados aos dados, e a sua solução é dada pela Equação (\ref{minquad}), em que é possível determinar os coeficientes $a$ e $b$ e consequentemente, a equação da reta. 
 
 	\begin{equation}
 		v =( M^{T}M)^{-1}M^{T}y
@@ -307,25 +325,27 @@
 	onde
 	\begin{equation}
 	M = \left[\begin{array}{cc}
-               	1 & x1 \\
-               	1 & x2  \\
+               	1 & x_{1} \\
+               	1 & x_{2}  \\
 		. & .  \\
                	. & .  \\
-		1 & xn
+		1 & x_{n}
           	         \end{array}\right] \mbox{,} \quad
 	v = \left[\begin{array}{c}
                	a \\
                	b  
           	         \end{array}\right] \mbox{e} \quad
 	y = \left[\begin{array}{c}
-               	y1 \\
-               	y2  \\
+               	y_{1} \\
+               	y_{2}  \\
 		.   \\
                	.   \\
-		yn
+		y_{n}
           	         \end{array}\right] 	
 	\label{variaveis}
 	\end{equation}
+
+	\subsubsection{Ajuste Exponencial}
 
 	De acordo com \cite{calculo}, a função da exponencial pode ser dada como na Equação (\ref{expo}), em que $e$, $c$, $k$ são constantes ($e$ é a constante neperiana).  
 
@@ -351,18 +371,18 @@
 
 	\begin{equation}
 	M = \left[\begin{array}{cc}
-               	1 &  x1 \\
-               	1 & x2  \\
+               	1 &  x_{1} \\
+               	1 & x_{2}  \\
 		. & .  \\
                	. & .  \\
-		1 & xn
+		1 & x_{n}
           	         \end{array}\right] \mbox{,} \quad
 	y = \left[\begin{array}{c}
-               	\ln{y1} \\
-               	\ln{y2}  \\
+               	\ln{y_{1}} \\
+               	\ln{y_{2}}  \\
 		.   \\
                	.   \\
-		\ln{yn}
+		\ln{y_{n}}
           	         \end{array}\right] 
 	\label{nvar}
 	\end{equation}
@@ -373,37 +393,43 @@
 	c = e^{\bar{a}}\, \, \, \mbox{e}\, \, \,\bar{b} = -k
 	\end{equation} 
 
+	\subsubsection{Ajuste para Polinômio de Segundo Grau}
 
-\section{Representação de Objetos Tridimensionais: Formato \textit{obj}}
-\label{formatobj}
+	O ajuste de segundo grau é parecido com o linear, em que a Equação \ref{minquad} também é utilizada. Porém a matriz M é redefinida para:
 
-	Em uma cena, os modelos tridimensionais podem variar muito mais do que formas básicas como uma esfera e um torus, por exemplo. Assim, o formato \textit{obj} foi criado pela empresa  \textit{Wavefront} e é um arquivo para leitura de objetos tridimensionais, a fim de carregar geometrias mais complexas. Segundo \cite{graphicsprog}, neste arquivo cada linha contém informações a respeito do modelo, começando com uma palavra-chave, seguida da informação. A  Tabela \ref{palavraschave} mostra as principais palavras-chave utilizadas. 
+	\begin{equation}
+	M = \left[\begin{array}{ccc}
+               	1 & x_{1} & x_{1}^{2} \\
+               	1 & x_{2}  & x_{2}^{2}\\
+		. & . & .  \\
+               	. & . & . \\
+		1 & x_{n} & x_{n}^{2}
+          	         \end{array}\right] \mbox{,} \quad
+	\label{minquadsegdeg}
+	\end{equation}
 
-\begin{table}[ht]
-	\centering	
-	\begin{tabular}{cl}
-		\toprule
-		\textbf{Palavra-chave} & \textbf{Significado}  \\
-		\midrule
-		\texttt{usemtl} & Indica se está utilizando material  \\
-		\texttt{mtlib} &  Nome do material \\
-		\texttt{v} &  Coordenadas x, y e z do vértice \\
-		\texttt{vn} & Coordenadas da normal \\
-		\texttt{vt} &  Coordenadas da textura \\
-		\texttt{f} &  Face do polígono \\
-		\bottomrule
-	\end{tabular}
-	\caption{ Palavras-chave do formato obj}
-	\label{palavraschave}
-\end{table}
+	\subsubsection{Ajuste para Polinômio de Terceiro Grau}
 
-	A face do polígono (f) possui três índices que indicam os vértices do triângulo. Assim, cada vértice possui um índice (que depende de quando ele foi declarado), começando a partir de um. A Figura \ref{objFile} mostra o exemplo de um arquivo obj para a leitura de um cubo. 
+	O ajuste de segundo grau é ocorre da mesma forma que o de segundo grau, mas a matriz M é redefinida para:
 
-	\begin{figure}[ht]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.9]{figuras/obj.jpg}
-	\caption{Arquivo \textit{obj} de um cubo}
-	\label{objFile}
-	\end{figure}
+	\begin{equation}
+	M = \left[\begin{array}{cccc}
+               	1 & x_{1} & x_{1}^{2} & x_{1}^{3} \\
+               	1 & x_{2}  & x_{2}^{2} & x_{1}^{3}\\
+		. & .  & . & .\\
+               	. & .  & . & .\\
+		1 & x_{n} &  x_{n}^{2} & x_{n}^{3}
+          	         \end{array}\right] \mbox{,} \quad
+	\label{minquathirddeg}
+	\end{equation}
 
-	Então, a partir da leitura do arquivo  \textit{obj}, é possível ler cada linha e armazenar em estruturas de dados as informações que serão passadas para renderizar o modelo tridimensional, como vértices e índices, e utilizar um dos métodos apresentados anteriormente para renderizar a cena. 
+	\subsubsection{Cálculo dos Erros Dos Ajustes}
+
+	O cálculo dos erros dos ajustes para as funções é calculado a fim de saber qual delas mais se aproxima da curva original. Estes erros são calculados de acordo com a Equação \ref{erros}, em que cada erro ($e_{n}$) está associado à distância da coordenada da função ajustada para a função original. 
+
+	\begin{equation}
+	E = \sqrt[2]{e_{1} + e_{2} + ... + e_{n}}
+	\label{erros}
+	\end{equation} 
+
+

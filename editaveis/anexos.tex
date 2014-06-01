@@ -62,5 +62,35 @@
 
 	 A informação relacionada com cada \textit{pixel} é armazenada no \textit{color buffer}, que é um \textit{array} de cores. Assim, a última etapa é a de Processamento das Amostras, que realiza diversos testes nos fragmentos gerados na etapa anterior. Ela é responsável,por exemplo, pelos testes de profundidade, em que o \textit{color buffer} deve conter as cores das primitivas da cena que são visíveis do ponto de vista da câmera. Isto é feito através do Z-\textit{buffer} (também chamado de \textit{buffer} de profundidade), que para cada \textit{pixel} armazena a coordenada $z$ a partir da câmera até a primitiva mais próxima.  Então, a coordenada $z$ de uma primitiva que está sendo computada é comparada com  o valor do Z-\textit{buffer} para o mesmo \textit{pixel}. Se o valor for menor, quer dizer que a primitiva está mais próxima da câmera do que o valor da anterior, e assim, o valor do Z-\textit{buffer} é atualizado para o atual. Se o valor corrente for maior, então o valor do Z-\textit{buffer} não é modificado. Outros testes realizados são o de \textit{blending}, em que combina-se as cores do fragmento com a do \textit{buffer} e os de descarte de fragmentos como o \textit{scissor test} e \textit{stencil test}. 	
 
+\chapter{Representação de Objetos Tridimensionais: Formato \textit{obj}}
+\label{formatobj}
+
+	Em uma cena, os modelos tridimensionais podem variar muito mais do que formas básicas como uma esfera e um torus, por exemplo. Assim, o formato \textit{obj} foi criado pela empresa  \textit{Wavefront} e é um arquivo para leitura de objetos tridimensionais, a fim de carregar geometrias mais complexas. Segundo \cite{graphicsprog}, neste arquivo cada linha contém informações a respeito do modelo, começando com uma palavra-chave, seguida da informação. A  Tabela \ref{palavraschave} mostra as principais palavras-chave utilizadas. 
+
+\begin{table}[ht]
+	\centering	
+	\begin{tabular}{cl}
+		\toprule
+		\textbf{Palavra-chave} & \textbf{Significado}  \\
+		\midrule
+		\texttt{usemtl} & Indica se está utilizando material  \\
+		\texttt{mtlib} &  Nome do material \\
+		\texttt{v} &  Coordenadas x, y e z do vértice \\
+		\texttt{vn} & Coordenadas da normal \\
+		\texttt{vt} &  Coordenadas da textura \\
+		\texttt{f} &  Face do polígono \\
+		\bottomrule
+	\end{tabular}
+	\caption{ Palavras-chave do formato obj}
+	\label{palavraschave}
+\end{table}
+
+	A face do polígono (f) possui três índices que indicam os vértices do triângulo. Assim, cada vértice possui um índice (que depende de quando ele foi declarado), começando a partir de um. O codigo \ref{objFile} mostra o exemplo de um arquivo obj para a leitura de um cubo. 
+
+	\lstinputlisting[language=Python, caption = {Representação do formato \textit{obj}}, label = {objFile}]{codigos/obj.txt}
+
+	Então, a partir da leitura do arquivo  \textit{obj}, é possível ler cada linha e armazenar em estruturas de dados as informações que serão passadas para renderizar o modelo tridimensional, como vértices e índices, e utilizar um dos métodos apresentados anteriormente para renderizar a cena. 
+
+
 \end{anexosenv}
 

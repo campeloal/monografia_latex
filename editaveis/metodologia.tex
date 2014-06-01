@@ -91,7 +91,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{object_texture}
 	\end{figure}
 
-	O objeto tridimensional foi representado pela composição das classes \textit{3DObject} e \textit{Texture}. A classe \textit{3DObject}, mostrada na Figura \ref{object_texture}, é responsável por ler e interpretar os arquivos  \textit{obj}  (descrito na Seção \ref{formatobj}). Estes arquivos foram criados e exportados utilizando a ferramenta de modelagem tridimensional \textit{open source} chamada Blender\footnote{http://www.blender.org/}, a qual está ilustrada na Figura \ref{blender}. Ela também permite modificar o número de polígonos de um modelo tridimensional por meio de modificadores chamados \textit{Decimate} e \textit{Subdivision Surface} (usados para diminuir e aumentar a contagem poligonal, respectivamente).  Assim, foi possível variar a contagem poligonal a partir de diferentes arquivos \textit{obj}.
+	O objeto tridimensional foi representado pela composição das classes \textit{3DObject} e \textit{Texture}. A classe \textit{3DObject}, mostrada na Figura \ref{object_texture}, é responsável por ler e interpretar os arquivos  \textit{obj}  (descrito no Anexo \ref{formatobj}). Estes arquivos foram criados e exportados utilizando a ferramenta de modelagem tridimensional \textit{open source} chamada Blender\footnote{http://www.blender.org/}, a qual está ilustrada na Figura \ref{blender}. Ela também permite modificar o número de polígonos de um modelo tridimensional por meio de modificadores chamados \textit{Decimate} e \textit{Subdivision Surface} (usados para diminuir e aumentar a contagem poligonal, respectivamente).  Assim, foi possível variar a contagem poligonal a partir de diferentes arquivos \textit{obj}.
 
 	\begin{figure}[ht]
 	\centering
@@ -240,34 +240,34 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 	Para utilizar esta extensão foi necessário instalar e configurar o NDK (\textit{Native Development Kit}) e alterar o \textit{header} da versão da \textit{OpenGL ES} utilizada, adicionando as linhas de código relacionadas à extensão almejada. Assim, foi possível utilizar as novas funções desta extensão pegando os seus endereços por meio do comando \texttt{eglGetProcAddress} (disponível por meio da API EGL que faz o interfaceamento entre a \textit{OpenGL ES} e o sistema operacional). A integração entre o código em linguagem C e o código em Java foi feita por meio da JNI (\textit{Java Native Interface}).
 
-	Feita a configuração e implementação da coleta de tempo para execução da função \texttt{glDrawArrays} (responsável pela renderização), foram plotados os gráficos -- para cada \textit{shader} -- do tempo em nanosegundos \textit{versus} a quantidade de polígonos. Porém, após feita as plotagens dos gráficos para todos os \textit{shaders}, foi possível perceber que as formas de todas as funções se assemelhavam a uma exponencial (como é visto na Figura  \ref{ndk_exp} referente ao \textit{phong shader}). É possível ver esta semelhança trocando-se a escala do gráfico natural para logarítmica (apenas no eixo $y$), pois uma exponencial nesta escala se torna uma reta (como demonstrado na Seção \ref{metminqua} e na  Figura  \ref{ndk_exp}). Então, chegou-se à conclusão que ao se coletar o tempo de realização da função \textit{glDrawArrays}, estava-se contabilizando todo o processo de renderização e não somente o de aplicação do \textit{vertex} e  \textit{fragment}  \textit{shaders}. E foi possível concluir que era necessário coletar de métricas específicas relacionadas ao \textit{vertex} e \textit{fragment} \textit{shaders}. 
+	Feita a configuração e implementação da coleta de tempo da execução da função \texttt{glDrawArrays} (responsável por realizar a renderização), foram plotados os gráficos -- para cada \textit{shader} -- do tempo em nanosegundos \textit{versus} a quantidade de polígonos. Porém, após feita as plotagens dos gráficos, foi possível perceber que as funções relacionadas a todos os \textit{shaders} possuíam formas semelhantes (como é visto na Figura  \ref{render_time}). Assim, chegou-se à conclusão de que era necesário coletar métricas específicas ao \textit{vertex} e \textit{fragment} \textit{shaders}, a fim de poder investigar mais a fundo. 
 
 	\begin{figure}[ht]
 	\centering
-		\includegraphics[keepaspectratio=true,scale=0.42]{figuras/ndk_exp.png}
-	\caption{Gráfico em escala natural (à esquerda) e logarítmica (à direita)}
-	\label{ndk_exp}
+		\includegraphics[keepaspectratio=true,scale=0.35]{figuras/render_time.png}
+	\caption{Gráficos relacionados ao tempo de renderização em nanosegundos}
+	\label{render_time}
 	\end{figure}
 
 \subsection{Medição do Número de Instruções por Segundo, Plotagem e Ajuste das Curvas}
 
-	Para a coleta de medições relacionadas ao \textit{vertex} e \textit{fragment} \textit{shaders}, utilizou-se a ferramenta \textit{Adreno Profiler}. As métricas escolhidas foram a de número de instruções por segundo por vértice e número de instruções por segundo por fragmento. Estas métricas foram coletadas para cada número específico de polígonos, sendo os resultados exportados no formato CSV. A fim de ajustar as curvas obtidas, e consequentemente estimar a complexidade algorítmica, utilizou-se o método dos mínimos quadrados (Seção \ref{metminqua}) para uma funções lineares, quadráticas, cúbicas e exponenciais, calculando-se os respectivos erros, e podendo assim, determinar qual destas curvas melhor se aproxima das medições. 
+	Para a coleta de medições relacionadas ao \textit{vertex} e \textit{fragment} \textit{shaders}, utilizou-se a ferramenta \textit{Adreno Profiler}. As métricas escolhidas foram a de número de instruções por segundo por vértice e número de instruções por segundo por fragmento. Estas métricas foram coletadas para cada número específico de polígonos, sendo os resultados exportados no formato CSV. A fim de ajustar as curvas obtidas, e consequentemente estimar a complexidade algorítmica, utilizou-se o método dos mínimos quadrados (Seção \ref{metminqua}) para funções lineares, quadráticas, cúbicas e exponenciais, calculando-se os respectivos erros, e podendo assim, determinar qual destas curvas melhor se aproximava das medições. 
 
-	 Para automatizar as etapas descritas anteriormente, foi feito um programa em Python que lê os arquivos CSV, faz a média das medições, plota os gráficos para o \textit{vertex} e \textit{fragment} \textit{shaders} e realiza os ajustes das curvas, calculando os erros associados e determinando o menor entre eles. Este programa (\textit{script}) é executado por linha de comando, tendo como parâmetro o \textit{shader} desejado (Figura \ref{linhacomando}).
+	 Para automatizar as etapas descritas anteriormente, foi feito um programa em Python que lê os arquivos CSV, faz a média das medições, plota os gráficos para o \textit{vertex} e \textit{fragment} \textit{shaders} e realiza os ajustes das curvas, calculando os erros associados e determinando o menor entre eles.  Ele também pode ler as medições a partir de um arquivo de extensão \textit{txt} e realizar os ajustes das curvas para todo o processo de renderização (utilizando a medição do tempo em nanosegundos). Este programa (\textit{script}) é executado por linha de comando, tendo como parâmetro o \textit{shader} desejado e qual medição utilizada ( se a relacionada a cada tipo de \textit{shader} ou ao processo de renderização como um todo, como pode ser visto na Figura \ref{linhacomando}).
 
 	\begin{figure}[ht]
 	\centering
 		\includegraphics[keepaspectratio=true,scale=0.8]{figuras/linhacomando.jpg}
-	\caption{Linha de comando para execução do programa}
+	\caption{Linhas de comando para execução do programa}
 	\label{linhacomando}
 	\end{figure}
 
 
-	O programa foi estruturado de acordo com a Figura \ref{minquad_diag}, em que a classe \textit{ReadCSV} é responsável por ler os arquivos CSV e fazer a média das métricas tanto para o \textit{vertex shader} como para o \textit{fragment shader}. Já a classe \textit{PlotChart}, faz a plotagem do gráfico do número de instruções por segundo por vértice \textit{versus} o número de polígonos e do gráfico do número de instruções por segundo por fragmento \textit{versus} o número de polígonos. Além disso, ele também plota o gráfico original juntamente com o gráfico proveniente da aplicação do método dos mínimos quadrados. Por fim, o módulo \textit{LeastSquares} realiza o ajuste dos mínimos quadrados para uma reta, uma exponencial e para polinômios de segundo e terceiro graus. Este módulo também calcula os erros associados a cada ajuste e indica o menor dos erros obtidos dentre todas as aproximações feitas. 
+	O programa foi estruturado de acordo com a Figura \ref{minquad_diag}, em que a classe \textit{ReadCSV} é responsável por ler os arquivos CSV e fazer a média das métricas tanto para o \textit{vertex shader} como para o \textit{fragment shader}. A classe \textit{ReadTxt} é responsável por ler as medições de um arquivo de extensão \textit{txt}, relacionado a todo o processo de renderização. Já a classe \textit{PlotChart}, faz a plotagem dos gráficos do número de instruções por segundo por vértice/fragmento (ou do tempo de renderização em nanosegundos) \textit{versus} o número de polígonos. Além disso, ele também plota o gráfico original juntamente com o gráfico proveniente da aplicação do método dos mínimos quadrados. Por fim, o módulo \textit{LeastSquares} realiza o ajuste dos mínimos quadrados para uma reta, uma exponencial e para polinômios de segundo e terceiro graus. Este módulo também calcula os erros associados a cada ajuste e indica o menor dos erros obtidos dentre todas as aproximações feitas. 
 
 	\begin{figure}[ht]
 	\centering
-		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/minquad_diag.jpg}
+		\includegraphics[keepaspectratio=true,scale=0.58]{figuras/minquad_diag.jpg}
 	\caption{Diagrama de Classes do \textit{script} de automatização}
 	\label{minquad_diag}
 	\end{figure}
