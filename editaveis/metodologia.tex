@@ -1,21 +1,91 @@
 \chapter[Desenvolvimento]{Desenvolvimento}
 
-	Este capítulo descreve a metodologia adotada para a realização deste trabalho, mostrando desde os equipamentos utilizados até como foram feitos os procedimentos de implementação, coleta e análise dos dados. 
+	Este capítulo descreve os passos para a realização deste trabalho, mostrando desde os equipamentos utilizados até como foram feitos os procedimentos de implementação, coleta e análise dos dados. 
 
 \section{Levantamento Bibliográfico}
 
 Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho consistiu em um levantamento bibliográfico, a fim de avaliar a disponibilidade de material para fomentar o tema do trabalho e também analisar o que já foi desenvolvido na área. Feito isso, tomando-se como base o que já foi publicado e desenvolvido, foram definidas as possíveis contribuições, identificando (como foi dito no Capítulo \ref{introduc}) a limitação de desempenho e o desenvolvimento para \textit{mobile} como áreas a serem exploradas.  
 
 \section{Equipamentos Utilizados}
+\label{equip}
 
-	Uma vez definidos os temas e as limitações do trabalho, foram escolhidos os equipamentos que seriam utilizados no desenvolvimento do trabalho. O celular utilizado foi o \textit{Nexus} 4, o qual é o quarto  \textit{smartphone} da  \textit{Google}, projetado e fabricado pela \textit{LG Electronics}.  Ele possui o processador \textit{Snapdragon S4 Pro} de 1,512 GHz \textit{quad-core}, GPU (\textit{Graphics processing unit}) \textit{Adreno} 320 e 2 GB de memória RAM. O computador utilizado na codificação e nos testes foi o da linha \textit{Alienware} M14x fabricado pela \textit{Dell}, no qual possui processador \textit{Intel Core} i7 de 2,3 GHz, GPU \textit{NVIDIA GeForce} GTX de 2 GB e 8 GB de memória RAM. 
+	 O computador utilizado para o desenvolvimento na plataforma \textit{Android} foi o da linha \textit{Alienware} M14x fabricado pela \textit{Dell}, no qual possui processador \textit{Intel Core} i7 de 2,3 GHz, GPU \textit{NVIDIA GeForce} GTX de 2 GB e 8 GB de memória RAM.  Já o utilizado para desenvolvimento na plataforma \textit{iOS} foi um Macbook Pro 11.1, que possui processador \textit{Intel Core} i5 de 2,6 GHz e 8 GB de memória RAM.
+
+	A tabela \ref{equipamentos} mostra os dispositivos móveis utilizados, que são equipamentos com diferentes resoluções e desempenhos. O aplicativo de \textit{benchmark 3D Mark}\footnote{http://www.3dmark.com/} foi utilizado para comparar os diferentes desempenhos. Ele roda uma série de testes gráficos com cenas tridimensionais, a fim de estressar o desempenho da \textit{GPU}, atribuindo uma pontuação final.
+	
+\begin{table}[ht]
+	\centering	
+	\begin{tabular}{ccccc}
+		\toprule
+		\textbf{Dispositivo} & \textbf{Plataforma}  & \textbf{Resolução} & \textbf{GPU} & \textbf{Pontuação do \textit{3D Mark}} \\
+		\midrule
+		\textit{Nexus} 4 &  \textit{Android} & 768 x 1280 &  \textit{Adreno} 320 & 7106\\
+		\textit{HTC One} &  \textit{Android} & 1080 x 1920 &  \textit{Adreno} 320 & 10184\\ 
+		\textit{iPad Air} &  \textit{iOS} & 2048 x 1536  &  PowerVR G6430 & 14952\\
+		\textit{iPhone} 5s &  \textit{iOS} & 1136 x 640  &  PowerVR G6430 & 14750\\
+		\bottomrule
+	\end{tabular}
+	\caption{Dispositivos móveis utilizados}
+	\label{equipamentos}
+\end{table}
+
 
 \section{Configuração do Ambiente}
 \label{configamb}	
 
-	Em seguida, foram feitas as configurações dos ambientes de trabalho. Para desenvolver na plataforma \textit{Android} foi necessário instalar o \textit{Android SDK}, \textit{Android NDK} (para utilizar linguagem de código nativo C) e o \textit{plugin} ADT, uma vez que seria utilizada a IDE \textit{Eclipse}. A biblioteca gráfica para sistemas embarcados \textit{OpenGL ES} faz parte das ferramentas de desenvolvimento da plataforma \textit{Android}. 
+	Em seguida serão apresentadas as configurações dos ambientes de trabalho realizadas e as ferramentas utilizadas.
 
-	Para a coleta de métricas foi utilizada a ferramenta \textit{Adreno Profiler}, pois o celular utilizado possui a GPU \textit{Adreno}. A \textit{Adreno Profiler} é uma ferramenta que foca na otimização gráfica para celulares que possuem GPU \textit{Adreno} (fabricada pela empresa \textit{Qualcomm}). De acordo com  \cite{adp}, a ferramenta provê suporte para \textit{Android} e \textit{Windows RT} (variação do sistema operacional \textit{Windows} 8  e projetada para \textit{devices} móveis), permitindo a otimização, análise por quadros e visualização de desempenho em tempo real. No dispositivo \textit{Nexus 4} ela só é suportada com o \textit{Android} até a versão 4.3 (não suporta o \textit{KitKat}). 
+\subsection{Plataforma \textit{Android}}
+
+	Uma das alternativas para o desenvolvimento em plataforma \textit{Android} foi utilizar a ferramenta \textit{Eclipse}\footnote{http://www.eclipse.org/} (Figura \ref{eclipse}), que é um ambiente de desenvolvimento integrado (\textit{Integrated Development Environment} -- IDE) \textit{open source}. Adicionalmente, foi preciso instalar o \textit{Android Software Development Kit}\footnote{http://developer.android.com/sdk/index.html} e o \textit{plugin} ADT (\textit{Android Development Tools})\footnote{http://developer.android.com/tools/sdk/eclipse-adt.html}, que permitem desenvolver e depurar aplicações pra \textit{Android}. Outra alternativa possível seria utilizar o \textit{Android Studio}\footnote{http://developer.android.com/sdk/installing/studio.html}, lançado recentemente (2013) pela empresa \textit{Google}, que já possui todos os pacotes e configurações necessárias para o desenvolvimento, incluindo o  \textit{Software Development Kit} (SDK), as ferramentas e os emuladores. 
+
+	\begin{figure}[ht]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.35]{figuras/eclipse.jpg}
+	\caption{Ambiente de desenvolvimento \textit{Eclipse}}
+	\label{eclipse}
+	\end{figure}
+
+	Além disso, também foi necessário instalar o \textit{Android NDK}, a fim de poder utilizar linguagem de código nativo C e acessar as extensões da \textit{OpenGL ES}. A biblioteca gráfica para sistemas embarcados \textit{OpenGL ES} já faz parte das ferramentas de desenvolvimento da plataforma \textit{Android}. 
+
+\subsection{Plataforma \textit{iOS}}
+
+	Para o desenvolvimento na plataforma \textit{iOS}, é utilizada a ferramenta \textit{Xcode}. Segundo \cite{neub2013}, um novo projeto no \textit{Xcode} já vem com todos os arquivos e configurações necessários para o desenvolvimento de um aplicativo (Figura \ref{xcode}).  Esta ferramenta também possui um módulo chamado \textit{Instruments}, que analisa o comportamento interno de um aplicativo graficamente e numericamente, sendo possível monitorar diversas métricas.  
+
+	\begin{figure}[ht]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/xcode.jpg}
+	\caption{Novo projeto de um aplicativo na ferramenta \textit{Xcode}}
+	\label{xcode}
+	\end{figure}
+
+\subsection{Modelagem dos Objetos Tridimensionais}
+
+ A fim de variar a contagem poligonal dos objetos tridimensionais, foi utilizada a ferramenta de modelagem tridimensional \textit{open source} chamada Blender\footnote{http://www.blender.org/}, a qual está ilustrada na Figura \ref{blender}. Ela também permite modificar o número de polígonos de um modelo tridimensional por meio de modificadores chamados \textit{Decimate} e \textit{Subdivision Surface} (usados para diminuir e aumentar a contagem poligonal, respectivamente). 
+
+	\begin{figure}[ht]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.6]{figuras/blender.jpg}
+	\caption{Ferramenta de modelagem tridimensional}
+	\label{blender}
+	\end{figure}
+
+\subsection{Coleta de Medições}
+\label{medicoes}
+
+	Para a coleta das medições quanto a todo o processo de renderização, na plataforma \textit{Android}, foi utilizada uma extensão da \textit{OpenGL ES}. Esta extensão se chama \texttt{GL\_EXT\_disjoint\_timer\_query}\footnote{http://www.khronos.org/registry/gles/}, e dentre os dispositivos utilziados neste trabalho, só está disponível para o \textit{Nexus 4} a partir da versão de Android 4.4 (\textit{KitKat}). A fim de utilizar esta extensão, foi necessário instalar e configurar o NDK (\textit{Native Development Kit}) e alterar o \textit{header} da versão da \textit{OpenGL ES} utilizada, adicionando as linhas de código relacionadas à extensão almejada. Assim, foi possível utilizar as novas funções desta extensão pegando os seus endereços por meio do comando \texttt{eglGetProcAddress} (disponível por meio da API EGL que faz o interfaceamento entre a \textit{OpenGL ES} e o sistema operacional). A integração entre o código em linguagem C e o código em Java foi feita por meio da JNI (\textit{Java Native Interface}). 
+
+	A fim de realizar a mesma medição na plataforma \textit{iOS}, utilizou-se (como mostra a Figura \ref{instruments}) o módulo \textit{Instruments} da ferramenta \textit{Xcode}.
+
+	\begin{figure}[ht]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.3]{figuras/analyzer_opengles.png}
+	\caption{Analisador de \textit{OpenGL ES}}
+	\label{instruments}
+	\end{figure}
+
+
+	Para a coleta das medições específicas do \textit{vertex} e \textit{fragment shaders} foi utilizada a ferramenta \textit{Adreno Profiler}, pois o celular utilizado possui a GPU \textit{Adreno}. A \textit{Adreno Profiler} é uma ferramenta que foca na otimização gráfica para celulares que possuem GPU \textit{Adreno} (fabricada pela empresa \textit{Qualcomm}). De acordo com  \cite{adp}, a ferramenta provê suporte para \textit{Android} e \textit{Windows RT} (variação do sistema operacional \textit{Windows} 8  e projetada para \textit{devices} móveis), permitindo a otimização, análise por quadros e visualização de desempenho em tempo real. No dispositivo \textit{Nexus 4} ela só é suportada com o \textit{Android} até a versão 4.3 (não suporta o \textit{KitKat}). 
 
 	Como pode ser visto na Figura \ref{adrenoProfiler}, a ferramenta possui um módulo de análise dos \textit{vertex} e \textit{fragment} \textit{shaders}, sendo possível editá-los e analisar os resultados da compilação em tempo real, além dela também gerar estatísticas.  
 
@@ -35,11 +105,15 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{graph}
 	\end{figure}
 
+\subsection{Automatização de Cálculo e Plotagem}
+
 	Para a automatização da plotagem dos gráficos e aplicação do método dos mínimos quadrados (descrito na Seção \ref{metminqua}) utilizou-se a linguagem de programação Python\footnote{http://www.python.org.br/} versão 2.7.3, juntamente com os pacotes  \textit{matplotlib}\footnote{http://www.matplotlib.org/} e  \textit{numpy}\footnote{http://www.numpy.org/}. 
+
+\subsection{Controle de Versionamento}
 
 	O controle de versionamento do código foi feito por meio do sistema de controle de versão Git \footnote{http://git-scm.com/} utilizando o \textit{forge} GitHub \footnote{https://github.com/}. Foram criados repositórios públicos tanto para a implementação em \textit{Android} \footnote{https://github.com/campeloal/monografia\_opengles} quanto para a automatização da análise da complexidade algorítmica \footnote{https://github.com/campeloal/monografia\_algorithmComplexity/}. 
 
-\section{Implementação} 
+\section{Implementação na Plataforma \textit{Android}} 
 \label{imp}
 
 	 A fim de tornar possível a realização da análise da complexidade algorítmica experimentalmente, primeiramente focou-se na implementação dos \textit{shaders} para plataforma \textit{Android} utilizando a biblioteca \textit{OpenGL ES}. Foi utilizado  o paradigma de orientação a objetos, em que o diagrama de classes (Figura \ref{class_diagram}) mostra como o código foi estruturado. Este diagrama mostra um conjunto de classes e seus relacionamentos, sendo o diagrama central da modelagem orientada a objetos. 
@@ -91,14 +165,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{object_texture}
 	\end{figure}
 
-	O objeto tridimensional foi representado pela composição das classes \textit{3DObject} e \textit{Texture}. A classe \textit{3DObject}, mostrada na Figura \ref{object_texture}, é responsável por ler e interpretar os arquivos  \textit{obj}  (descrito no Anexo \ref{formatobj}). Estes arquivos foram criados e exportados utilizando a ferramenta de modelagem tridimensional \textit{open source} chamada Blender\footnote{http://www.blender.org/}, a qual está ilustrada na Figura \ref{blender}. Ela também permite modificar o número de polígonos de um modelo tridimensional por meio de modificadores chamados \textit{Decimate} e \textit{Subdivision Surface} (usados para diminuir e aumentar a contagem poligonal, respectivamente).  Assim, foi possível variar a contagem poligonal a partir de diferentes arquivos \textit{obj}.
-
-	\begin{figure}[ht]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.7]{figuras/blender.jpg}
-	\caption{Ferramenta de modelagem tridimensional}
-	\label{blender}
-	\end{figure}
+	O objeto tridimensional foi representado pela composição das classes \textit{3DObject} e \textit{Texture}. A classe \textit{3DObject}, mostrada na Figura \ref{object_texture}, é responsável por ler e interpretar os arquivos  \textit{obj}  (descrito no Anexo \ref{formatobj}), criados por meio da ferramenta \textit{Blender}.
 
 	Após a leitura e interpretação do arquivo \textit{obj} foi gerado um \textit{buffer} para armazenar os vértices de posição, normal e textura na ordem em que eles serão renderizados. Neste \textit{buffer} cada coordenada relacionada a um vértice (posição, normal e textura) é armazenada alternadamente, como mostra a Figura \ref{buffer}.
 
@@ -138,7 +205,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{timer_nativelib}
 	\end{figure}
 
-	A Figura \ref{timer_nativelib} detalha a classe \textit{Timer}, que realiza a média de dez medições do tempo de renderização (em nanosegundos) para cada objeto tridimensional, utilizando um \textit{shader} específico. Cada medição é feita utilizando a linguagem C e a extensão de \textit{OpenGL ES} chamada \texttt{GL\_EXT\_disjoint\_timer\_query} citada na Seção \ref{gpu}.  A integração entre o código em linguagem C e o código em Java é feita por meio da classe \textit{NativeLib}.
+	A Figura \ref{timer_nativelib} detalha a classe \textit{Timer}, que realiza a média de dez medições do tempo de renderização (em nanosegundos) para cada objeto tridimensional, utilizando um \textit{shader} específico. Cada medição é feita utilizando a linguagem C e a extensão de \textit{OpenGL ES} chamada \texttt{GL\_EXT\_disjoint\_timer\_query} citada na Seção \ref{gpu}.  A integração entre o código em linguagem C e o código em Java é feita por meio da classe \textit{NativeLib}. Caso a extensão não esteja disponível para o dispositivo, um alerta é emitido.
 
 \subsection{Renderização}    
 
@@ -178,6 +245,14 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\lstinputlisting[language=C, label = {codphongvs}, caption = {\textit{Phong Shader}:  \textit{vertex shader}}]{codigos/phong_vs.txt}
 
 	\lstinputlisting[language=C, caption =  {\textit{Phong Shader}:  \textit{fragment shader}}, label = {codphongfs}  ]{codigos/phong_ps.txt}
+
+\subsubsection{\textit{Gouraud Shader}}
+
+	O \textit{Gouraud Shader}, assim com o \textit{Phong Shader}, também implementa a técnica descrita na Seção \ref{flatgouphon}, porém os cálcilos de luz e da cor são feitos no \textit{vertex shader} para serem interpolados e passados para o \textit{fragment shader}, como mostram o Código \ref{codgouraudvs} e o Código \ref{codgouraudfs}. 
+
+	\lstinputlisting[language=C, label = {codgouraudvs}, caption = {\textit{Gouraud Shader}:  \textit{vertex shader}}]{codigos/gouraud_vs.txt}
+
+	\lstinputlisting[language=C, caption =  {\textit{Gourad Shader}:  \textit{fragment shader}}, label = {codgouraudfs}  ]{codigos/gouraud_ps.txt}
 	
 \subsubsection{\textit{Red Shader}}
 	
@@ -229,39 +304,57 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 	\lstinputlisting[language=C, caption = {\textit{Reflection Shader}:  \textit{fragment shader}}, label = {codreflfs}]{codigos/reflection_ps.txt}
 
+\section{Implementação na Plataforma \textit{iOS}} 
+
+	A estrutura do programa portado para a plataforma \textit{iOS} é similar à feita para plataforma \textit{Android}, como mostra a Figura \ref{ios_diag}. Segundo \cite{neub2013}, o desenvolvimento para plataforma \textit{iOS} segue o padrão MVC (\textit{Model-View-Controller}), que é um padrão arquitetural. A classe (\textit{RendererViewController}) é a controladora responsável pela integração entre as classes \textit{Shader}, \textit{3DObject} (\textit{Models}) e a a classe de visualização \textit{RendererView}. É na controladora que são feitas as principais chamadas da \textit{OpenGL ES}. A classe \textit{3DObject} faz a interpretação do arquivo \textit{obj} para o formato aceito pela \textit{OpenGL ES} e a classe \textit{Shader}, assim como na plataforma \textit{Android}, é responsável por ler, fazer o \textit{attach} e o \textit{link} do \textit{ vertex} e do \textit{fragment shaders}. 
+
+	\begin{figure}[ht]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/ios_class_diagram.jpg}
+	\caption{Diagrama de Classes da Implementação em \textit{iOS}}
+	\label{ios_diag}
+	\end{figure}
+
+	Assim, escolheu-se um \textit{shader}, no caso o \textit{Gouraud Shader}, para ser implementado e posteriormente realizar as comparações. O resultado da implementação pode ser visto na Figura \ref{gouraud_ios}
+
+	\begin{figure}[ht]
+	\centering
+		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/gouraud_ios.png}
+	\caption{\textit{Gouraud Shader} na plataforma \textit{iOS}}
+	\label{gouraud_ios}
+	\end{figure}
+
 \section{Análise Experimental da Complexidade Algorítmica}
 
-	A análise experimental da complexidade algorítmica foi através da coleta de diversas medições para cada modelo tridimensional (com diferentes quantidades de polígonos). Estas medidas foram plotadas em gráficos, cujas curvas foram ajustadas através do método dos mínimos quadrados (Seção \ref{metminqua}). 
+	A análise experimental da complexidade algorítmica foi através da coleta de diversas medições para cada modelo tridimensional (com diferentes quantidades de polígonos). Estas medidas foram plotadas em gráficos, cujas curvas foram ajustadas através do método dos mínimos quadrados (Seção \ref{metminqua}). Cada um destes processos é explicado a seguir.
 
-\subsection{Medição do Tempo de Renderização Realizada pela GPU}
+
+\subsection{Medição do Processo de Renderização}
 \label{gpu}
 
-	A fim de estimar experimentalmente a análise da complexidade algorítmica dos \textit{shaders} implementados, primeiro buscou-se coletar uma métrica relacionada ao tempo de renderização. Por meio de pesquisa e consulta na documentação da \textit{OpenGL ES}, conseguiu-se encontrar uma extensão desta biblioteca gráfica que permite contabilizar o tempo, em nanosegundos, necessário para realizar chamadas de \textit{OpenGL ES} específicas. Esta extensão se chama \texttt{GL\_EXT\_disjoint\_timer\_query}\footnote{http://www.khronos.org/registry/gles/} e só está disponível para o dispositivo \textit{Nexus 4} a partir da versão de Android 4.4 (\textit{KitKat}).
+	A fim de estimar experimentalmente a análise da complexidade algorítmica dos \textit{shaders} implementados, primeiro buscou-se coletar uma métrica relacionada ao tempo de renderização, que calcula o tempo necessário para processar o \textit{shader} como um todo. Por meio de pesquisa e consulta na documentação da \textit{OpenGL ES}, para a plataforma \textit{Android}, conseguiu-se encontrar uma extensão desta biblioteca gráfica, explicada na Seção \ref{medicoes}, que permite contabilizar o tempo, em nanosegundos, necessário para realizar chamadas de \textit{OpenGL ES} específicas. Porém esta extensão só está disponível para alguns dispositivos e foi utilizada para medir o tempo de todo o processo de renderização realizado pela função \texttt{glDrawArrays}.
 
-	Para utilizar esta extensão foi necessário instalar e configurar o NDK (\textit{Native Development Kit}) e alterar o \textit{header} da versão da \textit{OpenGL ES} utilizada, adicionando as linhas de código relacionadas à extensão almejada. Assim, foi possível utilizar as novas funções desta extensão pegando os seus endereços por meio do comando \texttt{eglGetProcAddress} (disponível por meio da API EGL que faz o interfaceamento entre a \textit{OpenGL ES} e o sistema operacional). A integração entre o código em linguagem C e o código em Java foi feita por meio da JNI (\textit{Java Native Interface}).
+	Para a plataforma \textit{iOS}, utilizou-se um módulo da ferramenta \textit{Xcode} também explicado na Seção \ref{medicoes}, que assim como a extensão da \textit{OpenGL ES}, consegue calcular o tempo da chamada da função \texttt{glDrawArrays}, porém em microsegundos.  
 
-	Feita a configuração e implementação da coleta de tempo da execução da função \texttt{glDrawArrays} (responsável por realizar a renderização), foram plotados os gráficos -- para cada \textit{shader} -- do tempo em nanosegundos \textit{versus} a quantidade de polígonos. Porém, após feita as plotagens dos gráficos, foi possível perceber que as funções relacionadas a todos os \textit{shaders} possuíam formas semelhantes (como é visto na Figura  \ref{render_time}). Assim, chegou-se à conclusão de que era necessário coletar métricas específicas ao \textit{vertex} e \textit{fragment} \textit{shaders}, a fim de poder investigar mais a fundo. 
+	Assim, as medições do tempo do processo de renderização foram coletadas para o dispositivo \textit{Nexus 4}, \textit{iPhone 5s} e \textit{iPad Air}. A medição não foi feita para o dispositivo \textit{HTC One}, pois a extensão \texttt{GL\_EXT\_disjoint\_timer\_query} não está disponível.
 
-	\begin{figure}[ht]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.35]{figuras/render_time.png}
-	\caption{Gráficos relacionados ao tempo de renderização em nanosegundos}
-	\label{render_time}
-	\end{figure}
+\subsection{Medição do \textit{Vertex} e  \textit{Fragment Shaders}}
 
-\subsection{Medição do Número de Instruções por Segundo, Plotagem e Ajuste das Curvas}
+	Para a coleta de medições relacionadas ao \textit{vertex} e \textit{fragment} \textit{shaders}, utilizou-se a ferramenta \textit{Adreno Profiler}, mostrada na Seção \ref{medicoes}. As métricas escolhidas foram a de número de instruções por segundo por vértice e número de instruções por segundo por fragmento. Estas métricas foram coletadas para cada número específico de polígonos, sendo os resultados exportados no formato CSV. Porém, como esta ferramenta só pode ser utilizada em dispositivos com GPU Adreno, as medições foram realizadas apenas para os dispositivos \textit{Nexus 4} e \textit{HTC One} (para este último dispositivo, escolheu-se apenas o \textit{Gouraud Shader} para comparação). 
 
-	Para a coleta de medições relacionadas ao \textit{vertex} e \textit{fragment} \textit{shaders}, utilizou-se a ferramenta \textit{Adreno Profiler}. As métricas escolhidas foram a de número de instruções por segundo por vértice e número de instruções por segundo por fragmento. Estas métricas foram coletadas para cada número específico de polígonos, sendo os resultados exportados no formato CSV. A fim de ajustar as curvas obtidas, e consequentemente estimar a complexidade algorítmica, utilizou-se o método dos mínimos quadrados (Seção \ref{metminqua}) para funções lineares, quadráticas, cúbicas e exponenciais, calculando-se os respectivos erros, e podendo assim, determinar qual destas curvas melhor se aproximava das medições. 
+	A medição do \textit{vertex} e \textit{fragment shaders} não puderam ser feitas para a plataforma \textit{iOS}, pois o módulo \textit{Instruments} não disponibiliza nenhuma métrica relacionada.
 
-	 Para automatizar as etapas descritas anteriormente, foi feito um programa em Python que lê os arquivos CSV, faz a média das medições, plota os gráficos para o \textit{vertex} e \textit{fragment} \textit{shaders} e realiza os ajustes das curvas, calculando os erros associados e determinando o menor entre eles.  Ele também pode ler as medições a partir de um arquivo de extensão \textit{txt} e realizar os ajustes das curvas para todo o processo de renderização (utilizando a medição do tempo em nanosegundos). Este programa (\textit{script}) é executado por linha de comando, tendo como parâmetro o \textit{shader} desejado e qual medição utilizada ( se a relacionada a cada tipo de \textit{shader} ou ao processo de renderização como um todo, como pode ser visto na Figura \ref{linhacomando}).
+\subsection{Plotagem}
 
-	\begin{figure}[ht]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.8]{figuras/linhacomando.jpg}
-	\caption{Linhas de comando para execução do programa}
-	\label{linhacomando}
-	\end{figure}
+	Após feitas as medições, plotaram-se os gráficos tanto para todo o processo de renderização, quanto para o \textit{vertex} e \textit{fragment shaders}. O primeiro está relacionado com o tempo em nanosegundos \textit{versus} a quantidade de polígonos, e o segundo, com o número de instruçoes por vértice (ou fragmento) \textit{versus} a quantidade de polígonos. Assim, diversas curvas foram geradas.
 
+\subsection{Automatização dos Ajustes das Curvas}
+
+	A fim de ajustar as curvas obtidas por meio das medições, e consequentemente estimar a complexidade algorítmica, utilizou-se o método dos mínimos quadrados (Seção \ref{metminqua}) para funções lineares, quadráticas, cúbicas e exponenciais, calculando-se os respectivos erros, e podendo assim, determinar qual destas curvas melhor se aproximava das medições. 
+
+	 Para automatizar este cálculo do ajuste, foi feito um programa em Python que lê os arquivos CSV, faz a média das medições, plota os gráficos para o \textit{vertex} e \textit{fragment} \textit{shaders} e realiza os ajustes das curvas, calculando os erros associados e determinando o menor entre eles.  Ele também pode ler as medições a partir de um arquivo de extensão \textit{txt} e realizar os ajustes das curvas para todo o processo de renderização (utilizando a medição do tempo em nanosegundos). Este programa (\textit{script}) é executado por linha de comando, tendo como parâmetro o \textit{shader} desejado e qual medição utilizada ( se a relacionada a cada tipo de \textit{shader} ou ao processo de renderização como um todo. Dois exemplos de linhas de comando podem ser vistos no Código \ref{linhacomando}). A primeira linha está relacionada com o cálculo para todo o procesos de renderização, e a segunda, apenas para o \textit{vertex} e \textit{fragment shaders}.
+
+	\lstinputlisting[language=C, label = {linhacomando}, caption = {Linhas de comando}]{codigos/linhacomando.txt}
 
 	O programa foi estruturado de acordo com a Figura \ref{minquad_diag}, em que a classe \textit{ReadCSV} é responsável por ler os arquivos CSV e fazer a média das métricas tanto para o \textit{vertex shader} como para o \textit{fragment shader}. A classe \textit{ReadTxt} é responsável por ler as medições de um arquivo de extensão \textit{txt}, relacionado a todo o processo de renderização. Já a classe \textit{PlotChart}, faz a plotagem dos gráficos do número de instruções por segundo por vértice/fragmento (ou do tempo de renderização em nanosegundos) \textit{versus} o número de polígonos. Além disso, ele também plota o gráfico original juntamente com o gráfico proveniente da aplicação do método dos mínimos quadrados. Por fim, o módulo \textit{LeastSquares} realiza o ajuste dos mínimos quadrados para uma reta, uma exponencial e para polinômios de segundo e terceiro graus. Este módulo também calcula os erros associados a cada ajuste e indica o menor dos erros obtidos dentre todas as aproximações feitas. 
 

@@ -88,7 +88,7 @@
 
 \subsection{\textit{Shaders} em Plataformas Móveis}
 
-	Assim como para computadores, também existem bibliotecas gráficas para dispositivos móveis. A seguir, é explicado a plataforma \textit{Android}, utilizada neste trabalho, e a biblioteca gráfica \textit{OpenGL ES}, que é uma variação da \textit{OpenGL} para dispositivos móveis, para a programação de \textit{shaders}.
+	Assim como para computadores, também existem bibliotecas gráficas para dispositivos móveis. Nas próximas seções explica-se a plataforma \textit{Android} e \textit{iOS}, que foram utilizadas neste trabalho, e a biblioteca gráfica \textit{OpenGL ES}, que é uma variação da \textit{OpenGL} para dispositivos móveis, usada na programação de \textit{shaders}.
 
 	\subsubsection{Plataforma \textit{Android}}
 
@@ -119,14 +119,32 @@
 	\label{androidTab}
 \end{table}
 
-	Uma das alternativas para o desenvolvimento em plataforma \textit{Android} é utilizar a ferramenta \textit{Eclipse}\footnote{http://www.eclipse.org/} (Figura \ref{eclipse}), que é um ambiente de desenvolvimento integrado (\textit{Integrated Development Environment} -- IDE) \textit{open source}. Adicionalmente, é preciso, de acordo com \cite{androidsdkmanager}, instalar o \textit{Android Software Development Kit}\footnote{http://developer.android.com/sdk/index.html} e o \textit{plugin} ADT (\textit{Android Development Tools})\footnote{http://developer.android.com/tools/sdk/eclipse-adt.html}, que permitem desenvolver e depurar aplicações pra \textit{Android}. Outra alternativa é utilizar o \textit{Android Studio}\footnote{http://developer.android.com/sdk/installing/studio.html}, lançado recentemente (2013) pela empresa \textit{Google}, que já vem com todos os pacotes e configurações necessárias para o desenvolvimento, incluindo o  \textit{Software Development Kit} (SDK), as ferramentas e os emuladores. 
 
-	\begin{figure}[ht]
-	\centering
-		\includegraphics[keepaspectratio=true,scale=0.35]{figuras/eclipse.jpg}
-	\caption{Ambiente de desenvolvimento \textit{Eclipse}}
-	\label{eclipse}
-	\end{figure}
+	\subsubsection{Plataforma \textit{iOS}}
+
+	A plataforma \textit{iOS} é uma plataforma móvel que foi lançada em 2007 e é distribuída exclusivamente para \textit{hardware} frabricado pela \textit{Apple} (empresa que a desenvolveu).  De acordo com o CEO da \textit{Apple}, Tim Cook, mais de 700 milhões de aparelhos \textit{iOS} -- como o \textit{iPhone}, \textit{iPad} e \textit{iPod} -- já foram vendidos desde o seu lançamento. A plataforma \textit{iOS} é atualizada periodicamente (uma vez ao ano) e a Tabela \ref{iosv} mostra as versões de \textit{iOS} já lançadas.
+
+	\begin{table}[ht]
+	\centering	
+	\begin{tabular}{cc}
+		\toprule
+		\textbf{Número da versão} & Ano Lançamento  \\
+		\midrule
+		iOS 1.x & 2007 \\
+		iOS 2.x & 2008 \\
+		iOS 3.x &  2009 \\
+		iOS 4.x & 2010 \\
+		iOS 5.x &  2011 \\
+		iOS 6.x & 2012 \\
+		iOS 7.x & 2013 \\
+		iOS 8.x & 2014 \\	
+		\bottomrule
+	\end{tabular}
+	\caption{ Versões da plataforma \textit{Android}}
+	\label{iosv}
+\end{table}
+
+	Assim como a plataforma \textit{Android}, a \textit{iOS} também possui um mercado centralizado acessível por qualquer aparelho, chamado de \textit{Apple Store}\footnote{http://store.apple.com/br}, para aquisição e publicação de aplicativos. 
 
 	\subsubsection{\textit{OpenGL ES}}
 	
@@ -134,7 +152,7 @@
 
 	Segundo \cite{opengles2012}, ela possui três versõe: a 1.x que utiliza as funções fixas de renderização, a 2.x, que elimina as funções fixas e foca nos processos de renderização manipulados por \textit{pipelines} programáveis (\textit{shaders}) e a 3.x, que é completamente compatível com a  \textit{OpenGL} 4.3.  
 
-	A \textit{OpenGL ES}, assim como a \textit{OpenGL}, também utiliza a linguagem GLSL para programação de \textit{shaders} e  já faz parte das ferramentas de desenvolvimento da plataforma \textit{Android}. 
+	A \textit{OpenGL ES}, assim como a \textit{OpenGL}, também utiliza a linguagem GLSL para programação de \textit{shaders} e  já faz parte das ferramentas de desenvolvimento da plataforma \textit{Android}. De acordo com \cite{buck2012}, na plataforma \textit{iOS} a \textit{OpenGL ES} pode ser utilizada por meio do \textit{framework} chamado \textit{GLKit} (introduzido no \textit{iOS} 5). Ele provê classes e funções que simplificam o uso da \textit{OpenGL ES} com o \textit{iOS}.
 
 
 \section{Fundamentação Matemática e Física para Implementação de \textit{Shaders}}
