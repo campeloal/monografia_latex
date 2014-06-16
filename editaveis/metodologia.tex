@@ -1,28 +1,28 @@
 \chapter[Desenvolvimento]{Desenvolvimento}
 
-	Este capítulo descreve os passos para a realização deste trabalho, mostrando desde os equipamentos utilizados até como foram feitos os procedimentos de implementação, coleta e análise dos dados. 
+	Este capítulo descreve os passos para a realização deste trabalho, mostrando desde os equipamentos utilizados até os procedimentos de implementação, coleta e análise dos dados. 
 
 \section{Levantamento Bibliográfico}
 
-Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho consistiu em um levantamento bibliográfico, a fim de avaliar a disponibilidade de material para fomentar o tema do trabalho e também analisar o que já foi desenvolvido na área. Feito isso, tomando-se como base o que já foi publicado e desenvolvido, foram definidas as possíveis contribuições, identificando (como foi dito no Capítulo \ref{introduc}) a limitação de desempenho e o desenvolvimento para \textit{mobile} como áreas a serem exploradas.  
+Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho consistiu em um levantamento bibliográfico, a fim de avaliar a disponibilidade de material para fomentar o tema do trabalho e também analisar o que já foi publicado e desenvolvido na área. Feito isto, foram definidas as possíveis contribuições, identificando (como foi dito no Capítulo \ref{introduc}) a limitação de desempenho e o desenvolvimento para \textit{mobile} como áreas a serem exploradas.  
 
 \section{Equipamentos Utilizados}
 \label{equip}
 
 	 O computador utilizado para o desenvolvimento na plataforma \textit{Android} foi o da linha \textit{Alienware} M14x fabricado pela \textit{Dell}, no qual possui processador \textit{Intel Core} i7 de 2,3 GHz, GPU \textit{NVIDIA GeForce} GTX de 2 GB e 8 GB de memória RAM.  Já o utilizado para desenvolvimento na plataforma \textit{iOS} foi um Macbook Pro 11.1, que possui processador \textit{Intel Core} i5 de 2,6 GHz e 8 GB de memória RAM.
 
-	A tabela \ref{equipamentos} mostra os dispositivos móveis utilizados, que são equipamentos com diferentes resoluções e desempenhos. O aplicativo de \textit{benchmark 3D Mark}\footnote{http://www.3dmark.com/} foi utilizado para comparar os diferentes desempenhos. Ele roda uma série de testes gráficos com cenas tridimensionais, a fim de estressar o desempenho da \textit{GPU}, atribuindo uma pontuação final.
+	A Tabela \ref{equipamentos} mostra os dispositivos móveis utilizados, que são equipamentos com diferentes resoluções e desempenhos. O aplicativo de \textit{benchmark 3D Mark}\footnote{\textit{http://www.3dmark.com/}} foi utilizado para comparar os diferentes desempenhos. Ele roda uma série de testes gráficos com cenas tridimensionais, a fim de estressar o desempenho da \textit{GPU}, atribuindo uma pontuação final.
 	
 \begin{table}[ht]
 	\centering	
-	\begin{tabular}{ccccc}
+	\begin{tabular}{lcccc}
 		\toprule
-		\textbf{Dispositivo} & \textbf{Plataforma}  & \textbf{Resolução} & \textbf{GPU} & \textbf{Pontuação do \textit{3D Mark}} \\
+		\textbf{Dispositivo} & \textbf{Plataforma}  & \textbf{Resolução} & \textbf{GPU} & \textbf{Pontuação} \\
 		\midrule
-		\textit{Nexus} 4 &  \textit{Android} & 768 x 1280 &  \textit{Adreno} 320 & 7106\\
-		\textit{HTC One} &  \textit{Android} & 1080 x 1920 &  \textit{Adreno} 320 & 10184\\ 
-		\textit{iPad Air} &  \textit{iOS} & 2048 x 1536  &  PowerVR G6430 & 14952\\
-		\textit{iPhone} 5s &  \textit{iOS} & 1136 x 640  &  PowerVR G6430 & 14750\\
+		\textit{Nexus} 4 &  \textit{Android} & 768 x 1280 &  \textit{Adreno} 320 & 7.106\\
+		\textit{HTC One} &  \textit{Android} & 1080 x 1920 &  \textit{Adreno} 320 & 10.184\\ 
+		\textit{iPad Air} &  \textit{iOS} & 2048 x 1536  &  PowerVR G6430 & 14.952\\
+		\textit{iPhone} 5s &  \textit{iOS} & 1136 x 640  &  PowerVR G6430 & 14.750\\
 		\bottomrule
 	\end{tabular}
 	\caption{Dispositivos móveis utilizados}
@@ -30,14 +30,14 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 \end{table}
 
 
-\section{Configuração do Ambiente}
+\section{Configuração do Ambiente e Ferramentas}
 \label{configamb}	
 
-	Em seguida serão apresentadas as configurações dos ambientes de trabalho realizadas e as ferramentas utilizadas.
+	Em seguida serão apresentadas as configurações dos ambientes de trabalho e as ferramentas utilizadas.
 
 \subsection{Plataforma \textit{Android}}
 
-	Uma das alternativas para o desenvolvimento em plataforma \textit{Android} foi utilizar a ferramenta \textit{Eclipse}\footnote{http://www.eclipse.org/} (Figura \ref{eclipse}), que é um ambiente de desenvolvimento integrado (\textit{Integrated Development Environment} -- IDE) \textit{open source}. Adicionalmente, foi preciso instalar o \textit{Android Software Development Kit}\footnote{http://developer.android.com/sdk/index.html} e o \textit{plugin} ADT (\textit{Android Development Tools})\footnote{http://developer.android.com/tools/sdk/eclipse-adt.html}, que permitem desenvolver e depurar aplicações pra \textit{Android}. Outra alternativa possível seria utilizar o \textit{Android Studio}\footnote{http://developer.android.com/sdk/installing/studio.html}, lançado recentemente (2013) pela empresa \textit{Google}, que já possui todos os pacotes e configurações necessárias para o desenvolvimento, incluindo o  \textit{Software Development Kit} (SDK), as ferramentas e os emuladores. 
+	Uma das alternativas para o desenvolvimento em plataforma \textit{Android} foi utilizar a ferramenta \textit{Eclipse}\footnote{\textit{http://www.eclipse.org/}} (Figura \ref{eclipse}), que é um ambiente de desenvolvimento integrado (\textit{Integrated Development Environment} -- IDE) \textit{open source}. Adicionalmente, foi preciso instalar o \textit{Android Software Development Kit}\footnote{\textit{http://developer.android.com/sdk/index.html}} e o \textit{plugin} ADT (\textit{Android Development Tools})\footnote{\textit{http://developer.android.com/tools/sdk/eclipse-adt.html}}, que permitem desenvolver e depurar aplicações pra \textit{Android}. Outra alternativa possível seria utilizar o \textit{Android Studio}\footnote{\textit{http://developer.android.com/sdk/installing/studio.html}}, lançado recentemente (2013) pela empresa \textit{Google}, que já possui todos os pacotes e configurações necessárias para o desenvolvimento, incluindo o  \textit{Software Development Kit} (SDK), as ferramentas e os emuladores. 
 
 	\begin{figure}[ht]
 	\centering
@@ -50,7 +50,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 \subsection{Plataforma \textit{iOS}}
 
-	Para o desenvolvimento na plataforma \textit{iOS}, é utilizada a ferramenta \textit{Xcode}. Segundo \cite{neub2013}, um novo projeto no \textit{Xcode} já vem com todos os arquivos e configurações necessários para o desenvolvimento de um aplicativo (Figura \ref{xcode}).  Esta ferramenta também possui um módulo chamado \textit{Instruments}, que analisa o comportamento interno de um aplicativo graficamente e numericamente, sendo possível monitorar diversas métricas.  
+	Para o desenvolvimento na plataforma \textit{iOS}, foi utilizada a ferramenta \textit{Xcode}. Segundo \cite{neub2013}, um novo projeto no \textit{Xcode} já vem com todos os arquivos e configurações necessários para o desenvolvimento de um aplicativo (Figura \ref{xcode}).  Esta ferramenta também possui um módulo chamado \textit{Instruments}, que analisa o comportamento interno de um aplicativo graficamente e numericamente, sendo possível monitorar diversas métricas.  
 
 	\begin{figure}[ht]
 	\centering
@@ -61,7 +61,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 \subsection{Modelagem dos Objetos Tridimensionais}
 
- A fim de variar a contagem poligonal dos objetos tridimensionais, foi utilizada a ferramenta de modelagem tridimensional \textit{open source} chamada Blender\footnote{http://www.blender.org/}, a qual está ilustrada na Figura \ref{blender}. Ela também permite modificar o número de polígonos de um modelo tridimensional por meio de modificadores chamados \textit{Decimate} e \textit{Subdivision Surface} (usados para diminuir e aumentar a contagem poligonal, respectivamente). 
+ A fim de variar a contagem poligonal dos objetos tridimensionais, foi utilizada a ferramenta de modelagem tridimensional \textit{open source} chamada Blender\footnote{\textit{http://www.blender.org/}}, a qual está ilustrada na Figura \ref{blender}. Ela também permite modificar o número de polígonos de um modelo tridimensional por meio de modificadores chamados \textit{Decimate} e \textit{Subdivision Surface} (usados para diminuir e aumentar a contagem poligonal, respectivamente). 
 
 	\begin{figure}[ht]
 	\centering
@@ -73,7 +73,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 \subsection{Coleta de Medições}
 \label{medicoes}
 
-	Para a coleta das medições quanto a todo o processo de renderização, na plataforma \textit{Android}, foi utilizada uma extensão da \textit{OpenGL ES}. Esta extensão se chama \texttt{GL\_EXT\_disjoint\_timer\_query}\footnote{http://www.khronos.org/registry/gles/}, e dentre os dispositivos utilziados neste trabalho, só está disponível para o \textit{Nexus 4} a partir da versão de Android 4.4 (\textit{KitKat}). A fim de utilizar esta extensão, foi necessário instalar e configurar o NDK (\textit{Native Development Kit}) e alterar o \textit{header} da versão da \textit{OpenGL ES} utilizada, adicionando as linhas de código relacionadas à extensão almejada. Assim, foi possível utilizar as novas funções desta extensão pegando os seus endereços por meio do comando \texttt{eglGetProcAddress} (disponível por meio da API EGL que faz o interfaceamento entre a \textit{OpenGL ES} e o sistema operacional). A integração entre o código em linguagem C e o código em Java foi feita por meio da JNI (\textit{Java Native Interface}). 
+	Para a coleta das medições quanto a todo o processo de renderização, na plataforma \textit{Android}, foi utilizada uma extensão da \textit{OpenGL ES}. Esta extensão se chama \texttt{GL\_EXT\_disjoint\_timer\_query}\footnote{\textit{http://www.khronos.org/registry/gles/}}, e dentre os dispositivos utilizados neste trabalho, só está disponível para o \textit{Nexus 4} a partir da versão de Android 4.4 (\textit{KitKat}). A fim de utilizar esta extensão, foi necessário instalar e configurar o NDK (\textit{Native Development Kit}) e alterar o \textit{header} da versão da \textit{OpenGL ES} utilizada, adicionando as linhas de código relacionadas à extensão almejada. Assim, foi possível utilizar as novas funções desta extensão pegando os seus endereços por meio do comando \texttt{eglGetProcAddress} (disponível por meio da API EGL que faz o interfaceamento entre a \textit{OpenGL ES} e o sistema operacional). A integração entre o código em linguagem C e o código em Java foi feita por meio da JNI (\textit{Java Native Interface}). 
 
 	A fim de realizar a mesma medição na plataforma \textit{iOS}, utilizou-se (como mostra a Figura \ref{instruments}) o módulo \textit{Instruments} da ferramenta \textit{Xcode}.
 
@@ -85,9 +85,11 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\end{figure}
 
 
-	Para a coleta das medições específicas do \textit{vertex} e \textit{fragment shaders} foi utilizada a ferramenta \textit{Adreno Profiler}, pois o celular utilizado possui a GPU \textit{Adreno}. A \textit{Adreno Profiler} é uma ferramenta que foca na otimização gráfica para celulares que possuem GPU \textit{Adreno} (fabricada pela empresa \textit{Qualcomm}). De acordo com  \cite{adp}, a ferramenta provê suporte para \textit{Android} e \textit{Windows RT} (variação do sistema operacional \textit{Windows} 8  e projetada para \textit{devices} móveis), permitindo a otimização, análise por quadros e visualização de desempenho em tempo real. No dispositivo \textit{Nexus 4} ela só é suportada com o \textit{Android} até a versão 4.3 (não suporta o \textit{KitKat}). 
+	Para a coleta das medições específicas do \textit{vertex} e \textit{fragment shaders} foi utilizada a ferramenta \textit{Adreno Profiler}, pois os celulares com plataforma \textit{Android} utilizados possuem a GPU \textit{Adreno}. Quanto à plataforma \textit{iOS}, não é possível coletar estas medições. 
 
-	Como pode ser visto na Figura \ref{adrenoProfiler}, a ferramenta possui um módulo de análise dos \textit{vertex} e \textit{fragment} \textit{shaders}, sendo possível editá-los e analisar os resultados da compilação em tempo real, além dela também gerar estatísticas.  
+	A \textit{Adreno Profiler} é uma ferramenta que foca na otimização gráfica para celulares que possuem GPU \textit{Adreno} (fabricada pela empresa \textit{Qualcomm}). De acordo com  \cite{adp}, a ferramenta provê suporte para \textit{Android} e \textit{Windows RT} (variação do sistema operacional \textit{Windows} 8  e projetada para \textit{devices} móveis), permitindo a otimização, análise por quadros e visualização de desempenho em tempo real. No dispositivo \textit{Nexus 4} ela só é suportada com o \textit{Android} até a versão 4.3 (não suporta o \textit{KitKat}).
+
+	Como pode ser visto na Figura \ref{adrenoProfiler}, a ferramenta possui um módulo de análise dos \textit{vertex} e \textit{fragment} \textit{shaders}, sendo possível editá-los e analisar os resultados da compilação em tempo real, além de também gerar outras estatísticas.  
 
 	\begin{figure}[ht]
 	\centering
@@ -96,7 +98,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{adrenoProfiler}
 	\end{figure}
 
-	O módulo gráfico permite analisar algumas métricas, relacionadas ao \textit{vertex} e \textit{fragment shaders}, conforme ilustrado na Figura \ref{graph}, onde um gráfico é plotado em tempo de execução. Além disso, ela também exporta os resultados no formato CSV (\textit{Comma-Separated Values}), que consiste em um arquivo de texto que armazena valores tabelados separados por um delimitador (vírgula ou quebra de linha). O último módulo é o chamado \textit{Scrubber}, que provê informações detalhadas quanto ao rastreamento de uma chamada de função. 
+	O módulo gráfico desta ferramenta permite analisar algumas métricas, relacionadas ao \textit{vertex} e \textit{fragment shaders}, conforme ilustrado na Figura \ref{graph}, onde um gráfico é plotado em tempo de execução. Além disso, ela também exporta os resultados no formato CSV (\textit{Comma-Separated Values}), que consiste em um arquivo de texto que armazena valores tabelados separados por um delimitador (vírgula ou quebra de linha). O último módulo é o chamado \textit{Scrubber}, que provê informações detalhadas quanto ao rastreamento de uma chamada de função. 
 
 	\begin{figure}[ht]
 	\centering
@@ -107,11 +109,11 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 \subsection{Automatização de Cálculo e Plotagem}
 
-	Para a automatização da plotagem dos gráficos e aplicação do método dos mínimos quadrados (descrito na Seção \ref{metminqua}) utilizou-se a linguagem de programação Python\footnote{http://www.python.org.br/} versão 2.7.3, juntamente com os pacotes  \textit{matplotlib}\footnote{http://www.matplotlib.org/} e  \textit{numpy}\footnote{http://www.numpy.org/}. 
+	Para a automatização da plotagem dos gráficos e aplicação do método dos mínimos quadrados (descrito na Seção \ref{metminqua}) utilizou-se a linguagem de programação Python\footnote{\textit{http://www.python.org.br/}} versão 2.7.3, juntamente com os pacotes  \textit{matplotlib}\footnote{\textit{http://www.matplotlib.org/}} e  \textit{numpy}\footnote{\textit{http://www.numpy.org/}}. 
 
 \subsection{Controle de Versionamento}
 
-	O controle de versionamento do código foi feito por meio do sistema de controle de versão Git \footnote{http://git-scm.com/} utilizando o \textit{forge} GitHub \footnote{https://github.com/}. Foram criados repositórios públicos tanto para a implementação em \textit{Android} \footnote{https://github.com/campeloal/monografia\_opengles} quanto para a automatização da análise da complexidade algorítmica \footnote{https://github.com/campeloal/monografia\_algorithmComplexity/}. 
+	O controle de versionamento do código foi feito por meio do sistema de controle de versão Git \footnote{\textit{http://git-scm.com/}} utilizando o \textit{forge} GitHub \footnote{\textit{https://github.com/}}. Foram criados repositórios tanto para as implementações em \textit{Android} e \textit{iOS}, quanto para a automatização da análise da complexidade assintótica.
 
 \section{Implementação na Plataforma \textit{Android}} 
 \label{imp}
@@ -136,7 +138,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 	A tela de \textit{front-end} é responsável pela interação com o usuário, repassando as informações de entrada para o \textit{back-end}. E de acordo com \cite{androidsdkmanager}, a plataforma \textit{Android} utiliza o termo \textit{Activity} para descrever esta tela de \textit{front-end} da aplicação. Ela possui elementos de \textit{design} como texto, botões, gráficos, entre outros. No contexto deste trabalho, há duas classes \textit{Activity} (Figura \ref{shader_splash}), a \textit{Shader} e a \textit{Splash}. 
 
-	A \textit{Splash Activity} (Figura  \ref{splash_act}) é responsável pela visualização da tela de \textit{loading} enquanto carrega os recursos necessários para o programa (como a leitura dos modelos tridimensionais em formato \textit{obj} e das imagens usadas para texturização) por meio do uso de \textit{thread}. Estes recursos são gerenciados pela classe \textit{Resources}, que utiliza o padrão de projeto \textit{Singleton}, que garante a existência de apenas uma instância da classe, que será acessada posteriormente.
+	A \textit{Splash Activity} (Figura  \ref{splash_act}) é responsável pela visualização da tela de \textit{loading} enquanto são carregados os recursos necessários para o programa (como a leitura dos modelos tridimensionais em formato \textit{obj} e das imagens usadas para texturização) por meio do uso de uma \textit{thread}. Estes recursos são gerenciados pela classe \textit{Resources}, que utiliza o padrão de projeto \textit{Singleton}, que garante a existência de apenas uma instância da classe, que será acessada posteriormente.
 
 	\begin{figure}[ht]
 	\centering
@@ -154,7 +156,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{shader_act}
 	\end{figure}
 
-	Devido à limitação de memória do dispositivo móvel e os vários objetos com diferentes números de polígonos, não é possível carregar todos de uma só vez. Assim, foi necessário delimitar esta quantidade de objetos simultâneos: uma vez atingido o valor limítrofe (tanto adicionando, quanto decrementando), volta-se novamente para a \textit{Splash Activity}, a fim de carregar os novos objetos e retornar para a \textit{Shader Activity}, onde serão renderizadas.
+	Devido à limitação de memória do dispositivo móvel e os vários objetos com diferentes números de polígonos, não é possível carregar todos de uma só vez. Assim, foi necessário delimitar esta quantidade de objetos simultâneos: uma vez atingido o valor limítrofe (tanto adicionando, quanto decrementando), volta-se novamente para a \textit{Splash Activity}, a fim de carregar os novos objetos e retornar para a \textit{Shader Activity}, onde serão renderizados.
 
 \subsection{Objeto Tridimensional}   
 
@@ -165,9 +167,9 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{object_texture}
 	\end{figure}
 
-	O objeto tridimensional foi representado pela composição das classes \textit{3DObject} e \textit{Texture}. A classe \textit{3DObject}, mostrada na Figura \ref{object_texture}, é responsável por ler e interpretar os arquivos  \textit{obj}  (descrito no Anexo \ref{formatobj}), criados por meio da ferramenta \textit{Blender}.
+	O objeto tridimensional foi representado pela composição das classes \textit{3DObject} e \textit{Texture}. A classe \textit{3DObject}, mostrada na Figura \ref{object_texture}, é responsável por ler e interpretar os arquivos \textit{obj}  (descritos no Anexo \ref{formatobj}), criados por meio da ferramenta \textit{Blender}.
 
-	Após a leitura e interpretação do arquivo \textit{obj} foi gerado um \textit{buffer} para armazenar os vértices de posição, normal e textura na ordem em que eles serão renderizados. Neste \textit{buffer} cada coordenada relacionada a um vértice (posição, normal e textura) é armazenada alternadamente, como mostra a Figura \ref{buffer}.
+	Após a leitura e interpretação do arquivo \textit{obj} foi gerado um \textit{buffer} para armazenar os vértices de posição, normal e textura na ordem em que eles são renderizados. Neste \textit{buffer} cada coordenada relacionada a um vértice (posição, normal e textura) é armazenada alternadamente, como mostra a Figura \ref{buffer}.
 
 	\begin{figure}[ht]
 	\centering
@@ -176,9 +178,9 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{buffer}
 	\end{figure}
 
-	A classe \textit{Texture} gera as texturas utilizadas pelos \textit{shaders} \textit{SimpleTexture}, \textit{CubeMap} e \textit{Reflection} baseando-se em imagens. As imagens são criadas para cada modelo tridimensional, utilizando a técnica de \textit{UV Mapping}, na qual mapeiam-se as coordenadas de textura para uma imagem (Figura \ref{uvmap}). Como a orientação do eixo de coordenas $y$ da ferramenta \textit{Blender} é diferente da \textit{OpenG ES}, é necessário refletir a imagem neste eixo para corrigir o mapeamento.
+	A classe \textit{Texture} gera as texturas utilizadas pelos \textit{shaders} \textit{SimpleTexture}, \textit{CubeMap} e \textit{Reflection} a partir de imagens. Estas imagens são criadas para cada modelo tridimensional, utilizando a técnica de \textit{UV Mapping}, na qual mapeiam-se as coordenadas de textura para uma imagem (Figura \ref{uvmap}). Como a orientação do eixo de coordenas $y$ da ferramenta \textit{Blender} é diferente da \textit{OpenG ES}, é necessário refletir a imagem neste eixo para corrigir o mapeamento.
 
-	Para gerar uma textura simples, primeiramente gera-se um objeto de textura utilizando a função \texttt{glGenTextures}, depois vincula-se esta textura ao objeto com a função \texttt{glBindTexture} e carrega-se a imagem por meio da função \texttt{texImage2D}.  Para as texturas do \textit{CubeMap} e \textit{Reflection}, faz-se a mesma coisa, exceto que a função \textit{texImage2D} é feita seis vezes, uma vez que cada textura representa uma face de um cubo. 
+	Para gerar uma textura simples, primeiramente gera-se um objeto de textura utilizando a função \texttt{glGenTextures()}, depois vincula-se esta textura ao objeto com a função \texttt{glBindTexture()} e carrega-se a imagem por meio da função \texttt{texImage2D()}.  Para as texturas do \textit{CubeMap} e \textit{Reflection}, faz-se a mesma coisa, exceto que a função \texttt{texImage2D()} é feita seis vezes, uma vez que cada textura representa uma face de um cubo. 
 
 	\begin{figure}[ht]
 	\centering
@@ -187,7 +189,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{uvmap}
 	\end{figure}
 
-	Na Figura  \ref{texture_uvmap} é mostrada a imagem resultante da técnica de mapeamento realizada.
+	A Figura  \ref{texture_uvmap} apresenta a imagem resultante da técnica de mapeamento realizada.
 
 	\begin{figure}[ht]
 	\centering
@@ -205,7 +207,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{timer_nativelib}
 	\end{figure}
 
-	A Figura \ref{timer_nativelib} detalha a classe \textit{Timer}, que realiza a média de dez medições do tempo de renderização (em nanosegundos) para cada objeto tridimensional, utilizando um \textit{shader} específico. Cada medição é feita utilizando a linguagem C e a extensão de \textit{OpenGL ES} chamada \texttt{GL\_EXT\_disjoint\_timer\_query} citada na Seção \ref{gpu}.  A integração entre o código em linguagem C e o código em Java é feita por meio da classe \textit{NativeLib}. Caso a extensão não esteja disponível para o dispositivo, um alerta é emitido.
+	A Figura \ref{timer_nativelib} detalha a classe \textit{Timer}, que realiza a média de dez medições do tempo de renderização (em nanosegundos) para cada objeto tridimensional. Cada medição é feita utilizando a linguagem C e a extensão de \textit{OpenGL ES} chamada \texttt{GL\_EXT\_disjoint\_timer\_query} citada na Seção \ref{gpu}.  A integração entre o código em linguagem C e o código em Java é feita por meio da classe \textit{NativeLib}. Caso a extensão não esteja disponível para o dispositivo, um alerta é emitido.
 
 \subsection{Renderização}    
 
@@ -216,7 +218,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{renderer}
 	\end{figure}
 
-	A Figura \ref{renderer} mostra a classe \textit{Renderer}, responsável pela renderização, que funciona como uma controladora, sendo o ponto principal  das chamadas provenientes da \textit{view} (\textit{ShaderActivity}) para as classes de \textit{model} (\textit{3DObject}, \textit{Shader} e \textit{Timer}). Ela que implementa as funções da biblioteca \textit{OpenGL ES} \texttt{onSurfaceCreated},  \texttt{onDrawFrame} e \texttt{onSurfaceChanged}. A primeira função é chamada apenas uma vez quando a \textit{view} da \textit{OpenGL ES} é instanciada, e é responsável por todas as configurações, como por exemplo, a criação de texturas. A segunda função é chamada em \textit{loop}, em que é feita a renderização por meio da função \texttt{glDrawArrays}. 
+	A Figura \ref{renderer} mostra a classe \textit{Renderer}, responsável pela renderização, que funciona como uma controladora, sendo o ponto principal  das chamadas provenientes da \textit{view} (\textit{ShaderActivity}) para as classes de \textit{model} (\textit{3DObject}, \textit{Shader} e \textit{Timer}). Ela implementa as funções da biblioteca \textit{OpenGL ES} \texttt{onSurfaceCreated()},  \texttt{onDrawFrame()} e \texttt{onSurfaceChanged()}. A primeira função é chamada apenas uma vez quando a \textit{view} da \textit{OpenGL ES} é instanciada, e é responsável por todas as configurações, como por exemplo, a criação de texturas. A segunda função é chamada em \textit{loop}, onde é feita a renderização por meio da função \texttt{glDrawArrays()}. 
 
 \subsection{\textit{Shaders}}      
 
@@ -227,7 +229,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{shaders_diag}
 	\end{figure}
 
-	A classe \textit{Shader} (Figura \ref{shaders_diag}) é responsável por ler, fazer o \textit{attach} e o \textit{link} do \textit{ vertex} e do \textit{fragment shaders}. Além disso, ela possui os métodos abstratos \texttt{getParamsLocation} e \texttt{initShaderParams(Hastable params)}. Assim, todos os \textit{shaders} que herdam desta classe são obrigados a implementar estes métodos. O primeiro método faz o armazenamento da localização de cada variável especificada dentro do \textit{shader}, já o segundo método inicializa estas variáveis por meio de um \textit{hash} que é passado como um parâmetro pela classe \textit{Renderer}. Assim, todos os \textit{shaders} implementados herdam da classe \textit{Shader} e implementam seus métodos abstratos. Estes \textit{shaders} podem ser vistos na Figura \ref{shaders_impl}.  
+	A classe \textit{Shader} (Figura \ref{shaders_diag}) é responsável por ler, fazer o \textit{attach} e o \textit{link} do \textit{ vertex} e do \textit{fragment shaders}. Além disso, ela possui os métodos abstratos \texttt{getParamsLocation()} e \texttt{initShaderParams(Hastable params)}. O primeiro método faz o armazenamento da localização de cada variável especificada dentro do \textit{shader}, já o segundo método inicializa estas variáveis por meio de um \textit{hash} que é passado como um parâmetro pela classe \textit{Renderer}. Assim, todos os \textit{shaders} implementados herdam da classe \textit{Shader} e implementam seus métodos abstratos. Estes \textit{shaders} podem ser vistos na Figura \ref{shaders_impl}.  
 
 	\begin{figure}[ht]
 	\centering
@@ -236,7 +238,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{shaders_impl}
 	\end{figure}
 
-	A seguir, alguns dos \textit{shaders} implementados serão apresentados:
+	A seguir, alguns dos \textit{shaders} implementados serão apresentados.
 
 \subsubsection{\textit{Phong Shader}}
 
@@ -248,7 +250,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 \subsubsection{\textit{Gouraud Shader}}
 
-	O \textit{Gouraud Shader}, assim com o \textit{Phong Shader}, também implementa a técnica descrita na Seção \ref{flatgouphon}, porém os cálcilos de luz e da cor são feitos no \textit{vertex shader} para serem interpolados e passados para o \textit{fragment shader}, como mostram o Código \ref{codgouraudvs} e o Código \ref{codgouraudfs}. 
+	O \textit{Gouraud Shader}, assim com o \textit{Phong Shader}, também implementa a técnica descrita na Seção \ref{flatgouphon}, porém os cálculos de luz e da cor são feitos no \textit{vertex shader} para serem interpolados e passados para o \textit{fragment shader}, como mostram o Código \ref{codgouraudvs} e o Código \ref{codgouraudfs}. 
 
 	\lstinputlisting[language=C, label = {codgouraudvs}, caption = {\textit{Gouraud Shader}:  \textit{vertex shader}}]{codigos/gouraud_vs.txt}
 
@@ -274,13 +276,33 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
   
  	\lstinputlisting[language=C, caption = {\textit{Toon Shader}:  \textit{fragment shader}}, label = {codtoonfs} ]{codigos/toon_ps.txt}
 
+\subsubsection{\textit{Flat Shader}}
+
+	A ideia do \textit{Flat Shader} é tornar um modelo tridimensional em bidimensional, achatado. Para isto, a coordenada $z$ deve ser definida como zero, como é mostrado no Código \ref{codflatvs}.
+
+	\lstinputlisting[language=C,label = {codflatvs}, caption = {\textit{Flat Shader}:  \textit{vertex shader}} ]{codigos/flat_vs.txt}
+
+	O \textit{fragment shader} apenas define uma cor para o fragmento (Código \ref{codflatfs}).
+
+	\lstinputlisting[language=C, caption = {\textit{Flat Shader}:  \textit{fragment shader}}, label = {codflatfs} ]{codigos/flat_ps.txt}
+
+\subsubsection{\textit{Random Color Shader}}
+
+	O \textit{Random Color Shader} determina a cor do fragmento, baseando-se em um cálculo matemático. Este cálculo da cor é feito no \textit{vertex shader} (Código \ref{codrandvs}) e o valor resultante é passado para o \textit{fragment shader}, por meio da variável \textit{color} do tipo \textit{varying}. Cada componente da cor é calculada passando uma coordenada ($x$, $y$ ou $z$) para a função \texttt{random(vec2 v)}, que realiza alguns cálculos matemáticos, a fim de retornar um valor randômico para a componente da cor.
+
+	\lstinputlisting[language=C,label = {codrandvs}, caption = {\textit{Random Color Shader}:  \textit{vertex shader}} ]{codigos/randcolor_vs.txt}
+
+	O Código \ref{codrandfs} apenas determina a cor do fragmento, calculada pelo \textit{vertex shader}.
+ 
+	\lstinputlisting[language=C, caption = {\textit{Random Color Shader}:  \textit{fragment shader}}, label = {codrandfs} ]{codigos/randcolor_ps.txt}
+
 \subsubsection{\textit{Simple Texture Shader}}
 
 	O \textit{vertex shader} do \textit{simple texture shading} primeiramente armazena as coordenadas de textura numa variável do tipo \textit{varying} (Código \ref{codtexvs}), e as repassa para o \textit{fragment shader}, além de também definir a posição do vértice.  
 
 	\lstinputlisting[language=C, caption =  {\textit{Simple Texture Shader}:  \textit{vertex shader}}, label = {codtexvs} ]{codigos/simple_tex_vs.txt}
 
-	No Código \ref{codtexfs}, o \textit{fragment shader}, por sua vez, utiliza a textura passada pelo programa e aplica a coordenada de textura, repassada pelo \textit{vertex shader}, no fragmento por meio da função  \texttt{texture2D}.
+	No Código \ref{codtexfs}, o \textit{fragment shader}, por sua vez, utiliza a textura passada pelo programa e aplica a coordenada de textura, repassada pelo \textit{vertex shader}, no fragmento por meio da função \texttt{texture2D()} da GLSL.
 
 	\lstinputlisting[language=C, caption =  {\textit{Simple Texture Shader}:  \textit{fragment shader}}, label = {codtexfs} ]{codigos/simple_tex_ps.txt}
 
@@ -290,17 +312,17 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 	\lstinputlisting[language=C, caption =  {\textit{CubeMap Shader}:  \textit{vertex shader}}, label = {codcubemapvs} ]{codigos/cubemap_vs.txt}
 
-	O  \textit{fragment shader} (Código \ref{codcubemapps}), por sua vez, utiliza a função \texttt{textureCube} que recebe como parâmetro o vetor normal para fazer o mapeamento da textura. 
+	O  \textit{fragment shader} (Código \ref{codcubemapps}), por sua vez, utiliza a função \texttt{textureCube( samplercube s, vec3 coord)} da GLSL, que recebe como parâmetros o vetor normal e a textura a ser mapeada. 
 
 	\lstinputlisting[language=C, caption =  {\textit{CubeMap Shader}:  \textit{fragment shader}}, label = {codcubemapps} ]{codigos/cubemap_ps.txt}
 	
 \subsubsection{\textit{Reflection Shader}}
 
-	O \textit{Reflection Shader} implementa a técnica descrita na Seção \ref{ref_t}. O seu \textit{vertex shader} é responsável por indicar que a posição do vértice se dá pela multiplicação da coordenada obtida pela variável \texttt{vec4 aPosition} com a matriz de projeção, visualização e modelagem, como é mostrado no Código \ref{codreflvs}. Além disso, ele declara dois vetores do tipo \textit{varying} (para passar ao \textit{fragment shader}) que estão relacionados com o vetor de direção da câmera com o vetor normal. 
+	O \textit{Reflection Shader} implementa a técnica descrita na Seção \ref{ref_t}. O seu \textit{vertex shader} é responsável por indicar que a posição do vértice se dá pela multiplicação da coordenada obtida pela variável \texttt{vec4 aPosition} pela matriz de projeção, visualização e modelagem, como é mostrado no Código \ref{codreflvs}. Além disso, no \textit{vertex shader} é declarado dois vetores do tipo \textit{varying} (que passa o valor da variável ao \textit{fragment shader}) que estão relacionados com o vetor de direção da câmera e o vetor normal. 
 
 	\lstinputlisting[language=C, caption = {\textit{Reflection Shader}:  \textit{vertex shader}}, label = {codreflvs}]{codigos/reflection_vs.txt}
 
-	No \textit{fragment shader}, a normal e o vetor de direção da câmera são utilizados para encontrar o vetor da direção da reflexão através da utilização da função \texttt{reflect}. Para corrigir a direção da normal, ela é multiplicada pela transposta da inversa da matriz de projeção, modelagem e visualização, como foi também foi explicado na Seção \ref{teoria}. O vetor da direção da reflexão é utilizado na função \textit{textureCube} (Código \ref{codreflfs}), em que determina-se a cor do fragmento, baseando-se nesta direção e em uma imagem. 
+	No \textit{fragment shader}, a normal e o vetor de direção da câmera são utilizados para encontrar o vetor da direção da reflexão através da utilização da função \texttt{reflect}. O vetor da direção da reflexão é utilizado na função \textit{textureCube(samplercube s, vec3 coord)} (Código \ref{codreflfs}), em que determina-se a cor do fragmento, baseando-se nesta direção e em uma imagem. 
 
 	\lstinputlisting[language=C, caption = {\textit{Reflection Shader}:  \textit{fragment shader}}, label = {codreflfs}]{codigos/reflection_ps.txt}
 
@@ -315,7 +337,7 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{ios_diag}
 	\end{figure}
 
-	Assim, escolheu-se um \textit{shader}, no caso o \textit{Gouraud Shader}, para ser implementado e posteriormente realizar as comparações. O resultado da implementação pode ser visto na Figura \ref{gouraud_ios}
+	Assim, escolheu-se um \textit{shader}, no caso o \textit{Gouraud Shader}, para ser implementado e posteriormente realizar comparações entre os diferentes dispositivos e as diferentes plataformas. O resultado da implementação pode ser visto na Figura \ref{gouraud_ios}.
 
 	\begin{figure}[ht]
 	\centering
@@ -324,19 +346,19 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 	\label{gouraud_ios}
 	\end{figure}
 
-\section{Análise Experimental da Complexidade Algorítmica}
+\section{Estimativa Experimental da Complexidade Algorítmica}
 
-	A análise experimental da complexidade algorítmica foi através da coleta de diversas medições para cada modelo tridimensional (com diferentes quantidades de polígonos). Estas medidas foram plotadas em gráficos, cujas curvas foram ajustadas através do método dos mínimos quadrados (Seção \ref{metminqua}). Cada um destes processos é explicado a seguir.
+	A estimativa experimental da complexidade assintótica foi realizada através da coleta de diversas medições para cada modelo tridimensional (com diferentes quantidades de polígonos). Estas medidas foram plotadas em gráficos, cujas curvas foram ajustadas através do método dos mínimos quadrados (Seção \ref{metminqua}). Cada um destes processos é explicado a seguir.
 
 
 \subsection{Medição do Processo de Renderização}
 \label{gpu}
 
-	A fim de estimar experimentalmente a análise da complexidade algorítmica dos \textit{shaders} implementados, primeiro buscou-se coletar uma métrica relacionada ao tempo de renderização, que calcula o tempo necessário para processar o \textit{shader} como um todo. Por meio de pesquisa e consulta na documentação da \textit{OpenGL ES}, para a plataforma \textit{Android}, conseguiu-se encontrar uma extensão desta biblioteca gráfica, explicada na Seção \ref{medicoes}, que permite contabilizar o tempo, em nanosegundos, necessário para realizar chamadas de \textit{OpenGL ES} específicas. Porém esta extensão só está disponível para alguns dispositivos e foi utilizada para medir o tempo de todo o processo de renderização realizado pela função \texttt{glDrawArrays}.
+	A fim de estimar experimentalmente a análise da complexidade assintótica dos \textit{shaders} implementados, primeiro buscou-se coletar uma métrica relacionada ao tempo de renderização, que calcula o tempo necessário para processar o \textit{shader} como um todo. Por meio de pesquisa e consulta na documentação da \textit{OpenGL ES} para a plataforma \textit{Android}, conseguiu-se encontrar uma extensão desta biblioteca gráfica, explicada na Seção \ref{medicoes}, que permite contabilizar o tempo, em nanosegundos, necessário para realizar chamadas de \textit{OpenGL ES} específicas. Porém esta extensão só está disponível para alguns dispositivos e foi utilizada para medir o tempo de todo o processo de renderização realizado pela função \texttt{glDrawArrays()}.
 
-	Para a plataforma \textit{iOS}, utilizou-se um módulo da ferramenta \textit{Xcode} também explicado na Seção \ref{medicoes}, que assim como a extensão da \textit{OpenGL ES}, consegue calcular o tempo da chamada da função \texttt{glDrawArrays}, porém em microsegundos.  
+	Para a plataforma \textit{iOS}, utilizou-se um módulo da ferramenta \textit{Xcode} também explicado na Seção \ref{medicoes}, que assim como a extensão da \textit{OpenGL ES}, consegue calcular o tempo da chamada da função \texttt{glDrawArrays()}, porém em microsegundos.  
 
-	Assim, as medições do tempo do processo de renderização foram coletadas para o dispositivo \textit{Nexus 4}, \textit{iPhone 5s} e \textit{iPad Air}. A medição não foi feita para o dispositivo \textit{HTC One}, pois a extensão \texttt{GL\_EXT\_disjoint\_timer\_query} não está disponível.
+	Assim, as medições do tempo do processo de renderização foram coletadas para o dispositivo \textit{Nexus 4}, \textit{iPhone 5s} e \textit{iPad Air}. A medição não foi feita para o dispositivo \textit{HTC One}, onde a extensão \texttt{GL\_EXT\_disjoint\_timer\_query} não está disponível.
 
 \subsection{Medição do \textit{Vertex} e  \textit{Fragment Shaders}}
 
@@ -346,17 +368,17 @@ Uma vez escolhida a área de interesse e o tema, a primeira etapa do trabalho co
 
 \subsection{Plotagem}
 
-	Após feitas as medições, plotaram-se os gráficos tanto para todo o processo de renderização, quanto para o \textit{vertex} e \textit{fragment shaders}. O primeiro está relacionado com o tempo em nanosegundos \textit{versus} a quantidade de polígonos, e o segundo, com o número de instruçoes por vértice (ou fragmento) \textit{versus} a quantidade de polígonos. Assim, diversas curvas foram geradas.
+	Após feitas as medições, foram plotados os gráficos tanto para todo o processo de renderização, quanto para o \textit{vertex} e \textit{fragment shaders}. O primeiro conjunto de gráficos está relacionado com o tempo em nanosegundos \textit{versus} a quantidade de polígonos, e o segundo, com o número de instruções por vértice (ou fragmento) \textit{versus} a quantidade de polígonos.
 
 \subsection{Automatização dos Ajustes das Curvas}
 
-	A fim de ajustar as curvas obtidas por meio das medições, e consequentemente estimar a complexidade algorítmica, utilizou-se o método dos mínimos quadrados (Seção \ref{metminqua}) para funções lineares, quadráticas, cúbicas e exponenciais, calculando-se os respectivos erros, e podendo assim, determinar qual destas curvas melhor se aproximava das medições. 
+	A fim de ajustar as curvas obtidas por meio das medições, e consequentemente estimar a complexidade assintótica, utilizou-se o método dos mínimos quadrados (Seção \ref{metminqua}) para funções lineares, quadráticas, cúbicas e exponenciais, calculando-se os respectivos erros, e determinando qual destas curvas melhor aproximava das medições. 
 
-	 Para automatizar este cálculo do ajuste, foi feito um programa em Python que lê os arquivos CSV, faz a média das medições, plota os gráficos para o \textit{vertex} e \textit{fragment} \textit{shaders} e realiza os ajustes das curvas, calculando os erros associados e determinando o menor entre eles.  Ele também pode ler as medições a partir de um arquivo de extensão \textit{txt} e realizar os ajustes das curvas para todo o processo de renderização (utilizando a medição do tempo em nanosegundos). Este programa (\textit{script}) é executado por linha de comando, tendo como parâmetro o \textit{shader} desejado e qual medição utilizada ( se a relacionada a cada tipo de \textit{shader} ou ao processo de renderização como um todo. Dois exemplos de linhas de comando podem ser vistos no Código \ref{linhacomando}). A primeira linha está relacionada com o cálculo para todo o procesos de renderização, e a segunda, apenas para o \textit{vertex} e \textit{fragment shaders}.
+	 Para automatizar este cálculo do ajuste, foi feito um programa em Python que lê os arquivos CSV, computa a média das medições, plota os gráficos para o \textit{vertex} e \textit{fragment} \textit{shaders} e realiza os ajustes das curvas, calculando os erros associados e determinando o menor entre eles.  Este programa também pode ler as medições a partir de um arquivo de extensão .\textit{txt} e realizar os ajustes das curvas para todo o processo de renderização (utilizando a medição do tempo em nanosegundos). Este programa (\textit{script}) é executado por linha de comando, tendo como parâmetro o \textit{shader} desejado e qual medição utilizada (se a relacionada a cada tipo de \textit{shader} ou ao processo de renderização como um todo. Dois exemplos de linhas de comando podem ser vistos no Código \ref{linhacomando}). A primeira linha está relacionada com o cálculo para todo o procesos de renderização, e a segunda, apenas para o \textit{vertex} e \textit{fragment shaders}.
 
-	\lstinputlisting[language=C, label = {linhacomando}, caption = {Linhas de comando}]{codigos/linhacomando.txt}
+	\lstinputlisting[language=C, numbers=none,label = {linhacomando}, caption = {Linhas de comando}]{codigos/linhacomando.txt}
 
-	O programa foi estruturado de acordo com a Figura \ref{minquad_diag}, em que a classe \textit{ReadCSV} é responsável por ler os arquivos CSV e fazer a média das métricas tanto para o \textit{vertex shader} como para o \textit{fragment shader}. A classe \textit{ReadTxt} é responsável por ler as medições de um arquivo de extensão \textit{txt}, relacionado a todo o processo de renderização. Já a classe \textit{PlotChart}, faz a plotagem dos gráficos do número de instruções por segundo por vértice/fragmento (ou do tempo de renderização em nanosegundos) \textit{versus} o número de polígonos. Além disso, ele também plota o gráfico original juntamente com o gráfico proveniente da aplicação do método dos mínimos quadrados. Por fim, o módulo \textit{LeastSquares} realiza o ajuste dos mínimos quadrados para uma reta, uma exponencial e para polinômios de segundo e terceiro graus. Este módulo também calcula os erros associados a cada ajuste e indica o menor dos erros obtidos dentre todas as aproximações feitas. 
+	O programa foi estruturado de acordo com a Figura \ref{minquad_diag}, em que a classe \textit{ReadCSV} é responsável por ler os arquivos CSV e computar a média das métricas tanto para o \textit{vertex shader} como para o \textit{fragment shader}. A classe \textit{ReadTxt} é responsável por ler as medições de um arquivo de extensão .\textit{txt}, relacionado a todo o processo de renderização. Já a classe \textit{PlotChart} faz a plotagem dos gráficos do número de instruções por segundo por vértice ou fragmento (ou do tempo de renderização em nanosegundos) \textit{versus} o número de polígonos. Além disso, ele também plota o gráfico original juntamente com o gráfico proveniente da aplicação do método dos mínimos quadrados. Por fim, o módulo \textit{LeastSquares} realiza o ajuste dos mínimos quadrados para uma reta, uma exponencial e para polinômios de segundo e terceiro graus. Este módulo também calcula os erros associados a cada ajuste e indica o menor dos erros obtidos dentre todas as aproximações feitas. 
 
 	\begin{figure}[ht]
 	\centering

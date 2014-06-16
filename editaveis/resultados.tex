@@ -1,11 +1,11 @@
 \chapter[Resultados]{Resultados}
 \label{result}
 
-	Para cada \textit{shader} foram plotados os gráficos das métricas relacionadas ao vértice e ao fragmento e de todo o processo de renderização para diferentes dispositivos. Após as plotagens, percebeu-se que para todos os \textit{shaders} de todos os dispositivos, todos os gráficos relacionados ao \textit{vertex shader} possuíam formas semelhantes. O mesmo ocorreu para o \textit{fragment shader} e para todo o processo de renderização.
+	Para cada \textit{shader} foram plotados os gráficos das métricas relacionadas ao \textit{vertex} e ao \textit{fragment shaders} e de todo o processo de renderização para diferentes dispositivos. Após as plotagens, percebeu-se que para todos os \textit{shaders} de todos os dispositivos, todos os gráficos relacionados ao \textit{vertex shader} possuíam curvas semelhantes. O mesmo ocorreu para o \textit{fragment shader} e para todo o processo de renderização.
 
 \section{Dispositivos \textit{Android}} 
 
-	Com o dispositivo \textit{Nexus 4} foi possível plotar os gráficos tanto para todo o processo de renderização, quanto para o \textit{vertex} e \textit{fragment shaders}. Assim, foi visto que os gráficos de todos os \textit{shaders} relacionados ao vértice deram uma função linear (diferindo na inclinação)  e os relacionados ao fragmento e todo o processo de renderização deram curvas de formato semelhantes, em que à primeira vista não é possivel determinar a qual família pertencem.  A Figura \ref{nexus1} e a Figura \ref{nexus2} mostram os gráficos plotados, com relação ao \textit{vertex} e \textit{fragment shaders} de cada \textit{shader} implementado, que demonstram a semelhança destas curvas. A Figura \ref{nexus3} também mostra esta semelhança para todo o processo de renderização de todos os \textit{shaders}.
+	Com o dispositivo \textit{Nexus 4} foi possível plotar os gráficos tanto para todo o processo de renderização, quanto para o \textit{vertex} e \textit{fragment shaders}. Assim, foi visto que os gráficos de todos os \textit{shaders} relacionados ao vértice resultaram em uma função linear (diferindo na inclinação)  e os relacionados ao fragmento e todo o processo de renderização deram curvas de formato semelhantes, embora não fosse possível determinar a curva exatamente apenas pela inspeção visual.  A Figura \ref{nexus1} e a Figura \ref{nexus2} mostram os gráficos plotados, com relação ao \textit{vertex} e \textit{fragment shaders} de cada \textit{shader} implementado, que demonstram a semelhança destas curvas. A Figura \ref{nexus3} também mostra esta semelhança para todo o processo de renderização de todos os \textit{shaders}.
 
 	\begin{figure}[ht]
 	\centering
@@ -29,7 +29,7 @@
 	\end{figure}	
 
 
-	 Assim, os ajustes destas curvas desconhecidas em relação às curvas pré-definidas (linear, exponencial, segundo e terceiro graus) também foram calculados e plotados para cada \textit{shader} (Figura \ref{nexus1_ajuste} e Figura \ref{nexus2_ajuste}, referentes ao \textit{Reflection Shader}). Também foram determinados os menores erros associados, a fim de descobrir qual curva melhor se ajustava às medições do \textit{fragment shader} e de todo o processo de renderização. Pela a análise do menor erro, calculado de acordo com a Seção \ref{metminqua}, todos os \textit{shaders} se aproximaram melhor de uma curva de terceiro grau, tanto para o \textit{fragment shader}, quanto para todo o processo de renderização.
+	 Assim, os ajustes destas curvas desconhecidas em relação às curvas pré-definidas (linear, exponencial, polinômios de segundo e terceiro graus) também foram calculados e plotados para cada \textit{shader} (Figura \ref{nexus1_ajuste} e Figura \ref{nexus2_ajuste}, referentes ao \textit{Reflection Shader}). Também foram determinados os menores erros associados, a fim de descobrir qual curva melhor se ajustava às medições do \textit{fragment shader} e de todo o processo de renderização. Pela a análise do menor erro, calculado de acordo com a Seção \ref{metminqua}, todos os \textit{shaders} se aproximaram melhor de uma curva de terceiro grau, tanto para o \textit{fragment shader}, quanto para todo o processo de renderização.
 	
 	\begin{figure}[ht]
 	\centering
@@ -45,7 +45,7 @@
 	\label{nexus2_ajuste}
 	\end{figure}	
 
-	Com o dispositivo \textit{HTC One} foi possível apenas realizar o cálculo para o \textit{vertex} e \textit{fragment shaders}, pois ele não dá suporte à extensão da \textit{OpenGL ES} -- utilizada para a coleta do tempo do processo de renderização. A Figura \ref{htc1} mostra os gráficos plotados para o \textit{vertex} e \textit{fragment shaders} do \textit{Gouraud Shader} (\textit{shader} exemplo utilizado para comparação), em que os formatos são semelhantes aos obtidos com o \textit{Nexus 4}. Assim como no \textit{Nexus 4}, o \textit{vertex shader} também teve comportamento linear e para o \textit{fragment shader}, a melhor aproximação foi para uma curva de terceiro grau (Figura \ref{htc1_ajuste}). 
+	Com o dispositivo \textit{HTC One} foi possível apenas realizar o cálculo para o \textit{vertex} e \textit{fragment shaders}, pois ele não dá suporte à extensão da \textit{OpenGL ES} utilizada para a coleta do tempo do processo de renderização. A Figura \ref{htc1} mostra os gráficos plotados para o \textit{vertex} e \textit{fragment shaders} do \textit{Gouraud Shader} (\textit{shader} exemplo utilizado para comparação), em que os formatos são semelhantes aos obtidos com o \textit{Nexus 4}. Assim como no \textit{Nexus 4}, o \textit{vertex shader} também teve comportamento linear e para o \textit{fragment shader}, a melhor aproximação foi uma curva de terceiro grau (Figura \ref{htc1_ajuste}). 
 
 	\begin{figure}[ht]
 	\centering
@@ -64,7 +64,7 @@
 
 \section{Dispositivos \textit{iOS}} 
 
-	Para os dispositivos \textit{iPhone 5s} e \textit{iPad Air}, foi possível apenas realizar as medições quanto ao processo de renderização, pois a ferramenta utilizada não provê medições quanto ao \textit{vertex} e \textit{fragment shaders}.  A Figura \ref{ios1} mostra o gráfico plotado para o \textit{shader} tomado como exemplo de comparação, o \textit{Gouraud Shader}. O formato das curvas obtidas são semelhantes ao do \textit{Nexus 4}, e assim como ele, o melhor ajuste foi para uma curva de terceiro grau (Figura \ref{ios1_ajuste}). 
+	Para os dispositivos \textit{iPhone 5s} e \textit{iPad Air}, foi possível apenas realizar as medições quanto ao processo de renderização, pois a ferramenta utilizada não provê medições quanto ao \textit{vertex} e \textit{fragment shaders}.  A Figura \ref{ios1} mostra o gráfico plotado para o \textit{shader} tomado como exemplo de comparação, o \textit{Gouraud Shader}. O formato das curvas obtidas são semelhantes ao do \textit{Nexus 4}, e assim como ele, o melhor ajuste foi uma curva de terceiro grau (Figura \ref{ios1_ajuste}). 
 
 	\begin{figure}[ht]
 	\centering
@@ -80,17 +80,24 @@
 	\label{ios1_ajuste}
 	\end{figure}	
 
-\section{Equações Obtidas} 	
+\section{Análise das Equações Obtidas} 
+\label{analieq}	
 
-	As equações calculadas para cada \textit{shader} do dispositivo \textit{Nexus 4} (relacionadas ao vértice e fragmento) são mostradas na Tabela \ref{equacoes}. Embora as curvas sejam de mesma família, os seus coeficientes não são. Os \textit{shaders} relativamente mais simples tem inclinação de reta menor, assim como os coeficientes dos termos $x^2$ e $x^3$. Pela análise das equações, é possível perceber que o \textit{vertex shader} de melhor desempenho é o do \textit{Flat Shader}, que apenas determina as coordenadas $x$ e $y$, já que o $z$ é sempre zero. O de pior desempenho é o \textit{Gouraud Shader}, que faz os cálculos de luz por vértice. Já o \textit{fragment shader} de melhor desempenho é o do \textit{Red Shader}, que apenas determina que a cor do fragmento seja vermelha. O de pior desempenho foi o do \textit{Phong Shader}, que faz os cálculos de luz por fragmento.
+	As equações calculadas para cada \textit{shader} do dispositivo \textit{Nexus 4} (relacionadas ao vértice e fragmento) são mostradas na Tabela \ref{equacoes}. Embora as curvas sejam de mesma família, os seus coeficientes não são idênticos. Os \textit{shaders} relativamente mais simples tem inclinação de reta menor, assim como os coeficientes dos termos $x^2$ e $x^3$. Pela análise das equações, é possível perceber que o \textit{vertex shader} de melhor desempenho é o do \textit{Flat Shader}, que apenas determina as coordenadas $x$ e $y$, já que o $z$ é sempre zero. O de pior desempenho é o \textit{Gouraud Shader}, que faz os cálculos de luz por vértice. Já o \textit{fragment shader} de melhor desempenho é o do \textit{Red Shader}, que apenas determina que a cor do fragmento seja vermelha. O de pior desempenho foi o do \textit{Phong Shader}, que faz os cálculos de luz por fragmento.
 
-	Outra observação que pode ser feita é quanto aos \textit{shaders Gouraud} e \textit{Phong}, pois eles realizam o mesmo cálculo, porém o primeiro faz no \textit{vertex shader} e o segundo, no \textit{fragment shader}. Pela análise das equações, o desempenho relacionado ao \textit{vertex shader} do \textit{Gouraud} é pior que a do \textit{Phong} e a relacionado ao \textit{fragment shader} é melhor.  Além disso, com as equações é possível estimar a quantidade de instruções por segundo por vértice ou por fragmento. Tomando como exemplo o \textit{Toon Shader}, que sua equação para o \textit{vertex shader} é  $y = 10.17 \times 10^6 + 4673.96t$, o número de instruções por segundo por vértice estimado para 60000 polígonos é de $29.06 \times 10^7$. Realizando a medição com a ferramenta \textit{Adreno Profiler} foi possível perceber que este valor é próximo ao medido, que foi $28.49 \times 10^7$.
+	Outra observação que pode ser feita é quanto aos \textit{shaders Gouraud} e \textit{Phong}, pois eles realizam o mesmo cálculo, porém o primeiro faz no \textit{vertex shader} e o segundo, no \textit{fragment shader}. Pela análise das equações, o desempenho relacionado ao \textit{vertex shader} do \textit{Gouraud} é pior que a do \textit{Phong} e a relacionado ao \textit{fragment shader} é melhor.  
 
-	As equações relacionadas a todo o processo de renderização do dispositivo \textit{Nexus 4} também foram calculadas e podem ser vistas na Tabela \ref{eqrender}. Assim como no caso anterior, elas são da mesma família mas possuem coeficientes diferentes. De acordo com estas equações, o \textit{shader} de pior desempenho é o de Reflexão, que pela análise anterior, os \textit{shaders} de vértice e fragmento eram uns dos de pior desempenho. Outro resultado relevante é quanto ao \textit{Gouraud} e \textit{Phong shaders}, em que na análise anterior, o primeiro possui o pior desempenho entre os \textit{shaders} de vértice e o segundo, entre os \textit{shaders} de fragmento.  Mas o que possui o pior desempenho entre os dois, em relação ao processo de renderização como um todo, é o \textit{Phong shader}. Este resultado é consistente, pois o \textit{fragment shader}, pelo experimento realizado, possui complexidade algorítmica $n^3$ e o \textit{vertex shader}, $n$, influenciando neste pior desempenho. 	Pelo experimento realizado, os \textit{shaders} de melhores desempenhos são o \textit{Flat}, \textit{Toon} e \textit{Red}. Além disso, utilizando as equações calculadas, a fim de estimar o tempo para 170000 polígonos, por exemplo, essa análise se confirma, como é mostrada na Tabela \ref{estimativa}.
+	Além disso, com as equações é possível estimar a quantidade de instruções por segundo por vértice ou por fragmento. Tomando como exemplo o \textit{Toon Shader}, cuja curva aproximada para o \textit{vertex shader} é  $y(t) = 10.17 \times 10^6 + 4673.96t$, o número de instruções por segundo por vértice estimado para 60000 polígonos é de $29.06 \times 10^7$. Realizando a medição com a ferramenta \textit{Adreno Profiler} foi possível perceber que este valor é próximo ao medido ($28.49 \times 10^7$).
+
+	As equações relacionadas a todo o processo de renderização do dispositivo \textit{Nexus 4} também foram calculadas e podem ser vistas na Tabela \ref{eqrender}. Assim como no caso anterior, elas são da mesma família mas possuem coeficientes diferentes. De acordo com estas equações, o \textit{shader} de pior desempenho é o de Reflexão, que pela análise anterior, os \textit{shaders} de vértice e fragmento estavam entre os de pior desempenho. 
+
+	Outro resultado relevante está relacionado ao \textit{Gouraud} e ao \textit{Phong Shader}, em que na análise anterior, o primeiro possui o pior desempenho entre os \textit{shaders} de vértice e o segundo, entre os \textit{shaders} de fragmento.  Mas o que possui o pior desempenho entre os dois, em relação ao processo de renderização como um todo, é o \textit{Phong shader}. Este resultado é consistente, pois o \textit{fragment shader}, pelo experimento realizado, possui complexidade assintótica $O(n^3)$ e o \textit{vertex shader}, $O(n)$, influenciando neste pior desempenho. 
+
+	Pelo experimento realizado, os \textit{shaders} de melhores desempenhos foram o \textit{Flat}, \textit{Toon} e \textit{Red}. Além disso, utilizando as equações calculadas, a fim de estimar o tempo para 170.000 polígonos, por exemplo, essa análise se confirma, como é mostrada na Tabela \ref{estimativa}.
 
 	\begin{table}[ht]
 	\centering	
-	\begin{tabularx}{0.9\textwidth}{cXX}
+	\begin{tabularx}{0.9\textwidth}{lXX}
 		\toprule
 		\textbf{Nome} & \textbf{Instruções por Segundo por Vértice} & \textbf{Instruções por Segundo por Fragmento}  \\
 		\midrule
@@ -112,7 +119,7 @@
 
 	\begin{table}[ht]
 	\centering	
-	\begin{tabularx}{0.9\textwidth}{cX}
+	\begin{tabularx}{0.9\textwidth}{lX}
 		\toprule
 		\textbf{Nome} & \textbf{Tempo do Processo de Renderização (ns)}  \\
 		\midrule
@@ -132,36 +139,37 @@
 	\label{eqrender}
 	\end{table}
 
+
 	\begin{table}[ht]
 	\centering	
-	\begin{tabularx}{0.9\textwidth}{cc}
+	\begin{tabularx}{0.9\textwidth}{lc}
 		\toprule
 		\textbf{Nome} & \textbf{Tempo do Processo de Renderização (ns)}  \\
 		\midrule
-		\textit{Gouraud} &  4923257\\
-		\textit{Phong} &   5072434\\
-		\textit{Red} & 3825594\\
-		\textit{Toon} & 3687182\\
-		\textit{Flat} & 3653955\\
-		\textit{Random Color} & 3967677\\
-		\textit{Simple Texture} & 4065117\\
-		\textit{CubeMap} & 4638068\\
-		\textit{Reflection} & 5727936\\
+		\textit{Gouraud} &  4.923.257\\
+		\textit{Phong} &   5.072.434\\
+		\textit{Red} & 3.825.594\\
+		\textit{Toon} & 3.687.182\\
+		\textit{Flat} & 3.653.955\\
+		\textit{Random Color} & 3.967.677\\
+		\textit{Simple Texture} & 4.065.117\\
+		\textit{CubeMap} & 4.638.068\\
+		\textit{Reflection} & 5.727.936\\
 	
 	
 		\bottomrule
 	\end{tabularx}
-	\caption{Exemplo de estimativa para 200000 polígonos}
+	\caption{Exemplo de estimativa para 170.000 polígonos}
 	\label{estimativa}
 	\end{table}
 
 \subsection{Comparação das Equações dos Dispositivos}
 
-	A equação do processo de renderização também forai obtida para os dispositivos \textit{iOS}, a partir de um \textit{shader} de comparação. A Tabela \ref{render_time_comp} mostra a comparação entre as equações destes dispositiivos e o \textit{Nexus 4}. Pelas medições realizadas e equações obtidas, foi possível perceber que o dispositivo de melhor desempenho foi o \textit{iPad Air}, que como é mostrado na Seção \ref{equip}, é o dispositivo com a melhor configuração de \textit{hardware} e o que obteve melhor posição no aplicativo de \textit{benchmarking} também mostrado nesta seção. O de pior desempenho foi o \textit{Nexus 4}, que dentre estes dispositivos é o que tem a pior configuração de \textit{hardware}.
+	A equação do processo de renderização também foi obtida para os dispositivos \textit{iOS}, a partir de um \textit{shader} de comparação (\textit{Gouraud Shader}). A Tabela \ref{render_time_comp} mostra a comparação entre as equações destes dispositiivos e o \textit{Nexus 4}. Pelas medições realizadas e equações obtidas, foi possível perceber que o dispositivo de melhor desempenho foi o \textit{iPad Air}, que como é mostrado na Seção \ref{equip}, é o dispositivo com a melhor configuração de \textit{hardware} e o que obteve melhor posição no aplicativo de \textit{benchmarking} também mostrado nesta seção. O de pior desempenho foi o \textit{Nexus 4}, que dentre estes dispositivos é o que tem a pior configuração de \textit{hardware}.
 
 	\begin{table}[ht]
 	\centering	
-	\begin{tabularx}{0.9\textwidth}{cX}
+	\begin{tabularx}{0.9\textwidth}{lX}
 		\toprule
 		\textbf{Dispositivo} & \textbf{Tempo do Processo de Renderização (ns)}  \\
 		\midrule
@@ -174,11 +182,11 @@
 	\label{render_time_comp}
 	\end{table}
 
-	As equações quanto ao \textit{vertex} e \textit{fragment shaders} também foram obtidas para o dispositivo \textit{HTC One}. A Tabela \ref{vertex_frag_comp} mostra a comparação entre as equações deste dispositivo e o \textit{Nexus 4}. Pelas medições realizadas e equações obtidas, o \textit{HTC One} teve melhor desempenho com relação ao \textit{fragment shader}. Pela Seção \ref{equip} ele é um dispositivo superior ao \textit{Nexus 4} e obteve posição um pouco melhor no aplicativo de \textit{benchmarking}.  E isto é confirmado pelo resultado obtido, pois o processo de fragmento possui complexidade algorítmica maior que o de vértice. 
+	As equações quanto ao \textit{vertex} e \textit{fragment shaders} também foram obtidas para o dispositivo \textit{HTC One}. A Tabela \ref{vertex_frag_comp} mostra a comparação entre as equações deste dispositivo e o \textit{Nexus 4}. Pelas medições realizadas e equações obtidas, o \textit{HTC One} teve melhor desempenho com relação ao \textit{fragment shader}. Pela Seção \ref{equip} ele é um dispositivo superior ao \textit{Nexus 4} e obteve posição um pouco melhor no aplicativo de \textit{benchmarking}.  E isto é confirmado pelo resultado obtido, pois o processo de fragmento possui complexidade assintótica maior que o de vértice. 
 
 	\begin{table}[ht]
 	\centering	
-	\begin{tabularx}{0.9\textwidth}{cXX}
+	\begin{tabularx}{0.9\textwidth}{lXX}
 		\toprule
 		\textbf{Dispositivo} & \textbf{Instruções por Segundo por Vértice} & \textbf{Instruções por Segundo por Fragmento}  \\
 		\midrule
@@ -191,7 +199,8 @@
 	\label{vertex_frag_comp}
 	\end{table}
 
-\section{Processo da Estimação da Complexidade Algorítmica Experimentalmente}  
+
+\section{Processo Experimental da Estimação da Complexidade Assintótica}  
 
 	Assim, o processo utilizado neste trabalho de estimação da complexidade algorítmica calculada de forma empírica, pode ser resumido na Figura \ref{processo}. A etapa de Implementar \textit{Shaders} pode ser feita por meio da utilização da base do projeto implementado, herdando-se da classe \textit{Shader} e implementando os métodos abstratos, como explicado na Seção \ref{imp}. A etapa Realização das Medições é feita de forma manual, dependendo do \textit{profiler} de GPU adequado para o \textit{device} utilizado. E a etapa Plotar Gráficos, Ajustar Curvas e Obter Equações pode ser feita através do \textit{script} criado para o ajuste das curvas.
 

@@ -1,21 +1,99 @@
 \chapter[Conclusao]{Conclusão}\
 
-	Por meio do trabalho realizado, foi possível concluir que o processo de renderização como um todo, calculado por meio do tempo de renderização da GPU, tendeu a apresentar como complexidade algorítmica um polinômio de terceiro grau para qualquer \textit{shader} (variando somente os coeficientes das funções).  Já o processo relacionado ao \textit{vertex shader}, por meio dos experimentos realizados, foi possível perceber que a complexidade algorítmica se comportou linearmente e o relacionado ao \textit{fragment shader}, assim como a complexidade algorítmica do processo de renderização, se aproximou de um polinômio de terceiro grau, também independentemente do \textit{shader} utilizado. Assim, todos os \textit{shaders} possuem a mesma complexidade algorítmica, porém as equações de cada um possuem coeficientes diferentes, que podem determinar qual \textit{shader} tem melhor ou pior desempenho.
+	Por meio do trabalho realizado, foi possível concluir que o processo de renderização como um todo, calculado por meio do tempo de renderização da GPU e pela análise dos erros quadráticos, e o processo relacionado ao \textit{fragment shader} tenderam a apresentar como complexidade assintótica um polinômio de terceiro grau para qualquer \textit{shader} (variando somente os coeficientes das funções). Porém, mesmo que os erros quadráticos sejam menores para as curvas de terceiro grau (relacionadas a todo o processo de renderização e ao \textit{fragment shader}) , os coeficientes das equações mostradas na Seção \ref{analieq} para o termo $t^3$ são muito pequenos, sendo da ordem de  $10^{-7}$, $10^{-8}$ e $10^{-9}$.  No caso da ordem de $10^{-7}$, por exemplo, será somado/subtraído (de acordo com o sinal), uma unidade a cada 100 milhões de unidades de $t$ (para uma função $y(t)$), o que pode ser considerado irrelevante. Assim, neste contexto, a curva relacionada ao polinômio de segundo grau, mesmo com um erro quadrático maior, representa melhor a realidade do \textit{shader}, em que pode-se considerar a complexidade assintótica do processo de renderização e do relacionado ao \textit{fragment shader} $O(n^2)$. A Tabela \ref{equacoessec} e a Tabela \ref{eqrendersec} mostram as equações obtidas para o polinômio de segundo grau, relacionadas ao \textit{fragment shader} e a todo o processo de renderização, respectivamente, para o dispositivo \textit{Nexus 4}. As análises feitas na Seção \ref{analieq} para os polinômios de terceiro grau também se aplicam para os de segundo grau, em que o \textit{shader} de pior desempenho (relacionado ao processo do \textit{fragment shader}) é o \textit{Phong Shader}, por exemplo. 
 
-	Analisando a teoria do processo de renderização da \textit{OpenGL} para o \textit{vertex shader}, este resultado é consistente, pois o programa do \textit{vertex shader} é utilizado para cada vértice, dependendo então do número de vértices e da complexidade do \textit{shader}.  Assim, o fluxo de execução da aplicação do \textit{vertex shader} pode ser representado de acordo com o Código \ref{vertex_proc}.
+	\begin{table}[ht]
+	\centering	
+	\begin{tabularx}{0.9\textwidth}{lX}
+		\toprule
+		\textbf{Nome} & \textbf{Instruções por Segundo por Fragmento}  \\
+		\midrule
+		\textit{Gouraud} & $y = 19,43 \times 10 ^8 + 187,41t - 0,0019t^2$  \\
+		\textit{Phong}& $y = 19,87 \times 10^8 + 1034,36t - 0,0087t^2$ \\
+		\textit{Red} & $y = 19,39 \times 10 ^8 + 53,58t - 0,00044t^2 $\\
+		\textit{Toon}& $y = 19,44 \times 10 ^8 + 204,84t - 0,0017t^2 $\\
+		\textit{Flat} & $y = 19,39 \times 10 ^8 + 57,12t - 0,00050t^2$ \\
+		\textit{Random Color} & $y = 19,44 \times 10 ^8 + 170,31t - 0,0016t^2$\\
+		\textit{Simple Texture} & $y = 19,41 \times 10 ^8 + 112,05t - 0,0010t^2$\\
+		\textit{CubeMap} & $y = 19,43 \times 10 ^8 + 165,99t - 0,0014t^2$ \\
+		\textit{Reflection} & $y = 19,59 \times 10 ^8 + 596,55t - 0,0051t^2$ \\
+	
+		\bottomrule
+	\end{tabularx}
+	\caption{Polinômios de segundo grau relacionados ao \textit{fragment shader}}
+	\label{equacoessec}
+	\end{table}
+
+		\begin{table}[ht]
+	\centering	
+	\begin{tabularx}{0.9\textwidth}{lX}
+		\toprule
+		\textbf{Nome} & \textbf{Tempo do Processo de Renderização (ns)}  \\
+		\midrule
+		\textit{Gouraud} &  $y = 3,64 \times 10^4 + 64,62t - 0,00020t^2$\\
+		\textit{Phong} &   $y = 6,263 \times 10^4 + 68,29t - 0,00021t^2$\\
+		\textit{Red} & $y = -3,64 \times 10^4 + 58,80t - 0,00019t^2$\\
+		\textit{Toon} & $y = -6,36 \times 10^4 + 62,91t - 0,00022t^2$\\
+		\textit{Flat} & $y = -4,58 \times 10^4 + 62,31t - 0,00022t^2$\\
+		\textit{Random Color} & $y = -4,37 \times 10^4 + 61,74t - 0,00021t^2$\\
+		\textit{Simple Texture} & $y = -4,18 \times 10^4 + 61,72t - 0,00020t^2$\\
+		\textit{CubeMap} & $y = 7,60 \times 10^4 + 61,64t - 0,00019t^2$\\
+		\textit{Reflection} & $y = 27,57 \times 10^4 + 61,93t - 0,00017t^2$ \\
+		
+		\bottomrule
+	\end{tabularx}
+	\caption{Polinômios de segundo grau relacionados ao tempo do processo de renderização}
+	\label{eqrendersec}
+	\end{table}
+
+
+	A Tabela \ref{render_time_compsec} e a Tabela \ref{vertex_frag_compsec} mostram as equações atualizadas para os polinômios de segundo grau para as comparações entre os dispositivos. Assim, percebe-se que os resultados das comparações feitas na Seção \ref{analieq} também continuam os mesmos, ainda que as equações tenham sido mudadas do polinômio de terceiro grau para o de segundo grau. 
+
+	
+	\begin{table}[ht]
+	\centering	
+	\begin{tabularx}{0.9\textwidth}{lX}
+		\toprule
+		\textbf{Dispositivo} & \textbf{Tempo do Processo de Renderização (ns)}  \\
+		\midrule
+		\textit{Nexus 4} &  $y = 3,64 \times 10^4 + 64,62t - 198,66 \times 10^{-6}t^2$\\
+		\textit{iPhone 5s} &   $y = 5,57 \times 10^4 + 0,59t - 2,00 \times 10^{-6}t^2$\\
+		\textit{iPad Air} & $y = 3,51 \times 10^4 + 0,75t - 2,53 \times 10^{-6}t^2$\\	
+		\bottomrule
+	\end{tabularx}
+	\caption{Equações do processo de renderização do \textit{Gouraud Shader}}
+	\label{render_time_compsec}
+	\end{table}
+
+	\begin{table}[ht]
+	\centering	
+	\begin{tabularx}{0.9\textwidth}{lXX}
+		\toprule
+		\textbf{Dispositivo} & \textbf{Instruções por Segundo por Vértice} & \textbf{Instruções por Segundo por Fragmento}  \\
+		\midrule
+		\textit{Gouraud} & $y = 40,16 \times 10^6 + 7486,43t$ &$y = 19,43 \times 10 ^8 + 187,41t - 0,0019t^2$  \\
+		\textit{HTC One} & $y = 357,56 \times 10^6 + 8251,00t$ & $y = 28,77 \times 10 ^6+ 202,81t - 0,0020t^2$  \\
+
+		\bottomrule
+	\end{tabularx}
+	\caption{Equações do\textit{vertex} e \textit{fragment shaders} para o \textit{Gouraud Shader}}
+	\label{vertex_frag_compsec}
+	\end{table}
+
+	 Já no que diz respeito ao processo relacionado ao \textit{vertex shader}, por meio dos experimentos realizados, foi possível perceber que a complexidade assintótica se comportou linearmente, também independentemente do \textit{shader} utilizado. Assim, todos os \textit{shaders} avaliados possuem a mesma complexidade algorítmica, mas as equações de cada um possuem coeficientes diferentes, que podem determinar qual \textit{shader} tem melhor ou pior desempenho. Analisando a teoria do processo de renderização da \textit{OpenGL} para o \textit{vertex shader}, este resultado é consistente, pois o programa do \textit{vertex shader} é utilizado para cada vértice, dependendo então do número de vértices e da complexidade do \textit{shader}.  Assim, o fluxo de execução da aplicação do \textit{vertex shader} pode ser representado de acordo com o Código \ref{vertex_proc}.
 
 	 \lstinputlisting[language=C, caption = {Representação da aplicação do \textit{vertex shader}}, label = {vertex_proc}]{codigos/vertex_proc.txt}
 
-	O Código \ref{fragment_proc} mostra um fluxo genérico de execução da aplicação do \textit{fragment shader}. Assim, como é explicado na documentação da OpenGL\footnote{http://www.opengl.org/wiki/Fragment\_Shader} e no Anexo \ref{renderpipe}, para cada primitiva da malha (no caso os triângulos), geram-se os fragmentos (possíveis candidatos a \textit{pixel}). E para cada fragmento, faz-se o processo de aplicação do \textit{fragment shader}, ressaltando que para cada fragmento percorre-se a direção horizontal e vertical da tela (sendo uma matriz). Assim, a função \texttt{executeFragmentShader(fragment)}, atribui a um fragmento uma cor e um valor de profundidade (este valor é usado nos passos sequentes do processo de renderização para descarte de fragmentos). Então possivelmente a complexidade algorítmica cúbica está associada à atribuição da cor (que percorre uma matriz, sendo de ordem quadrada) e ao cálculo do valor de profundidade, que inclui a coordenada $z$ (ordem cúbica). 
+	O Código \ref{fragment_proc} mostra um fluxo genérico de execução da aplicação do \textit{fragment shader}. Assim, como é explicado na documentação da OpenGL\footnote{\textit{http://www.opengl.org/wiki/Fragment\_Shader}} e no Anexo \ref{renderpipe}, para cada primitiva da malha (no caso os triângulos), geram-se os fragmentos (possíveis candidatos a \textit{pixel}). E para cada fragmento, faz-se o processo de aplicação do \textit{fragment shader}, ressaltando que para cada fragmento percorre-se a direção horizontal e vertical da tela (sendo uma matriz). Assim, a função \texttt{executeFragmentShader(fragment)}, atribui a um fragmento uma cor e um valor de profundidade (este valor é usado nos passos sequentes do processo de renderização para descarte de fragmentos). Então possivelmente a complexidade assintótica quadrática está associada à atribuição da cor (que percorre uma matriz, sendo de ordem quadrada). 
 
 	 \lstinputlisting[language=C, caption = {Representação da aplicação do \textit{fragment shader}}, label = {fragment_proc}]{codigos/fragment_proc.txt}
 
-	Além disso, os resultados obtidos não são tão óbvios, pois ao analisar o programa do \textit{vertex shader} do Código \ref{vertex_program}, por exemplo, há somente uma atribuição, induzindo o programador  a achar que a complexidade é constante. E por meio deste trabalho foi possível perceber que não é.
+	Além disso, os resultados obtidos não são tão óbvios, pois ao analisar o programa do \textit{vertex shader} do Código \ref{vertex_program}, por exemplo, há somente uma atribuição, induzindo o programador  a achar que a complexidade é constante, em que o trabalho desenvolvido evidenciou a verdadeira complexidade do algoritmo.
 
 	\lstinputlisting[language=C, caption = {Exemplo de programa do \textit{vertex shader}}, label = {vertex_program}]{codigos/red_vs.txt} 
 	
-	Assim, como todos os \textit{shaders} (do mesmo tipo) apresentam a mesma complexidade algorítmica, uma forma de comparar o desempenho entre eles, para um mesmo dispositivo, é através do processo realizado neste trabalho (explicado na Seção \ref{result}), que resulta no cálculo das funções de cada \textit{shader}. Esta comparação pode ser feita por meio da análise destas funções obtidas, comparando-se os seus coeficientes. Esta análise pode ser realizada com relação a todo o processo de renderização (utilizando a medida de tempo de renderização feita pela GPU) ou especificadamente ao \textit{vertex shader} ou \textit{fragment shader} -- como neste trabalho, em que foram utilizados as medidas específicas de instruções por segundo por vértice/fragmento).  Isto pode ser feito para comparar diferentes \textit{shaders} ou para saber o quanto um \textit{shader} foi otimizado (comparando-se o anterior e o atual). 
+	Assim, como todos os \textit{shaders} (do mesmo tipo) apresentam a mesma complexidade assintótica, uma forma de comparar o desempenho entre eles, para um mesmo dispositivo, é através do processo realizado neste trabalho (explicado na Seção \ref{result}), que resulta no cálculo das funções de cada \textit{shader}. Esta comparação pode ser feita por meio da análise destas funções obtidas, comparando-se os seus coeficientes. Esta análise pode ser realizada com relação a todo o processo de renderização (utilizando a medida de tempo de renderização feita pela GPU) ou especificadamente ao \textit{vertex shader} ou \textit{fragment shader} -- como neste trabalho, em que foram utilizados as medidas específicas de instruções por segundo por vértice/fragmento).  Isto pode ser feito para comparar diferentes \textit{shaders} ou para saber o quanto um \textit{shader} foi otimizado (comparando-se o anterior e o atual). 
 
 	Além disso, também é possível comparar, para um mesmo \textit{shader}, diferentes dispositivos por meio das equações e valores das medições obtidos. As comparações realizadas neste trabalho foram condizentes com a expectativa, o dispositivo \textit{iPhone 5s},  que é de uma geração de \textit{smartphones} mais recente, por exemplo, teve desempenho muito melhor que o \textit{Nexus 4}.   	
 
-	Outra contribuição importante foi quanto à automatização da maior parte deste processo de análise da complexidade algorítmica, como a estrutura para aplicação dos \textit{shaders}, média das medições, plotagem, ajuste das curvas e cálculo das funções. Assim, tal procedimento pode ser reproduzido de forma mais rápida e confiável. 
+	Outra contribuição importante foi quanto à automatização da maior parte deste processo de análise da complexidade algorítmica, como a estrutura para aplicação dos \textit{shaders}, média das medições, plotagem, ajuste das curvas e cálculo das funções. Assim, tal procedimento pode ser reproduzido de forma rápida e confiável. 

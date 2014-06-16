@@ -3,11 +3,11 @@
 
 \section{\textit{Shaders}: \textit{pipelines} programáveis}
 
-	Conforme \cite{realtime}, \textit{shading} é o processo de utilizar uma equação para computar o comportamento da uma superfície de um objeto. Os \textit{shaders} são algorítmos escritos pelo programador a fim de substituir as funcionalidades pré-definidas do processo de renderização executada pela GPU, por meio de bibliotecas gráficas como a \textit{OpenGL}.
+	Conforme \cite{realtime}, \textit{shading} é o processo de utilizar uma equação para computar o comportamento da uma superfície de um objeto. Os \textit{shaders} são algoritmos escritos pelo programador a fim de substituir as funcionalidades pré-definidas do processo de renderização executada pela GPU, por meio de bibliotecas gráficas como a \textit{OpenGL}.
 
 	 A \textit{OpenGL} é uma API (\textit{Application Programming Interface}) utilizada em computação gráfica para modelagem tridimensional, lançada em 1992, sendo uma interface de \textit{software} para dispositivos de \textit{hardware}. Segundo \cite{opengl2011}, sua precursora foi a biblioteca Iris GL (\textit{Integrated Raster Imaging System Graphics Library}) da empresa \textit{Silicon Graphics}.
 
-	Antes dos \textit{shaders} serem criados, as bibliotecas gráficas (como a \textit{OpenGL}) possuíam um processo de renderização completamente fixo. Porém, com a introdução dos \textit{shaders} é possível customizar parte deste processo, como é  mostrada na Figura \ref{pipeline}. O Anexo \ref{renderpipe} descreve as etapas do processo ilustrado.
+	Antes dos \textit{shaders} serem criados, as bibliotecas gráficas (como a \textit{OpenGL}) possuíam um processo de renderização completamente fixo. Porém, com a introdução dos \textit{shaders} é possível customizar parte deste processo, como é  mostrado na Figura \ref{pipeline}. O Anexo \ref{renderpipe} descreve as etapas do processo ilustrado.
 	\begin{figure}[ht]
 	\centering
 		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/pipeline.jpg}
@@ -15,7 +15,7 @@
 	\label{pipeline}
 	\end{figure}
 
-	 Assim, existem dois tipos de \textit{shader} principais, relacionados à criação de diferentes efeitos visuais, que focam partes distintas do \textit{pipeline} gráfico: o \textit{vertex shader} e o \textit{fragment shader}. O \textit{vertex shader} é responsável pela manipulação dos dados dos vértices, sendo responsável pela manipulação das coordenadas de posição, normal e textura, por exemplo. Ele altera a etapa de processamento de vértices e deve, ao menos, definir as coordenadas de posição.  O \textit{fragment shader} opera na etapa de processamento dos fragmentos, em que deve atribuir uma cor para cada fragmento. 
+	 Assim, existem dois tipos de \textit{shader} principais, relacionados à criação de diferentes efeitos visuais, que focam partes distintas do \textit{pipeline} gráfico: o \textit{vertex shader} e o \textit{fragment shader}. O \textit{vertex shader} é responsável pela manipulação dos dados dos vértices, a partir das coordenadas de posição, normal e textura, por exemplo. Ele altera a etapa de processamento de vértices e deve, ao menos, definir as coordenadas de posição.  O \textit{fragment shader} opera na etapa de processamento dos fragmentos, e deve atribuir uma cor para cada fragmento. 
 
 \subsection{Linguagens dos \textit{shaders}}
 
@@ -74,7 +74,7 @@
 
 \subsection{Utilização dos \textit{shaders} em \textit{OpenGL}}
 
-	Para cada \textit{shader} -- relativos ao vértice e ao fragmento -- é necessário escrever o código que será compilado e feito o \textit{link}, gerando em um programa final que será utilizado pela \textit{OpenGL}. Caso os \textit{shaders} utilizem variáveis passadas pela \textit{OpenGL}, é necessário primeiramente encontrar a localização desta variável e depois setá-la. Se a variável for do tipo \textit{uniform}, por exemplo, adiquire-se a localização por meio da função \texttt{glGetUniformLocation(GLuint program, const GLchar *name)}, em que \textit{program} é o programa gerado a partir dos \textit{shaders} e \textit{name} é o nome da variável definida dentro do \textit{shader}. 
+	Para cada \textit{shader} -- relativos ao vértice e ao fragmento -- é necessário escrever o código que será compilado e feito o \textit{link}, gerando um programa final que será utilizado pela \textit{OpenGL}. Caso os \textit{shaders} utilizem variáveis passadas pela \textit{OpenGL}, é necessário primeiramente encontrar a localização desta variável e depois setá-la. Se a variável for do tipo \textit{uniform}, por exemplo, adquire-se a localização por meio da função \texttt{glGetUniformLocation(GLuint program, const GLchar *name)}, em que \textit{program} é o programa gerado a partir dos \textit{shaders} e \textit{name} é o nome da variável definida dentro do \textit{shader}. 
 
 	A Figura \ref{shader_use} mostra o processo de geração do programa a partir dos \textit{shaders} criados.
 
@@ -88,18 +88,17 @@
 
 \subsection{\textit{Shaders} em Plataformas Móveis}
 
-	Assim como para computadores, também existem bibliotecas gráficas para dispositivos móveis. Nas próximas seções explica-se a plataforma \textit{Android} e \textit{iOS}, que foram utilizadas neste trabalho, e a biblioteca gráfica \textit{OpenGL ES}, que é uma variação da \textit{OpenGL} para dispositivos móveis, usada na programação de \textit{shaders}.
+	Assim como para computadores, também existem bibliotecas gráficas para dispositivos móveis. Nas próximas seções são mostradas as plataformas \textit{Android} e \textit{iOS}, que foram utilizadas neste trabalho, e a biblioteca gráfica \textit{OpenGL ES}, que é uma variação da \textit{OpenGL} para dispositivos móveis, usada na programação de \textit{shaders}.
 
 	\subsubsection{Plataforma \textit{Android}}
 
-	O \textit{Android} começou a ser desenvolvido em 2003 na empresa de mesmo nome, fundada por Andy Rubin, a qual foi adquirida em 2005 pela empresa \textit{Google}. A \textit{Google} criou a \textit{Open Handset Alliance}, que junta várias empresas da indústria das telecomunicações, como a \textit{Motorola} e a \textit{Samsung}, por exemplo. Assim, elas desenvolveram o \textit{Android} como é conhecido hoje, o qual é um sistema operacional  \textit{open source} para dispositivos móveis (baseado no \textit{kernel} do \textit{Linux}), tendo a primeira versão beta lançada em 2007 e segundo \cite{android2013}, hoje é o sistema operacional para \textit{mobile} mais utilizado.
+	O \textit{Android} começou a ser desenvolvido em 2003 na empresa de mesmo nome, fundada por Andy Rubin, a qual foi adquirida em 2005 pela empresa \textit{Google}. A \textit{Google} criou a \textit{Open Handset Alliance}, que une várias empresas da indústria das telecomunicações, como a \textit{Motorola} e a \textit{Samsung}, por exemplo. Assim, elas desenvolveram o \textit{Android} como é conhecido hoje, o qual é um sistema operacional  \textit{open source} para dispositivos móveis (baseado no \textit{kernel} do \textit{Linux}), tendo a primeira versão beta lançada em 2007 e segundo \cite{android2013}, hoje é o sistema operacional para \textit{mobile} mais utilizado. Em 2012, mais de 3,5 \textit{smartphones} com \textit{Android} eram enviados aos clientes para cada \textit{iPhone}. Em 2011, 500.000 novos \textit{devices} eram atividados a cada dia e em 2013, os números chegaram a 1,5 milhões diários. 
 
-	 Ainda de acordo com \cite{android2013}, em 2012 mais de 3,5 \textit{smartphones} com \textit{Android} eram enviados aos clientes para cada \textit{iPhone}. Em 2011, 500.000 novos \textit{devices} eram atividados a cada dia e em 2013, os números chegam a 1,5 milhões diários. O \textit{Android} também possui um mercado centralizado acessível por qualquer aparelho (\textit{tablet} ou \textit{smartphone}) chamado \textit{Google Play}, facilitando a publicação e aquisição de aplicativos. 
-	O \textit{Android}  possui diferentes versões, sendo elas mostradas na Tabela \ref{androidTab} abaixo.  As versões mais novas possuem mais \textit{features} que as anteriores: a versão \textit{Jelly Bean}, por exemplo, possui busca por voz a qual não estava disponível na versão \textit{Ice Cream Sandwich}. 
+	O \textit{Android} também possui um mercado centralizado acessível por qualquer aparelho (\textit{tablet} ou \textit{smartphone}) chamado \textit{Google Play}\footnote{\textit{https://play.google.com/store}}, facilitando a publicação e aquisição de aplicativos. Ele também possui diferentes versões, sendo elas mostradas na Tabela \ref{androidTab}.  As versões mais novas possuem mais \textit{features} que as anteriores: a versão \textit{Jelly Bean}, por exemplo, possui busca por voz a qual não estava disponível na versão \textit{Ice Cream Sandwich}. 
 
 \begin{table}[ht]
 	\centering	
-	\begin{tabular}{cc}
+	\begin{tabular}{cl}
 		\toprule
 		\textbf{Número da versão} & \textbf{Nome}  \\
 		\midrule
@@ -122,7 +121,7 @@
 
 	\subsubsection{Plataforma \textit{iOS}}
 
-	A plataforma \textit{iOS} é uma plataforma móvel que foi lançada em 2007 e é distribuída exclusivamente para \textit{hardware} frabricado pela \textit{Apple} (empresa que a desenvolveu).  De acordo com o CEO da \textit{Apple}, Tim Cook, mais de 700 milhões de aparelhos \textit{iOS} -- como o \textit{iPhone}, \textit{iPad} e \textit{iPod} -- já foram vendidos desde o seu lançamento. A plataforma \textit{iOS} é atualizada periodicamente (uma vez ao ano) e a Tabela \ref{iosv} mostra as versões de \textit{iOS} já lançadas.
+	A plataforma \textit{iOS} é uma plataforma móvel que foi lançada em 2007 e é distribuída exclusivamente para \textit{hardware} frabricado pela \textit{Apple} (empresa que a desenvolveu).  De acordo com o CEO da \textit{Apple}, Tim Cook, mais de 800 milhões de aparelhos \textit{iOS} -- como o \textit{iPhone}, \textit{iPad} e \textit{iPod touch} -- já foram vendidos desde o seu lançamento. A plataforma \textit{iOS} é atualizada periodicamente (uma vez ao ano) e a Tabela \ref{iosv} mostra as versões de \textit{iOS} já lançadas.
 
 	\begin{table}[ht]
 	\centering	
@@ -144,15 +143,15 @@
 	\label{iosv}
 \end{table}
 
-	Assim como a plataforma \textit{Android}, a \textit{iOS} também possui um mercado centralizado acessível por qualquer aparelho, chamado de \textit{Apple Store}\footnote{http://store.apple.com/br}, para aquisição e publicação de aplicativos. 
+	Assim como a plataforma \textit{Android}, a \textit{iOS} também possui um mercado centralizado acessível por qualquer aparelho, chamado de \textit{Apple Store}\footnote{\textit{http://store.apple.com/br}}, para aquisição e publicação de aplicativos. 
 
 	\subsubsection{\textit{OpenGL ES}}
 	
-	A \textit{OpenGL ES} (\textit{OpenGL for Embedded Systems}) foi lançada em 2003, sendo a versão da \textit{OpenGL} para sistemas embarcados, e como citado em \cite{guha2011}, atualmente é uma das API's mais populares para programação de gráficos tridimensionais em pequenos \textit{devices}, sendo adotada por diversas plataformas como \textit{Android}, \textit{iOS}, Nintendo DS e \textit{Black Berry}.
+	A \textit{OpenGL ES} (\textit{OpenGL for Embedded Systems}) foi lançada em 2003, sendo a versão da \textit{OpenGL} para sistemas embarcados, e como citado em \cite{guha2011}, atualmente é uma das API's mais populares para programação de gráficos tridimensionais em dispositivos móveis, sendo adotada por diversas plataformas como \textit{Android}, \textit{iOS}, Nintendo DS e \textit{Black Berry}.
 
-	Segundo \cite{opengles2012}, ela possui três versõe: a 1.x que utiliza as funções fixas de renderização, a 2.x, que elimina as funções fixas e foca nos processos de renderização manipulados por \textit{pipelines} programáveis (\textit{shaders}) e a 3.x, que é completamente compatível com a  \textit{OpenGL} 4.3.  
+	Segundo \cite{opengles2012}, ela possui três versões: a 1.x que utiliza as funções fixas de renderização, a 2.x, que elimina as funções fixas e foca nos processos de renderização manipulados por \textit{pipelines} programáveis (\textit{shaders}) e a 3.x, que é completamente compatível com a  \textit{OpenGL} 4.3.  
 
-	A \textit{OpenGL ES}, assim como a \textit{OpenGL}, também utiliza a linguagem GLSL para programação de \textit{shaders} e  já faz parte das ferramentas de desenvolvimento da plataforma \textit{Android}. De acordo com \cite{buck2012}, na plataforma \textit{iOS} a \textit{OpenGL ES} pode ser utilizada por meio do \textit{framework} chamado \textit{GLKit} (introduzido no \textit{iOS} 5). Ele provê classes e funções que simplificam o uso da \textit{OpenGL ES} com o \textit{iOS}.
+	A \textit{OpenGL ES}, assim como a \textit{OpenGL}, também utiliza a linguagem GLSL para programação de \textit{shaders} e  já faz parte das ferramentas de desenvolvimento da plataforma \textit{Android}. De acordo com \cite{buck2012}, na plataforma \textit{iOS} a \textit{OpenGL ES} pode ser utilizada por meio do \textit{framework} chamado \textit{GLKit} (introduzido no \textit{iOS} 5). Ele provê classes e funções que simplificam o uso da \textit{OpenGL ES} no contexto do \textit{iOS}.
 
 
 \section{Fundamentação Matemática e Física para Implementação de \textit{Shaders}}
@@ -160,38 +159,12 @@
 
 	Os efeitos visuais -- criados por meio dos \textit{shaders} -- são representações de descrições físicas, podendo atribuir materiais aos objetos e diferentes efeitos de luz, por exemplo. Assim, esta seção apresenta alguns conceitos necessários para o entendimento dos \textit{shaders} implementados.
 
-	\subsection{Vetor Normal e Transformações Lineares}
-
-	Muitos dos \textit{shaders} que são implementados manipulam vetores normais às superfícies dos objetos, sendo eles, vetores unitários. Porém, ao realizar diversas transformações lineares (como a de escalar por um fator), não há uma garantia que eles continuarão sendo unitários. Assim, é necessário utilizar o comando da GLSL chamado \texttt{normalize}, a fim de normalizar o vetor normal, que retorna um vetor unitário sem alterar sua direção. Porém, em uma transformação de escalar não-uniforme, por exemplo, as direções dos vetores normais são alteradas. Conserta-se isto invertendo a operação de escalar, mas torna-se complicado realizar este procedimento após sucessivas transformações lineares. Segundo  \cite{guha2011}, a matriz de modelagem, visualização e projeção pode ser definida por uma série de multiplicações matriciais. Então, considerando uma matriz de modelagem resultante de duas rotações e uma operação de escalar não-uniforme, por exemplo, tem-se:
-
-
-	\begin{equation}
-		M_ {normal} = R_ {1} S_ {non-uniform}^{-1} R_ {2}
-	\label{eqtrans1}
-	\end{equation}
-
-	Esta mesma equação pode ser reescrita de acordo com a Equação \ref{eqtrans2}, pois invertendo uma matriz duas vezes chega-se na sua original. Além disso a inversa da matriz de rotação é igual à sua transposta e como a matriz de escalar é uma matriz diagonal, sua transposta é igual a ela mesma.
-
-	\begin{equation}
-		M_ {normal} = (R_ {1}^{-1})^{T} (S_ {non-uniform}^{-1})^{ T} (R_ {2}^{-1})^{T}
-	\label{eqtrans2}
-	\end{equation}
-
-	Utilizando operações de álgebra linear, a equação pode ser reescrita como:
-
-	\begin{equation}
-		M_ {normal} = ((R_ {1} S_ {non-uniforme} R_ {2})^{-1})^{T}
-	\label{eqtrans3}
-	\end{equation}
-	
-	Então, a fim de consertar a direção do vetor normal, multiplica-se ele pela matriz transposta da inversa da matriz de modelagem.  
-
-	\subsection{Equação de Iluminação de \textit{Phong}}
+	\subsection{Renderização \textit{Flat}, \textit{Gouraud} e \textit{Phong}}
 	\label{flatgouphon}
 
-	Na área de computação gráfica, os {\textit{Flat Shading}, \textit{Gouraud Shading} e \textit{Phong Shading} são um dos \textit{shaders} mais conhecidos. No método \textit{Flat Shading}, renderiza-se cada polígono de um objeto com base no ângulo entre a normal da superfície e a direção da luz. Mesmo se as cores se diferenciem nos vértices de um mesmo polígono, somente uma cor é escolhida entre elas e é aplicada em toda o polígono.  
+	Na área de computação gráfica, {\textit{Flat Shading}, \textit{Gouraud Shading} e \textit{Phong Shading} são os \textit{shaders} mais conhecidos. No método \textit{Flat Shading}, renderiza-se cada polígono de um objeto com base no ângulo entre a normal da superfície e a direção da luz. Mesmo que as cores se diferenciem nos vértices de um mesmo polígono, somente uma cor é escolhida entre elas e é aplicada em toda o polígono.  
 
-	A computação dos cálculos de luz nos  vértices seguida por uma interpolação linear do resultado é conhecida como \textit{Gouraud Shading} (considerada superior ao \textit{Flat Shading}, pois renderiza uma superfície mais suave, lisa), criada por Henri Gouraud, sendo conhecida como avaliação por vértice. Nela, o \textit{vertex shader} deve calcular a intensidade em cada vértice e os resultados serão interpolados. Em seguida, o \textit{fragment shader} pega este valor e passa adiante. 
+	A computação dos cálculos de luz nos  vértices seguida por uma interpolação linear dos resultados é denominada como \textit{Gouraud Shading} (considerada superior ao \textit{Flat Shading}, pois renderiza uma superfície mais suave, lisa), criada por Henri Gouraud, sendo conhecida como avaliação por vértice. Nela, o \textit{vertex shader} deve calcular a intensidade em cada vértice e os resultados serão interpolados. Em seguida, o \textit{fragment shader} propaga este valor para as próximas etapas. 
 
 	No \textit{Phong Shading}, primeiramente interpolam-se os valores das normais das primitivas e então computam-se os cálculos de luz para cada \textit{pixel}, utilizando as normais interpoladas. Este método também é conhecido como avaliação por \textit{pixel}. A intensidade da luz em um ponto da superfície, segundo \cite{guha2011}, é calculada de acordo com a Equação \ref{eqphong}.  
 
@@ -200,14 +173,14 @@
 	\label{eqphong}
 	\end{equation}
 
-	Assim, a intensidade de luz é calculada como a soma das intensidades ambiente, difusa (calculada para cada fonte de luz) e especular.  A intensidade de reflexão ambiente vem de todas as direções e quando atinge a superfície, espalha-se igualmente em todas as direções, sendo o seu valor constante. Ela pode ser calculada de acordo com a Equação \ref{eqamb}, em que $K_ {a}$ é o coeficiente de reflectividade ambiente da superfície e $L_ {a}$ é a intensidade da componente ambiente da luz.
+	Assim, a intensidade de luz é calculada como a soma das intensidades ambiente, difusa (calculada para cada fonte de luz) e especular.  A intensidade de reflexão ambiente vem de todas as direções e quando atinge a superfície, espalha-se igualmente em todas as direções, sendo o seu valor constante. Ela pode ser calculada de acordo com a Equação \ref{eqamb}, onde $K_ {a}$ é o coeficiente de refletividade ambiente da superfície e $L_ {a}$ é a intensidade da componente ambiente da luz.
 
 	\begin{equation}
 		I_ {ambiente} = K_ {a}L_ {a} 
 	\label{eqamb}
 	\end{equation}
 
-	A intensidadede reflexão difusa vem de uma direção e, assim como a ambiente, ao atingir uma superfície também espalha-se igualmente em todas as direções. Ela pode ser calculada de acordo com a Equação \ref{eqdif}, em que $K_ {d}$ é o coeficiente de reflexão difusa da superfície, $L_ {d}$ é a intensidade da componente difusa da luz, $\overrightarrow{ l}$ é a fonte de luz, $\overrightarrow{ n}$ é o ponto em interesse.
+	A intensidadede da reflexão difusa vem de uma direção e, assim como a ambiente, ao atingir uma superfície também espalha-se igualmente em todas as direções. Ela pode ser calculada de acordo com a Equação \ref{eqdif}, onde $K_ {d}$ é o coeficiente de reflexão difusa da superfície, $L_ {d}$ é a intensidade da componente difusa da luz, $\overrightarrow{ l}$ é a fonte de luz, $\overrightarrow{ n}$ é o ponto em interesse.
 
 	\begin{equation}
 		I_ {difusa} = K_ {d}L_ {d}( \overrightarrow{ l} \cdot \overrightarrow{ n}) 
@@ -221,7 +194,7 @@
 	\label{eqesp}
 	\end{equation}
 
-	 O \textit{Phong Shading} requer maior poder de processamento do que a técnica \textit{Gouraud Shading}, pois cálculos nos vértices são computacionalmente menos intensos comparados aos cálculos feitos por \textit{pixels}. Porém, a desvantagem da técnica de \textit{Gouraud Shading} é que efeitos de luz que não afetam um vértice de uma superfície não surtirão efeito como, por exemplo, efeitos de luz localizados no meio de um polígono não serão renderizados corretamente. A Figura \ref{fgp} mostra a diferença entre as três técnicas de \textit{shading} aplicadas em uma esfera com uma luz direcional. 
+	 O \textit{Phong Shading} requer maior poder de processamento do que a técnica \textit{Gouraud Shading}, pois cálculos nos vértices são computacionalmente menos intensos comparados aos cálculos feitos por \textit{pixels}. Porém, a desvantagem da técnica de \textit{Gouraud Shading} é que efeitos de luz que não afetam um vértice de uma superfície não surtirão efeito como, por exemplo, efeitos de luz localizados no meio de um polígono, os quais não serão renderizados corretamente. A Figura \ref{fgp} mostra a diferença entre as três técnicas de \textit{shading} aplicadas em uma esfera com uma luz direcional. 
 
 	\begin{figure}[ht]
 	\centering
@@ -233,7 +206,7 @@
 	\subsection{Renderização de Efeito \textit{Cartoon}}
 	\label{cartoon}
 
-	A renderização de efeito \textit{cartoon} tem como objetivo sugerir o efeito de um desenho, em que se tem como principal característica a aparência uniforme das cores sobre a superfície dos objetos. Isto pode ser feito mapeando-se faixas de intensidade de luz para tons de cores específicos, obtendo-se uma iluminação menos realista e mais próxima da utilizada em desenhos animados. De acordo com \cite{sbgames}, o tom é escolhido baseado no cosseno do ângulo entre a direção da luz e o vetor normal da superfície. Ou seja, se o vetor normal está mais próximo da direção da luz, utiliza-se um tom mais claro.  Então a intensidade da luz pode ser calculada de acordo com a Equação \ref{eqtoon}, em que $\overrightarrow{l_{d}}$ é o vetor da direção da luz e $\overrightarrow{n}$ é o vetor normal.
+	A renderização de efeito \textit{cartoon} tem como objetivo emular o efeito de um desenho, que tem como principal característica a aparência uniforme das cores sobre a superfície dos objetos. Isto pode ser feito mapeando-se faixas de intensidade de luz para tons de cores específicos, obtendo-se uma iluminação menos realista e mais próxima da utilizada em desenhos animados. De acordo com \cite{sbgames}, o tom é escolhido baseado no cosseno do ângulo entre a direção da luz e o vetor normal da superfície. Ou seja, se o vetor normal está mais próximo da direção da luz, utiliza-se um tom mais claro.  Então a intensidade da luz pode ser calculada de acordo com a Equação \ref{eqtoon}, em que $\overrightarrow{l_{d}}$ é o vetor da direção da luz e $\overrightarrow{n}$ é o vetor normal.
 
 	\begin{equation}
 		I_ {luz} = \frac{ \overrightarrow{l_{d}} \cdot \overrightarrow{n} } {| | \overrightarrow{l_{d}} | |  | | \overrightarrow{n} | | } 
@@ -247,7 +220,7 @@
 	\label{eqtoons}
 	\end{equation}
 
-	Após o cálculo da intensidade da luz, mapeia-se para os tons pré-definidos, como mostra a Figura \ref{tons}
+	Após o cálculo da intensidade da luz, ela é mapeada para os tons pré-definidos, como mostra a Figura \ref{tons}.
 
 	\begin{figure}[ht]
 	\centering
@@ -259,7 +232,7 @@
 	\subsection{Renderização de Efeito de Reflexão}
 	\label{ref_t}
 
-	O efeito de reflexão é feito através da utilização da técnica chamada \textit{environment mapping}, em que se reflete uma textura, que é desenhada ao redor do objeto e representa o cenário, chamada de \textit{environment map}. Um exemplo desta textura é ilustrada na Figura \ref{environment}
+	O efeito de reflexão é obtido através da utilização da técnica chamada \textit{environment mapping}, na qual se reflete uma textura, que é desenhada ao redor do objeto e representa o cenário, chamada de \textit{environment map}. Um exemplo de textura utilizada por esta técnica é apresentada na Figura \ref{environment}.
 
 	\begin{figure}[ht]
 	\centering
@@ -268,28 +241,31 @@
 	\label{environment}
 	\end{figure}
 
-	Assim, a ideia é obter um vetor que vai da posição da câmera ao objeto, e após isto, ele é refletido baseando-se na normal da superfície. Isto resulta em um outro vetor que é utilizado para determinar a cor, baseando-se na textura (\textit{environment map}).
+	Assim, a ideia é obter um vetor que vai da posição da câmera ao objeto e refletí-lo, baseando-se na normal da superfície. Isto gera um outro vetor que é utilizado para determinar a cor, baseando-se na textura (\textit{environment map}).
 
-\section{Complexidade Algorítmica Calculada de Forma Empírica}
+\section{Complexidade Assintótica}
 \label{metminquad}
 
-	Complexidade algorítmica é uma medida que compara a eficiência de um determinado algorítmo, analisando o quão custoso ele é (em termos de tempo, memória, custo ou processamento). Ela foi desenvolvida por Juris Hartmanis e Richard E. Stearns no ano de 1965. Segundo \cite{complexidade}, para não depender do sistema em que está sendo rodado e nem da linguagem de programação, a complexidade algoritmica se baseia em uma função (medida lógica) que expressa uma relação entre a quantidade de dados e de tempo necessário para processá-los. Assim, é possível calcular a complexidade algorítmica de um código de forma teórica e experimental.
+	Complexidade assintótica é uma medida que compara a eficiência de um determinado algoritmo, analisando o quão custoso ele é (em termos de tempo, memória, custo ou processamento). Ela foi desenvolvida por Juris Hartmanis e Richard E. Stearns no ano de 1965. Segundo \cite{complexidade}, para não depender do sistema em que está sendo rodado e nem da linguagem de programação, a complexidade assintótica se baseia em uma função (medida lógica) que expressa uma relação entre a quantidade de dados e de tempo necessário para processá-los. Assim, é possível calcular a complexidade assintótica de um código de forma teórica e experimental.
 
-	\subsection{Análise Teórica}
+	\subsection{Abordagem Teórica}
 
-	 O cálculo da complexidade algorítmica visa a modelagem do comportamento do desempenho do algorítmo, a medida que o número de dados aumenta. Assim, os termos que não afetam a ordem de magnitude são eliminados, gerando a aproximação denominada complexidade assintótica. Assim, a  Equação (\ref{compl1}) poderia ser aproximada pela  Equação (\ref{compl2})
+	 O cálculo da complexidade assintótica visa a modelagem do comportamento do desempenho do algoritmo, a medida que o número de dados aumenta. Assim, os termos que não afetam a ordem de magnitude são eliminados, gerando a aproximação denominada complexidade assintótica. Assim, a  Equação (\ref{compl1})
 
 	\begin{equation}
 		y = n^{2} +10 n + 1000
 	\label{compl1}
 	\end{equation}
 
+	 poderia ser aproximada pela  Equação (\ref{compl2}).
+
+
 	\begin{equation}
 		y \approx  n^{2} 
 	\label{compl2}
 	\end{equation}
 
-	A maioria dos algorítmos possui um parâmetro $n$ (o número de dados a serem processados), que afeta mais significativamente o tempo de execução. De acordo com \cite{complexidade2}, a maioria dos algorítmos se enquadram nos tempos de execução proporcionais aos valores da Tabela \ref{complexidadeAlgoritmica}.
+	A maioria dos algoritmos possui um parâmetro $n$ (o número de dados a serem processados), que afeta mais significativamente o tempo de execução. De acordo com \cite{complexidade2}, a maioria dos algorítmos se enquadram nos tempos de execução proporcionais aos valores da Tabela \ref{complexidadeAlgoritmica}.
 
 \begin{table}[ht]
 	\centering	
@@ -297,17 +273,17 @@
 		\toprule
 		\textbf{Complexidade} & \textbf{Descrição}  \\
 		\midrule
-		Constante &  Ocorre quando as instruções do programa independe do número de elementos de entrada. As instruções são executadas em um número fixo de vezes.\\
-		log N & Ocorre geralmente em programas que resolvem grandes problemas dividindo-os em partes menores, cortando o seu tamanho por uma constante.  \\
+		Constante &  Ocorre quando as instruções do programa independem do número de elementos de entrada.\\
+		log N & Ocorre geralmente em programas que resolvem grandes problemas dividindo-os em partes menores, reduzindo o seu tamanho por uma razão constante.  \\
 		N & Ocorre quando o programa é linear, ou seja, o  processamento é feito para cada elemento de entrada. \\
-		$ N log N$ & Ocorre quando o problema é quebrado em partes menores, sendo resolvidas independentemente, e depois suas soluções são combinadas \\
-		$ N^{2}$ & Ocorre quando o algorítmo é quadrático, ou seja, quando processa todos os pares de itens de dados. \\
-		$ N^{3}$ & Ocorre quando o algorítmo é cúbico, ou seja, quando processa todos as triplas de itens de dados. \\
-		$ 2^{N}$ & Ocorre quando o algorítmo segue uma função exponencial, ou seja, quando o N dobra o tempo de execução vai ao quadrado. \\
+		$ N log N$ & Ocorre quando o problema é quebrado em partes menores, sendo resolvidas independentemente, e depois suas soluções são combinadas. \\
+		$ N^{2}$ & Ocorre quando o algoritmo é quadrático, ou seja, quando processa todos os pares da entrada. \\
+		$ N^{3}$ & Ocorre quando o algoritmo é cúbico, ou seja, quando processa todos as triplas da entrada. \\
+		$ 2^{N}$ & Ocorre quando o algoritmo segue uma função exponencial, ou seja, quando o N dobra o tempo de execução é elevado ao quadrado. \\
 	
 		\bottomrule
 	\end{tabularx}
-	\caption{ Valores mais comuns de complexidade algorítmica}
+	\caption{ Valores mais comuns de complexidade assintótica}
 	\label{complexidadeAlgoritmica}
 \end{table}
 
@@ -315,26 +291,26 @@
 
 	\begin{figure}[ht]
 	\centering
-		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/compalg.png}
-	\caption{Comparação da Complexidade Algorítmica}
+		\includegraphics[keepaspectratio=true,scale=0.4]{figuras/compalg.png}
+	\caption{Comparação da Complexidade Assintótica}
 	\label{compalg}
 	\end{figure}
 
-	\subsubsection{Notação O}
+	\subsubsection{Notação \textit{Big-O}}
 
 	
-	A notação O foi desenvolvida em 1894 por Paul Bachmann para complexidade assintótica. Assim, segundo \cite{complexidade}, dadas duas funções de valores positivos $f$ e $g$, $f(n)$ é $O(g(n))$ se existem $c$ e $N$ positivos tais que $f(n) \leq cg(n)$, $\forall n \geq N$. Ou seja, dada uma função $g(n)$, denota-se por $O(g(n))$ o conjunto das funções que para valores de $n$ suficientemente grandes, $f(n)$ é igual ou menor que $g(n)$. A função $f$ tende a crescer no máximo tão rápido quanto $g$, em que $cg(n)$ é uma cota superior de $f(n)$. O algorítmo $y = n^{2} +10 n + 1000$, por exemplo, é igual a $O(n^2)$. 
+	A notação \textit{Big-O} foi desenvolvida em 1894 por Paul Bachmann para complexidade assintótica. Assim, segundo \cite{complexidade}, dadas duas funções de valores positivos $f$ e $g$, $f(n)$ é $O(g(n))$ se existem $c$ e $N$ positivos tais que $f(n) \leq cg(n)$, $\forall n \geq N$. Ou seja, dada uma função $g(n)$, denota-se por $O(g(n))$ o conjunto das funções que para valores de $n$ suficientemente grandes, $f(n)$ é igual ou menor que $g(n)$. A função $f$ tende a crescer no máximo tão rápido quanto $g$, em que $cg(n)$ é uma cota superior de $f(n)$. O algorítmo $y = n^{2} +10 n + 1000$, por exemplo, é $O(n^2)$. 
 
 	Se $f(n)$ é um polinômio de grau $d$  então $f(n)$ é $O(n^d)$. E como uma constante pode ser considerada de grau zero, sua complexidade é $O(n^0)$, ou seja, $O(1)$. Além disso, a função $f(n) = \log _a \left( n \right)$ é $O(\log _b \left( n \right))$ para quaisquer $a$ e $b$ positivos diferentes de 1. 
 
-	\subsection{Análise Experimental}
+	\subsection{Abordagem Experimental}
 	\label{metminqua}
 
-	Como não é possível analisar a complexidade algorítmica dos \textit{shaders} de forma teórica, pois não é possível saber como é feita a implementação das funções disponíveis pela GLSL, uma das formas de calculá-la é de maneira experimental. Isto é feito variando o número de entradas e coletando uma medição associada ao desempenho, como o tempo, por exemplo. Assim, é possível gerar um gráfico e utilizar o método dos mínimos quadrados para descobrir a qual curva estes pontos pertencem. O método dos mínimos quadrados é usado para ajustar pontos $(x,y)$ determinados experimentalmente a uma curva. 
+	Como não é possível determinar a complexidade assintótica dos \textit{shaders} de forma teórica, pois não estão disponíveis as implementações das funções da API da GLSL, uma das formas de calculá-la é de maneira experimental. Isto é feito variando o número de entradas e coletando uma medição associada ao desempenho, como o tempo, por exemplo. Assim, é possível gerar um gráfico e utilizar o método dos mínimos quadrados para descobrir qual curva melhor aproxima estes pontos. O método dos mínimos quadrados é usado para ajustar um conjunto de pontos $(x,y)$ a uma determinada curva. 
 
 	\subsubsection{Ajuste Linear}
 
-	No caso do ajuste a uma reta (dada por $y = a + bx$), por exemplo, muitas vezes os pontos não são colineares e segundo \cite{minq} é impossível encontrar coeficientes $a$ e $b$ que satisfaçam o sistema.  Então, as distâncias destes valores para a reta podem ser consideradas como medidas de erro e os pontos são minimizados pelo mesmo vetor (minimizando a soma dos quadrados destes erros).  Assim, existe um ajuste linear de mínimos quadrados aos dados, e a sua solução é dada pela Equação (\ref{minquad}), em que é possível determinar os coeficientes $a$ e $b$ e consequentemente, a equação da reta. 
+	No caso do ajuste à uma reta (dada por $y = a + bx$), por exemplo, muitas vezes os pontos não são colineares e segundo \cite{minq} é impossível encontrar coeficientes $a$ e $b$ que satisfaçam o sistema.  Então, as distâncias destes valores para a reta podem ser consideradas como medidas de erro e os pontos são minimizados pelo mesmo vetor (minimizando a soma dos quadrados destes erros).  Assim, existe um ajuste linear de erros mínimos quadrados aos dados, e a sua solução é dada pela Equação (\ref{minquad}), em que é possível determinar os coeficientes $a$ e $b$ e, consequentemente, a equação da reta que constitui a aproximação. 
 
 	\begin{equation}
 		v =( M^{T}M)^{-1}M^{T}y
@@ -378,14 +354,14 @@
 	\label{expo2}
 		\ln{y} = \ln{c}  + \ln{e^{-kt}}
 	\end{equation}
- 	que pode ser simplificada na  Equação (\ref{eqn03}) (em que $b$ é uma nova constante) que equivale à equação da reta. 
+ 	que pode ser simplificada na  Equação (\ref{eqn03}) (onde $\bar{b}$ é uma nova constante) que equivale à equação da reta. 
 
 	\begin{equation}
 	\label{eqn03}
 		\bar{y} = \bar{a} + \bar{b}t
 	\end{equation}	
 
-	Assim, é possível aplicar os métodos dos mínimos quadrados descritos anteriormente, aplicando o logaritmo nos dois lados da equação da exponencial. Os novos valores de $M$ e $y$ passam a ser: 
+	Assim, é possível aplicar o método dos mínimos quadrados descrito anteriormente, aplicando o logaritmo nos dois lados da equação da exponencial. Os novos valores de $M$ e $y$ passam a ser: 
 
 	\begin{equation}
 	M = \left[\begin{array}{cc}
@@ -405,13 +381,13 @@
 	\label{nvar}
 	\end{equation}
 
-	O valores finais dos coeficientes $\bar{a}$ e $\bar{b}$ determinam os parâmetros c e k da exponecial através das relações
+	O valores finais dos coeficientes $\bar{a}$ e $\bar{b}$ determinam os parâmetros $c$ e $k$ da exponecial através das relações
 
 	\begin{equation}
 	c = e^{\bar{a}}\, \, \, \mbox{e}\, \, \,\bar{b} = -k
 	\end{equation} 
 
-	\subsubsection{Ajuste para Polinômio de Segundo Grau}
+	\subsubsection{Ajuste para Polinômio de Segundo e Terceiro Grau}
 
 	O ajuste de segundo grau é parecido com o linear, em que a Equação \ref{minquad} também é utilizada. Porém a matriz M é redefinida para:
 
@@ -422,13 +398,12 @@
 		. & . & .  \\
                	. & . & . \\
 		1 & x_{n} & x_{n}^{2}
-          	         \end{array}\right] \mbox{,} \quad
+          	         \end{array}\right] \quad
 	\label{minquadsegdeg}
 	\end{equation}
 
-	\subsubsection{Ajuste para Polinômio de Terceiro Grau}
 
-	O ajuste de segundo grau é ocorre da mesma forma que o de segundo grau, mas a matriz M é redefinida para:
+	O ajuste de terceiro grau ocorre da mesma forma que o de segundo grau, mas a matriz M é redefinida para:
 
 	\begin{equation}
 	M = \left[\begin{array}{cccc}
@@ -437,13 +412,13 @@
 		. & .  & . & .\\
                	. & .  & . & .\\
 		1 & x_{n} &  x_{n}^{2} & x_{n}^{3}
-          	         \end{array}\right] \mbox{,} \quad
+          	         \end{array}\right] \quad
 	\label{minquathirddeg}
 	\end{equation}
 
-	\subsubsection{Cálculo dos Erros Dos Ajustes}
+	\subsubsection{Cálculo dos Erros dos Ajustes}
 
-	O cálculo dos erros dos ajustes para as funções é calculado a fim de saber qual delas mais se aproxima da curva original. Estes erros são calculados de acordo com a Equação \ref{erros}, em que cada erro ($e_{n}$) está associado à distância da coordenada da função ajustada para a função original. 
+	O cálculo dos erros dos ajustes para as funções é calculado a fim de saber qual delas melhor se aproxima ao conjunto de pontos. Estes erros são calculados de acordo com a Equação \ref{erros}, em que cada erro ($e_{n}$) está associado à distância do ponto gerado pela curva ajustada e o ponto original.
 
 	\begin{equation}
 	E = \sqrt[2]{e_{1} + e_{2} + ... + e_{n}}

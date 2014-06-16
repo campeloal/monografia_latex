@@ -1,5 +1,3 @@
 for(int i = 0; i < vertexBuffer.length; i++)
 {
-	executeVertexShader(vertexBuffer[i]);
-
-}
+	executeVertexShader(vertexBuffer[i]); }
