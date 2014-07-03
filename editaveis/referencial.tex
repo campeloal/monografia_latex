@@ -3,11 +3,11 @@
 
 \section{\textit{Shaders}: \textit{pipelines} programáveis}
 
-	Conforme \cite{realtime}, \textit{shading} é o processo de utilizar uma equação para computar o comportamento da uma superfície de um objeto. Os \textit{shaders} são algoritmos escritos pelo programador a fim de substituir as funcionalidades pré-definidas do processo de renderização executada pela GPU, por meio de bibliotecas gráficas como a \textit{OpenGL}.
+	Conforme \cite{realtime}, \textit{shading} é o processo de utilizar uma equação para computar o comportamento da superfície de um objeto. Os \textit{shaders} são algoritmos escritos pelo programador a fim de substituir as funcionalidades pré-definidas do processo de renderização executada pela GPU, por meio de bibliotecas gráficas como a \textit{OpenGL}.
 
 	 A \textit{OpenGL} é uma API (\textit{Application Programming Interface}) utilizada em computação gráfica para modelagem tridimensional, lançada em 1992, sendo uma interface de \textit{software} para dispositivos de \textit{hardware}. Segundo \cite{opengl2011}, sua precursora foi a biblioteca Iris GL (\textit{Integrated Raster Imaging System Graphics Library}) da empresa \textit{Silicon Graphics}.
 
-	Antes dos \textit{shaders} serem criados, as bibliotecas gráficas (como a \textit{OpenGL}) possuíam um processo de renderização completamente fixo. Porém, com a introdução dos \textit{shaders} é possível customizar parte deste processo, como é  mostrado na Figura \ref{pipeline}. O Anexo \ref{renderpipe} descreve as etapas do processo ilustrado.
+	Antes dos \textit{shaders} serem criados, as bibliotecas gráficas (como a \textit{OpenGL}) possuíam um processo de renderização completamente fixo. Porém, com a introdução dos \textit{shaders} é possível customizar parte deste processo, como é  mostrado na Figura \ref{pipeline}, em que uma aplicação pode substituir as funcionalidades fixas aos vértices e aos fragmentos. O Anexo \ref{renderpipe} descreve as etapas do processo ilustrado.
 	\begin{figure}[ht]
 	\centering
 		\includegraphics[keepaspectratio=true,scale=0.5]{figuras/pipeline.jpg}
@@ -15,7 +15,7 @@
 	\label{pipeline}
 	\end{figure}
 
-	 Assim, existem dois tipos de \textit{shader} principais, relacionados à criação de diferentes efeitos visuais, que focam partes distintas do \textit{pipeline} gráfico: o \textit{vertex shader} e o \textit{fragment shader}. O \textit{vertex shader} é responsável pela manipulação dos dados dos vértices, a partir das coordenadas de posição, normal e textura, por exemplo. Ele altera a etapa de processamento de vértices e deve, ao menos, definir as coordenadas de posição.  O \textit{fragment shader} opera na etapa de processamento dos fragmentos, e deve atribuir uma cor para cada fragmento. 
+	 Assim, existem dois tipos de \textit{shader} principais, relacionados à criação de diferentes efeitos visuais, que focam partes distintas do \textit{pipeline} gráfico: o \textit{vertex shader} e o \textit{fragment shader}. O \textit{vertex shader} é responsável pela manipulação dos dados dos vértices, a partir das coordenadas de posição, normal e textura, por exemplo. Ele altera a etapa de processamento de vértices e deve, ao menos, definir as coordenadas de posição.  O \textit{fragment shader} opera na etapa de processamento dos fragmentos, e deve atribuir uma cor para cada fragmento.
 
 \subsection{Linguagens dos \textit{shaders}}
 
@@ -24,7 +24,7 @@
 
 	\begin{table}[ht]
 	\centering	
-	\begin{tabularx}{0.9\textwidth}{cX}
+	\begin{tabularx}{0.9\textwidth}{lX}
 		\toprule
 		\textbf{Linguagem de Programação} & \textbf{Biblioteca Gráfica Suportada}  \\
 		\midrule
@@ -41,7 +41,7 @@
 
 \begin{table}[ht]
 	\centering	
-	\begin{tabularx}{0.9\textwidth}{cX}
+	\begin{tabularx}{0.9\textwidth}{lX}
 		\toprule
 		\textbf{Tipo} & \textbf{Descrição}  \\
 		\midrule
@@ -59,7 +59,7 @@
 
 	\begin{table}[ht]
 	\centering	
-	\begin{tabularx}{0.9\textwidth}{cX}
+	\begin{tabularx}{0.9\textwidth}{lX}
 		\toprule
 		\textbf{Tipo} & \textbf{Descrição}  \\
 		\midrule
@@ -74,7 +74,7 @@
 
 \subsection{Utilização dos \textit{shaders} em \textit{OpenGL}}
 
-	Para cada \textit{shader} -- relativos ao vértice e ao fragmento -- é necessário escrever o código que será compilado e feito o \textit{link}, gerando um programa final que será utilizado pela \textit{OpenGL}. Caso os \textit{shaders} utilizem variáveis passadas pela \textit{OpenGL}, é necessário primeiramente encontrar a localização desta variável e depois setá-la. Se a variável for do tipo \textit{uniform}, por exemplo, adquire-se a localização por meio da função \texttt{glGetUniformLocation(GLuint program, const GLchar *name)}, em que \textit{program} é o programa gerado a partir dos \textit{shaders} e \textit{name} é o nome da variável definida dentro do \textit{shader}. 
+	Para cada \textit{shader} -- relativos ao vértice e ao fragmento -- é necessário escrever o código que será compilado e feito o \textit{link}, gerando um programa final que será utilizado pela \textit{OpenGL}. Ou seja: é feita a compilação e o \textit{link} pela aplicacão de cada um destes\textit{shaders}. Caso os \textit{shaders} utilizem variáveis passadas pela \textit{OpenGL}, é necessário primeiramente encontrar a localização desta variável e depois setá-la. Se a variável for do tipo \textit{uniform}, por exemplo, adquire-se a localização por meio da função \texttt{glGetUniformLocation(GLuint program, const GLchar *name)}, em que \textit{program} é o programa gerado a partir dos \textit{shaders} e \textit{name} é o nome da variável definida dentro do \textit{shader}. 
 
 	A Figura \ref{shader_use} mostra o processo de geração do programa a partir dos \textit{shaders} criados.
 
@@ -162,35 +162,37 @@
 	\subsection{Renderização \textit{Flat}, \textit{Gouraud} e \textit{Phong}}
 	\label{flatgouphon}
 
-	Na área de computação gráfica, {\textit{Flat Shading}, \textit{Gouraud Shading} e \textit{Phong Shading} são os \textit{shaders} mais conhecidos. No método \textit{Flat Shading}, renderiza-se cada polígono de um objeto com base no ângulo entre a normal da superfície e a direção da luz. Mesmo que as cores se diferenciem nos vértices de um mesmo polígono, somente uma cor é escolhida entre elas e é aplicada em toda o polígono.  
+	Na área de computação gráfica, {\textit{Flat Shading}, \textit{Gouraud Shading} e \textit{Phong Shading} são os \textit{shaders} mais conhecidos. No método \textit{Flat Shading}, renderiza-se cada polígono de um objeto com base no ângulo entre a normal da superfície e a direção da luz. Mesmo que as cores se diferenciem nos vértices de um mesmo polígono, somente uma cor é escolhida entre elas e é aplicada em todo o polígono.  
 
-	A computação dos cálculos de luz nos  vértices seguida por uma interpolação linear dos resultados é denominada como \textit{Gouraud Shading} (considerada superior ao \textit{Flat Shading}, pois renderiza uma superfície mais suave, lisa), criada por Henri Gouraud, sendo conhecida como avaliação por vértice. Nela, o \textit{vertex shader} deve calcular a intensidade em cada vértice e os resultados serão interpolados. Em seguida, o \textit{fragment shader} propaga este valor para as próximas etapas. 
+	A computação dos cálculos de luz nos  vértices seguida por uma interpolação linear dos resultados é denominada como \textit{Gouraud Shading} (considerada superior ao \textit{Flat Shading}, pois renderiza uma superfície mais suave, lisa), criada por Henri Gouraud, sendo conhecida como avaliação por vértice. Nela, o \textit{vertex shader} deve calcular a intensidade da luz em cada vértice e os resultados serão interpolados. Em seguida, o \textit{fragment shader} propaga este valor para as próximas etapas. 
 
 	No \textit{Phong Shading}, primeiramente interpolam-se os valores das normais das primitivas e então computam-se os cálculos de luz para cada \textit{pixel}, utilizando as normais interpoladas. Este método também é conhecido como avaliação por \textit{pixel}. A intensidade da luz em um ponto da superfície, segundo \cite{guha2011}, é calculada de acordo com a Equação \ref{eqphong}.  
 
 	\begin{equation}
-		I_ {total} = I_ {ambiente} +  \sum\limits_ {luzes} I_ {difusa} + I_ {especular}
+		%I_ {total} = I_ {ambiente} +  \sum\limits_ {luzes} I_ {difusa} + I_ {especular}
+	I_ {T} = I_ {A} +  \sum I_ {D} + I_ {E}
 	\label{eqphong}
 	\end{equation}
+	onde $I_{T}$ é a iluminação total, $I_A$ é a iluminação ambiente, $I_D$ é a iluminação difusa e $I_E$ é a iluminação especular. 
 
-	Assim, a intensidade de luz é calculada como a soma das intensidades ambiente, difusa (calculada para cada fonte de luz) e especular.  A intensidade de reflexão ambiente vem de todas as direções e quando atinge a superfície, espalha-se igualmente em todas as direções, sendo o seu valor constante. Ela pode ser calculada de acordo com a Equação \ref{eqamb}, onde $K_ {a}$ é o coeficiente de refletividade ambiente da superfície e $L_ {a}$ é a intensidade da componente ambiente da luz.
+	Assim, a intensidade de luz é calculada como a soma das intensidades ambiente, difusa (calculada para cada fonte de luz) e especular.  A intensidade de reflexão ambiente vem de todas as direções e quando atinge a superfície, espalha-se igualmente em todas as direções, sendo o seu valor constante. Ela pode ser calculada de acordo com a Equação \ref{eqamb}, onde $I_A$ é a intensidade de luz ambiende, $K_ {A}$ é o coeficiente de refletividade ambiente da superfície e $L_ {A}$ é a intensidade da componente ambiente da luz.
 
 	\begin{equation}
-		I_ {ambiente} = K_ {a}L_ {a} 
+		I_ {A} = K_ {A}L_ {A} 
 	\label{eqamb}
 	\end{equation}
 
-	A intensidadede da reflexão difusa vem de uma direção e, assim como a ambiente, ao atingir uma superfície também espalha-se igualmente em todas as direções. Ela pode ser calculada de acordo com a Equação \ref{eqdif}, onde $K_ {d}$ é o coeficiente de reflexão difusa da superfície, $L_ {d}$ é a intensidade da componente difusa da luz, $\overrightarrow{ l}$ é a fonte de luz, $\overrightarrow{ n}$ é o ponto em interesse.
+	A intensidadede da reflexão difusa vem de uma direção e, assim como a ambiente, ao atingir uma superfície também espalha-se igualmente em todas as direções. Ela pode ser calculada de acordo com a Equação \ref{eqdif}, onde $I_D$ é a intensidade da reflexão difusa, $K_ {D}$ é o coeficiente de reflexão difusa da superfície, $L_ {D}$ é a intensidade da componente difusa da luz, $\vec{ l}$ é a fonte de luz, $\vec{ n}$ é o ponto em interesse.
 
 	\begin{equation}
-		I_ {difusa} = K_ {d}L_ {d}( \overrightarrow{ l} \cdot \overrightarrow{ n}) 
+		I_ {D} = K_ {D}L_ {D}( \vec{ l} \cdot \vec{ n}) 
 	\label{eqdif}
 	\end{equation}
 
-	 A luz especular vem de uma direção e reflete como um espelho, em que o ângulo de incidência é igual ao de reflexão, podendo ser calculada de acordo com a Equação \ref{eqesp}, em que $K_ {s}$ é o coeficiente de reflexão especular da superfície, $L_ {s}$ é a intensidade da componente especular da luz, $\overrightarrow{ r}$ é a direção da reflexão, $\overrightarrow{v}$ é o vetor de visão do ponto (observador) e $s$ é o expoente especular.
+	 A luz especular vem de uma direção e reflete como um espelho, em que o ângulo de incidência é igual ao de reflexão, podendo ser calculada de acordo com a Equação \ref{eqesp}, onde $I_E$ é a intensidade da reflexão especular, $K_ {S}$ é o coeficiente de reflexão especular da superfície, $L_ {S}$ é a intensidade da componente especular da luz, $\vec{ r}$ é a direção da reflexão, $\vec{v}$ é o vetor de visão do ponto (observador) e $s$ é o expoente especular.
 
 	\begin{equation}
-		I_ {especular} =K_ {s}L_ {s} (\overrightarrow{ r} \cdot \overrightarrow{ v})^s
+		I_ {E} =K_ {S}L_ {S} (\vec{ r} \cdot \vec{ v})^s
 	\label{eqesp}
 	\end{equation}
 
@@ -206,17 +208,17 @@
 	\subsection{Renderização de Efeito \textit{Cartoon}}
 	\label{cartoon}
 
-	A renderização de efeito \textit{cartoon} tem como objetivo emular o efeito de um desenho, que tem como principal característica a aparência uniforme das cores sobre a superfície dos objetos. Isto pode ser feito mapeando-se faixas de intensidade de luz para tons de cores específicos, obtendo-se uma iluminação menos realista e mais próxima da utilizada em desenhos animados. De acordo com \cite{sbgames}, o tom é escolhido baseado no cosseno do ângulo entre a direção da luz e o vetor normal da superfície. Ou seja, se o vetor normal está mais próximo da direção da luz, utiliza-se um tom mais claro.  Então a intensidade da luz pode ser calculada de acordo com a Equação \ref{eqtoon}, em que $\overrightarrow{l_{d}}$ é o vetor da direção da luz e $\overrightarrow{n}$ é o vetor normal.
+	A renderização de efeito \textit{cartoon} tem como objetivo emular o efeito de um desenho, que tem como principal característica a aparência uniforme das cores sobre a superfície dos objetos. Isto pode ser feito mapeando-se faixas de intensidade de luz para tons de cores específicos, obtendo-se uma iluminação menos realista e mais próxima da utilizada em desenhos animados. De acordo com \cite{sbgames}, o tom é escolhido baseado no cosseno do ângulo entre a direção da luz e o vetor normal da superfície. Ou seja, se o vetor normal está mais próximo da direção da luz, utiliza-se um tom mais claro.  Então a intensidade da luz pode ser calculada de acordo com a Equação \ref{eqtoon}, onde $I_L$ é a intensidaded a luz, $\vec{l_{d}}$ é o vetor da direção da luz e $\vec{n}$ é o vetor normal.
 
 	\begin{equation}
-		I_ {luz} = \frac{ \overrightarrow{l_{d}} \cdot \overrightarrow{n} } {| | \overrightarrow{l_{d}} | |  | | \overrightarrow{n} | | } 
+		I_ {L} = \frac{ \vec{l_{d}} \cdot \vec{n} } {\Vert \vec{l_{d}} \Vert  \Vert \vec{n} \Vert } 
 	\label{eqtoon}
 	\end{equation}
 
-	Como os vetores \overrightarrow{l_{d}} e \overrightarrow{n} são normalizados, o cálculo pode ser simplificado de acordo com a Equação \ref{eqtoons}.
+	Como os vetores $\vec{l_{d}}$ e $\vec{n}$ são normalizados, o cálculo pode ser simplificado de acordo com a Equação \ref{eqtoons}.
 
 	\begin{equation}
-		I_ {luz} =  \overrightarrow{l_{d}} \cdot \overrightarrow{n}  
+		I_ {L} =  \vec{l_{d}} \cdot \vec{n}  
 	\label{eqtoons}
 	\end{equation}
 
@@ -256,8 +258,7 @@
 		y = n^{2} +10 n + 1000
 	\label{compl1}
 	\end{equation}
-
-	 poderia ser aproximada pela  Equação (\ref{compl2}).
+ poderia ser aproximada pela  Equação (\ref{compl2}).
 
 
 	\begin{equation}
@@ -265,7 +266,7 @@
 	\label{compl2}
 	\end{equation}
 
-	A maioria dos algoritmos possui um parâmetro $n$ (o número de dados a serem processados), que afeta mais significativamente o tempo de execução. De acordo com \cite{complexidade2}, a maioria dos algorítmos se enquadram nos tempos de execução proporcionais aos valores da Tabela \ref{complexidadeAlgoritmica}.
+	A maioria dos algoritmos possui um parâmetro $n$ (o número de dados a serem processados), que afeta mais significativamente o tempo de execução. De acordo com \cite{complexidade2}, a maioria dos algorítmos se enquadram nos tempos de execução proporcionais aos valores da Tabela \ref{complexidadeAlgoritmica}. A Figura \ref{compalg} mostra uma comparação entre estas curvas. 
 
 \begin{table}[ht]
 	\centering	
@@ -287,7 +288,6 @@
 	\label{complexidadeAlgoritmica}
 \end{table}
 
-	A Figura \ref{compalg} mostra uma comparação entre estas curvas. 
 
 	\begin{figure}[ht]
 	\centering
@@ -321,8 +321,7 @@
 	M = \left[\begin{array}{cc}
                	1 & x_{1} \\
                	1 & x_{2}  \\
-		. & .  \\
-               	. & .  \\
+		\vdots & \vdots  \\
 		1 & x_{n}
           	         \end{array}\right] \mbox{,} \quad
 	v = \left[\begin{array}{c}
@@ -332,8 +331,7 @@
 	y = \left[\begin{array}{c}
                	y_{1} \\
                	y_{2}  \\
-		.   \\
-               	.   \\
+	 \vdots  \\
 		y_{n}
           	         \end{array}\right] 	
 	\label{variaveis}
@@ -367,15 +365,13 @@
 	M = \left[\begin{array}{cc}
                	1 &  x_{1} \\
                	1 & x_{2}  \\
-		. & .  \\
-               	. & .  \\
+		\vdots & \vdots  \\
 		1 & x_{n}
           	         \end{array}\right] \mbox{,} \quad
 	y = \left[\begin{array}{c}
                	\ln{y_{1}} \\
                	\ln{y_{2}}  \\
-		.   \\
-               	.   \\
+		\vdots \\
 		\ln{y_{n}}
           	         \end{array}\right] 
 	\label{nvar}
@@ -395,8 +391,7 @@
 	M = \left[\begin{array}{ccc}
                	1 & x_{1} & x_{1}^{2} \\
                	1 & x_{2}  & x_{2}^{2}\\
-		. & . & .  \\
-               	. & . & . \\
+		\vdots & \vdots & \vdots \\
 		1 & x_{n} & x_{n}^{2}
           	         \end{array}\right] \quad
 	\label{minquadsegdeg}
@@ -409,8 +404,7 @@
 	M = \left[\begin{array}{cccc}
                	1 & x_{1} & x_{1}^{2} & x_{1}^{3} \\
                	1 & x_{2}  & x_{2}^{2} & x_{1}^{3}\\
-		. & .  & . & .\\
-               	. & .  & . & .\\
+		\vdots & \vdots  & \vdots & \vdots\\
 		1 & x_{n} &  x_{n}^{2} & x_{n}^{3}
           	         \end{array}\right] \quad
 	\label{minquathirddeg}
@@ -421,7 +415,7 @@
 	O cálculo dos erros dos ajustes para as funções é calculado a fim de saber qual delas melhor se aproxima ao conjunto de pontos. Estes erros são calculados de acordo com a Equação \ref{erros}, em que cada erro ($e_{n}$) está associado à distância do ponto gerado pela curva ajustada e o ponto original.
 
 	\begin{equation}
-	E = \sqrt[2]{e_{1} + e_{2} + ... + e_{n}}
+	E = \sqrt[2]{e_{1} + e_{2} + \dots + e_{n}}
 	\label{erros}
 	\end{equation} 
 

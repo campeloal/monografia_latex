@@ -6,7 +6,7 @@
 \label{renderpipe}
 
 
-	O processo de geração de gráficos tridimensionais em computadores tem início com a criação de cenas. Uma cena é composta por objetos, que por sua vez são compostos por primitvas geométricas (como triângulos, quadrados, linhas, entre outros) que são constituídas de vértices, estabelecendo a geometria. Todos estes vértices seguem um processo similar de processamento para formarem uma imagem na tela.  Este processo é mostrado na Figura \ref{pipeline} e as próximas seções detalham cada uma das etapas ilustradas. 
+	O processo de geração de gráficos tridimensionais em computadores tem início com a criação de cenas. Uma cena é composta por objetos, que por sua vez são compostos por primitivas geométricas (como triângulos, quadrados, linhas, entre outros) que são constituídas de vértices, estabelecendo a geometria. Todos estes vértices seguem um processo similar de processamento para formarem uma imagem na tela.  Este processo é mostrado na Figura \ref{pipeline} e as próximas seções detalham cada uma das etapas ilustradas. 
 
 	
 \section{Processamento dos Dados dos Vértices}
@@ -24,13 +24,13 @@
 
 \section{Processamento dos Vértices}
 
-	É nesta etapa que modela-se parte dos efeitos visuais (a outra parte é feita durante o processamento dos fragmentos).  Estes efeitos incluem as características dos materiais atribuídos aos objetos, como também os efeitos da luz, sendo que cada efeito pode ser modelado de diferentes formas, como representações de descrições físicas. Muitos dados são armazenados em cada vértice, como a sua localização e e o vetor normal associado (que indica a orientação do vértice no espaço), por exemplo. O \textit{vertex shader} é aplicado nesta etapa.
+	É nesta etapa que modela-se parte dos efeitos visuais (a outra parte é feita durante o processamento dos fragmentos).  Estes efeitos incluem as características dos materiais atribuídos aos objetos, como também os efeitos da luz, sendo que cada efeito pode ser modelado de diferentes formas, como representações de descrições físicas. Muitos dados são armazenados em cada vértice, como a sua localização e o vetor normal associado (que indica a orientação do vértice no espaço), por exemplo. O \textit{vertex shader} é aplicado nesta etapa.
 
 	Além disso, as transformadas são aplicadas nas coordenadas do objeto, de forma que ele possa ser posicionado, orientado e tenha um tamanho determinado. Após o ajuste das coordenadas, é dito que o objeto está localizado no espaço do mundo e, em seguida, é aplicada a transformação de visualização, que tem como objetivo estabelecer a câmera. A etapa de projeção é responsável por transformar o volume de visualização aplicando métodos de projeção, como a perspectiva e a ortográfica (também chamada de paralela). A projeção ortográfica resulta em uma caixa retangular, em que linhas paralelas permanecem paralelas após a transformação. Na perspectiva, quanto mais longe um objeto se encontra, menor ele aparecerá após a projeção: linhas paralelas tendem a convergir no horizonte. Ela resulta em um tronco de pirâmide com base retangular. 
 	
-\section{Pós-Processamento dos Vértices}
+\section{Pós-processamento dos Vértices}
 
-	Durante a etapa de Pós-Processamento dos Vértices, os dados da etapa anterior são guardados em \textit{buffers}. Além disso, as primitivas geradas pelas etapas anteriores poderão ser recortadas caso estejam fora do volume de visão. Ou seja, somente as primitivas gráficas que se encontram dentro do volume de visualização serão renderizadas. Assim, o recorte (chamado \textit{clipping}) é responsável por não passar adiante as primitivas que se encontram fora da visualização. Primitivas que estão parcialmente dentro são recortadas, ou seja, o vértice que está de fora não é renderizado e é substituído por um novo vértice (dentro do volume de visualização). A  Figura \ref{clip} ilustra esta ideia.
+	Durante a etapa de Pós-processamento dos Vértices, os dados da etapa anterior são guardados em \textit{buffers}. Além disso, as primitivas geradas pelas etapas anteriores poderão ser recortadas caso estejam fora do volume de visão. Ou seja, somente as primitivas gráficas que se encontram dentro do volume de visualização serão renderizadas. Assim, o recorte (chamado \textit{clipping}) é responsável por não passar adiante as primitivas que se encontram fora da visualização. Primitivas que estão parcialmente dentro são recortadas, ou seja, o vértice que está de fora não é renderizado e é substituído por um novo vértice (dentro do volume de visualização). A  Figura \ref{clip} ilustra esta ideia.
 
        \begin{figure}[ht]
        \centering
@@ -60,16 +60,16 @@
 
 \section{Processamento das Amostras}
 
-	 A informação relacionada com cada \textit{pixel} é armazenada no \textit{color buffer}, que é um \textit{array} de cores. Assim, a última etapa é a de Processamento das Amostras, que realiza diversos testes nos fragmentos gerados na etapa anterior. Ela é responsável,por exemplo, pelos testes de profundidade, em que o \textit{color buffer} deve conter as cores das primitivas da cena que são visíveis do ponto de vista da câmera. Isto é feito através do Z-\textit{buffer} (também chamado de \textit{buffer} de profundidade), que para cada \textit{pixel} armazena a coordenada $z$ a partir da câmera até a primitiva mais próxima.  Então, a coordenada $z$ de uma primitiva que está sendo computada é comparada com  o valor do Z-\textit{buffer} para o mesmo \textit{pixel}. Se o valor for menor, quer dizer que a primitiva está mais próxima da câmera do que o valor da anterior, e assim, o valor do Z-\textit{buffer} é atualizado para o atual. Se o valor corrente for maior, então o valor do Z-\textit{buffer} não é modificado. Outros testes realizados são o de \textit{blending}, em que combina-se as cores do fragmento com a do \textit{buffer} e os de descarte de fragmentos como o \textit{scissor test} e \textit{stencil test}. 	
+	 A informação relacionada com cada \textit{pixel} é armazenada no \textit{color buffer}, que é um \textit{array} de cores. Assim, a última etapa é a de Processamento das Amostras, que realiza diversos testes nos fragmentos gerados na etapa anterior. Ela é responsável,por exemplo, pelos testes de profundidade, em que o \textit{color buffer} deve conter as cores das primitivas da cena que são visíveis do ponto de vista da câmera. Isto é feito através do Z-\textit{buffer} (também chamado de \textit{buffer} de profundidade), em que cada \textit{pixel} armazena a coordenada $z$ a partir da câmera até a primitiva mais próxima.  Então, a coordenada $z$ de uma primitiva que está sendo computada é comparada com  o valor do Z-\textit{buffer} para o mesmo \textit{pixel}. Se o valor for menor, quer dizer que a primitiva está mais próxima da câmera do que o valor da anterior, e assim, o valor do Z-\textit{buffer} é atualizado para o atual. Se o valor corrente for maior, então o valor do Z-\textit{buffer} não é modificado. Outros testes realizados são o de \textit{blending}, em que combina-se as cores do fragmento com a do \textit{buffer} e os de descarte de fragmentos, como o \textit{scissor test} e \textit{stencil test}. 	
 
 \chapter{Representação de Objetos Tridimensionais: Formato \textit{obj}}
 \label{formatobj}
 
-	Em uma cena, os modelos tridimensionais podem variar muito mais do que formas básicas como uma esfera e um torus, por exemplo. Assim, o formato \textit{obj} foi criado pela empresa  \textit{Wavefront} e é um arquivo para leitura de objetos tridimensionais, a fim de carregar geometrias mais complexas. Segundo \cite{graphicsprog}, neste arquivo cada linha contém informações a respeito do modelo, começando com uma palavra-chave, seguida da informação. A  Tabela \ref{palavraschave} mostra as principais palavras-chave utilizadas. 
+	Em uma cena, os modelos tridimensionais podem variar muito mais do que formas básicas como uma esfera e um torus, por exemplo. Assim, o formato \textit{obj} foi criado pela empresa  \textit{Wavefront} e é um arquivo para leitura de objetos tridimensionais, a fim de carregar geometrias mais complexas. Segundo \cite{graphicsprog}, neste arquivo, cada linha contém informações a respeito do modelo, começando com uma palavra-chave, seguida da informação. A  Tabela \ref{palavraschave} mostra as principais palavras-chave utilizadas. 
 
 \begin{table}[ht]
 	\centering	
-	\begin{tabular}{cl}
+	\begin{tabular}{ll}
 		\toprule
 		\textbf{Palavra-chave} & \textbf{Significado}  \\
 		\midrule
@@ -85,11 +85,11 @@
 	\label{palavraschave}
 \end{table}
 
-	A face do polígono (f) possui três índices que indicam os vértices do triângulo. Assim, cada vértice possui um índice (que depende de quando ele foi declarado), começando a partir de um. O codigo \ref{objFile} mostra o exemplo de um arquivo obj para a leitura de um cubo. 
+	A face do polígono (f) possui três índices que indicam os vértices do triângulo. Assim, cada vértice possui um índice (que depende de quando ele foi declarado), começando a partir de um. O Código \ref{objFile} mostra o exemplo de um arquivo obj para a leitura de um cubo. 
 
 	\lstinputlisting[language=Python, caption = {Representação do formato \textit{obj}}, label = {objFile}]{codigos/obj.txt}
 
-	Então, a partir da leitura do arquivo  \textit{obj}, é possível ler cada linha e armazenar em estruturas de dados as informações que serão passadas para renderizar o modelo tridimensional, como vértices e índices, e utilizar um dos métodos apresentados anteriormente para renderizar a cena. 
+	Então, a partir da leitura do arquivo  \textit{obj}, é possível ler cada linha e armazenar, em estruturas de dados, as informações que serão passadas para renderizar o modelo tridimensional, como vértices e índices, e utilizar um dos métodos apresentados anteriormente para renderizar a cena. 
 
 
 \end{anexosenv}
